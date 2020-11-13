@@ -8,7 +8,7 @@
 
 ## Useful Links:
 ### [Online Python IDE for quick testing](https://repl.it/languages/python3)
-### [Markdown (syntax) Cheat Sheet][https://www.markdownguide.org/cheat-sheet/]
+### [Markdown (syntax) Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 
 ---
 ## Note for Peer:
