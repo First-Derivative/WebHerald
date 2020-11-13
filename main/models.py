@@ -9,7 +9,20 @@ class Article(models.Model):
     Class that implements the strong entity 'Article'. Holds data pertaining
     to an article on the web application.
     '''
-    # need implementation
+    # Enum class for Categories
+    class ArticleCategories(models.TextChoices):
+        SPORTS = ("SP","Sports")
+        POLITICS = ("PO","Politics")
+        BUSINESS = ("BU", "Business")
+        CULTURE = ("CU", "Culture")
+        SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
+        WORLD_NEWS = ("WN", "World News")
+
+    # need fields implementation
+    article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
+
+
+
 
 class Comments(models.Model):
     '''
