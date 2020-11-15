@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import datetime
 
 class Article(models.Model):
     '''
@@ -18,9 +19,9 @@ class Article(models.Model):
     # fields implementation
     article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
     title = models.CharField(max_length=100, default="ARTICLE TITLE")
-    author = models.CharField(max_length=40, default-"ARTICLE AUTHOR")
-    dop = models.DateTimeField(auto_now=False, auto_now_add=False)
-    image_url = models.CharField(max_length=100)
+    author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
+    dop = models.DateTimeField(auto_now=False, auto_now_add=False, default=datetime.now)
+    image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
     content = models.TextField(default="ARTICLE TEXT CONTENTT")
     likes = models.IntegerField(default=0)
 
