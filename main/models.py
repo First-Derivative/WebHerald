@@ -8,16 +8,21 @@ class Article(models.Model):
     '''
     # Enum class for Categories
     class ArticleCategories(models.TextChoices):
-        SPORTS = ("SP","Sports")
+        SPORT = ("SP","Sport")
         POLITICS = ("PO","Politics")
         BUSINESS = ("BU", "Business")
-        CULTURE = ("CU", "Culture")
+        ENTERTAINMENT = ("EN", "Entertainment")
         SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
         WORLD_NEWS = ("WN", "World News")
 
-    # need fields implementation
+    # fields implementation
     article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
-    title = models.CharField(max_length=40, default="ARTICLE TITLE")
+    title = models.CharField(max_length=100, default="ARTICLE TITLE")
+    author = models.CharField(max_length=40, default-"ARTICLE AUTHOR")
+    dop = models.DateTimeField(auto_now=False, auto_now_add=False)
+    image_url = models.CharField(max_length=100)
+    content = models.TextField(default="ARTICLE TEXT CONTENTT")
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
