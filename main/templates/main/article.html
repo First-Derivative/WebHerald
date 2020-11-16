@@ -5,13 +5,17 @@
 
 {% block content %}
 
-<div class="row border my-3">
+<div class="row border my-3" id="article_container">
 
   <!-- Column 1 - Category Heading,  Meta -->
   <div class="col-3 p-2">
     <div class="article_category">
       <h3>Politics</h3>
     </div>
+
+    <!-- a litle white space -->
+    <br>
+    <br>
 
     <div class="article_meta">
       <h5>Author Name</h5>
@@ -40,8 +44,54 @@
     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
     </p>
     </div>
+  </div>
+</div>
+
+<!-- Comments -->
+
+<div class="row border my-3" id="comments_container">
+
+  <div class="col-3 p-2">
+      <h2>Comments</h2>
+  </div>
+
+  <div class="col-9 p-2">
+    <!-- Comment post form -->
+    <div class="post_comment py-3">
+      <form>
+        <div class="form-group">
+          <textarea name="comment" class="form-control" rows="3" placeholder="Join the conversation..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark">Post your comment</button>
+      </form>
+    </div>
+
+    <hr>
+
+    <!-- Display comments -->
+    <div class="media">
+      <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+      <div class="media-body">
+        <h5 class="mt-0">Insert Username</h5>
+        This is an example of a parent comment. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        <h6><br>Reply</h6>
+        <hr>
+        <div class="media mt-3">
+          <a class="mr-3" href="#">
+            <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+          </a>
+          <div class="media-body">
+            <h5 class="mt-0">Insert Username</h5>
+            This is an example of a reply. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <h6><br>Reply</h6>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
+
 </div>
 
 {% endblock content%}

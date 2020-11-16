@@ -9,3 +9,6 @@ def indexView(request):
 # Serve article page, hardcoded for now
 def articleView(request):
     return render(request, 'main/article.html')
+
+def formView(request):
+    return render(request, 'main/user-form.html')
