@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path
-from main.views import indexView, articleView, formView
+from main.views import index, getArticlePage, login, signUp
 
 urlpatterns = [
-    path('', indexView, name='index'),
-    path('/article/', articleView, name='article'),
-    path('/user-form/', formView, name='user-form'),
+    path('', index, name='index'),
+    path('/article/', getArticlePage, name='article'),
+    path('/login/', login, name='login'),
+    path('/sign-up/', signUp, name='sign-up'),
 ]

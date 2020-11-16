@@ -1,14 +1,14 @@
 from django.shortcuts import render
 
 # Create your views here.
-
-# Serve up the homepage
-def indexView(request):
+def index(request):
     return render(request, 'main/index.html')
 
-# Serve article page, hardcoded for now
-def articleView(request):
+def getArticlePage(request):
     return render(request, 'main/article.html')
 
-def formView(request):
-    return render(request, 'main/user-form.html')
+def login(request):
+    return render(request, 'main/login.html')
+
+def signUp(request):
+    return render(request, 'main/sign-up.html')

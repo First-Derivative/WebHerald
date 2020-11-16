@@ -1,5 +1,4 @@
 {% extends 'main/base.html' %}
-{% load static %}
 
 {% block title %}
 {% endblock title%}
@@ -11,10 +10,21 @@
 <div class="d-flex justify-content-center pt-5">
 <div class="card" style="width: 25rem;">
   <div class="card-body">
-    <h5 class="card-title">Register Account</h5>
-    <p>form goes here!</p>
-    <button type="button" class="btn btn-dark">Register</button>
-    <p><br>Already have an account? <a href="#" class="card-link">Sign in</a></p>
+
+    <h5 class="card-title">
+      {% block form-heading %}{% endblock form-heading %}
+    </h5>
+
+    {% block form %}
+    {% endblock form %}
+
+    <button type="button" class="btn btn-dark">
+      {% block button-text %}{% endblock button-text%}
+    </button>
+
+    {% block switch-form %}
+    {% endblock switch-form %}
+    
   </div>
 </div>
 </div>
