@@ -19,9 +19,11 @@ class Article(models.Model):
     # fields implementation
     article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
     title = models.CharField(max_length=100, default="ARTICLE TITLE")
+    sub_title = models.CharField(max_length=200, default="ARTICLE SUBTITLE") # NEW
     author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
     dop = models.DateTimeField(auto_now=False, auto_now_add=False, default=datetime.now)
     image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
+    image_caption = models.CharField(max_length=200, default="IMAGE CAPTION") # NEW
     content = models.TextField(default="ARTICLE TEXT CONTENTT")
     likes = models.IntegerField(default=0)
 
