@@ -1,6 +1,9 @@
 # WP_Coursework3
 
 ---
+## Design Links
+### [DB Schema ER Diagram](https://app.diagrams.net/#G1bOJjas5DwYNGpUWEC8jXjltAUl_HOhFL)
+
 ## Important Links
 ### [For Merge Conflict Reference](https://www.youtube.com/watch?v=CKAdoAR0ykc&ab_channel=AppleJuiceTeaching)
 ### [Django Docs: Models Fields](https://docs.djangoproject.com/en/3.1/ref/models/fields/)
@@ -12,5 +15,4 @@
 
 ---
 ## Note for Peer:
-
-We need to discuss the impact of adding db.sqlite3 to the .gitignore file for localized db versions.
+N/A

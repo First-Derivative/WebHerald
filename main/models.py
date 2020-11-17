@@ -11,32 +11,30 @@ class ArticleCategory(models.Model):
 
     def __str__(self):
             return self.name
+'''
+# Enum class for Categories - commented out for now, as replaced by ArticleCategory class
+class ArticleCategories(models.TextChoices):
+    SPORT = ("SP","Sport")
+    POLITICS = ("PO","Politics")
+    BUSINESS = ("BU", "Business")
+    ENTERTAINMENT = ("EN", "Entertainment")
+    SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
+    WORLD_NEWS = ("WN", "World News")
+'''
 
 class Article(models.Model):
     '''
     Class that implements the strong entity 'Article'. Holds data pertaining
     to an article on the web application.
 
-    # Enum class for Categories - commented out for now, as replaced by ArticleCategory class
-    class ArticleCategories(models.TextChoices):
-        SPORT = ("SP","Sport")
-        POLITICS = ("PO","Politics")
-        BUSINESS = ("BU", "Business")
-        ENTERTAINMENT = ("EN", "Entertainment")
-        SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
-        WORLD_NEWS = ("WN", "World News")
-
-    # fields implementation
+    #currently deprecated field
     article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
     '''
     title = models.CharField(max_length=100, default="ARTICLE TITLE")
-    sub_title = models.CharField(max_length=200, default="ARTICLE SUBTITLE") # NEW
     author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
     dop = models.DateTimeField(auto_now=False, auto_now_add=False, default=datetime.now)
-    image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
-    image_caption = models.CharField(max_length=200, default="IMAGE CAPTION") # NEW
+
     content = models.TextField(default="ARTICLE TEXT CONTENTT")
-    likes = models.IntegerField(default=0)
     category = models.ForeignKey(
         ArticleCategory,
         null=True,
@@ -45,6 +43,19 @@ class Article(models.Model):
         related_name='articles', # by calling 'articles' we can fetch all articles in a category
     )
 
+    image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
+    image_caption = models.CharField(max_length=200, default="IMAGE CAPTION") # NEW
+
+    @property
+    def sub_title(self):
+        # need to implement smarter word-based generation
+        return self.title[0:30] + "..."
+
+    @property
+    def like_count(self):
+        # need to implement smart way to iterate over Articles' Likes
+        pass
+        
     def __str__(self):
         return self.title
 
@@ -75,3 +86,11 @@ class Comments(models.Model):
             parent = "user"
             output = " '%s', written by: user, reply to: %s".format(self.comment_content, parent)
         return output
+
+class Likes(models.Model):
+    '''
+    Class that implements the associative entity 'Likes'. Intended to keep track of which User 'Likes'
+    which Article. This relationship is also used in aggregation quieries to derive the total_likes field in 'Article'
+    '''
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
