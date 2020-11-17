@@ -32,7 +32,7 @@ class Article(models.Model):
     '''
     title = models.CharField(max_length=100, default="ARTICLE TITLE")
     author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
-    dop = models.DateTimeField(auto_now=False, auto_now_add=False, default=datetime.now)
+    timestamp = models.DateTimeField(verbose_name="Date of Publishing",auto_now=False, auto_now_add=False, default=datetime.now)
 
     content = models.TextField(default="ARTICLE TEXT CONTENTT")
     category = models.ForeignKey(
