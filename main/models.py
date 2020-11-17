@@ -2,12 +2,22 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 
+class ArticleCategory(models.Model):
+    '''
+    Class that implements the associative entity 'ArticleCategory'. Intended to
+    keep track of the articles that are assigned to particular categories.
+    '''
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+            return self.name
+
 class Article(models.Model):
     '''
     Class that implements the strong entity 'Article'. Holds data pertaining
     to an article on the web application.
-    '''
-    # Enum class for Categories
+
+    # Enum class for Categories - commented out for now, as replaced by ArticleCategory class
     class ArticleCategories(models.TextChoices):
         SPORT = ("SP","Sport")
         POLITICS = ("PO","Politics")
@@ -18,6 +28,7 @@ class Article(models.Model):
 
     # fields implementation
     article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
+    '''
     title = models.CharField(max_length=100, default="ARTICLE TITLE")
     sub_title = models.CharField(max_length=200, default="ARTICLE SUBTITLE") # NEW
     author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
@@ -26,6 +37,13 @@ class Article(models.Model):
     image_caption = models.CharField(max_length=200, default="IMAGE CAPTION") # NEW
     content = models.TextField(default="ARTICLE TEXT CONTENTT")
     likes = models.IntegerField(default=0)
+    category = models.ForeignKey(
+        ArticleCategory,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='articles', # by calling 'articles' we can fetch all articles in a category
+    )
 
     def __str__(self):
         return self.title

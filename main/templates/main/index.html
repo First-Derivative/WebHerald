@@ -5,100 +5,25 @@
 
 {% block content %}
 
-<div class="row border my-3">
-
-  <!-- Column 1 - Category Heading -->
-  <div class="col-3 p2">
-    <h3>Politics</h3>
-  </div>
-
-  <!-- Column 2 - News story 1 -->
-  <div class="col-3 p-2">
-    <div class="card">
-      <img src="{% static 'main/images/sample-image.jpg' %}" class="card-img-top" alt="sample image">
-      <div class="card-body">
-        <h5 class="card-title"><a href="{% url 'article' %}">Here's the Headline</a></h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="card-link">Likes</a>
-        <a href="#" class="card-link">Comments</a>
-      </div>
+{% for category in categories %}
+  <div class="row border my-3">
+    <div class="col-3 p2">
+      <h3>{{ category.name }}</h3>
     </div>
-  </div>
-
-  <!-- Column 3 - News story 2 -->
-  <div class="col-3 p-2">
-    <div class="card">
-      <img src="{% static 'main/images/sample-image.jpg' %}" class="card-img-top" alt="sample image">
-      <div class="card-body">
-        <h5 class="card-title">Here's the Headline</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="card-link">Likes</a>
-        <a href="#" class="card-link">Comments</a>
+    {% for article in category.articles.all %}
+      <div class="col-3 p-2">
+        <div class="card">
+          <img src="{% static 'main/images/'%}{{article.image_url}}" class="card-img-top" alt="sample image">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'article' article.id %}">{{article.title}}</a></h5>
+            <p class="card-text">{{article.sub_title}}</p>
+            <a href="#" class="card-link">{{article.likes}}</a>
+            <a href="#" class="card-link">Comments</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Column 4 - News story 3 -->
-  <div class="col-3 p-2">
-    <div class="card">
-      <img src="{% static 'main/images/sample-image.jpg' %}" class="card-img-top" alt="sample image">
-      <div class="card-body">
-        <h5 class="card-title">Here's the Headline</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="card-link">Likes</a>
-        <a href="#" class="card-link">Comments</a>
-      </div>
-    </div>
-  </div>
-
+    {% endfor %}
 </div>
-
-<div class="row border my-3">
-
-  <!-- Column 1 - Category Heading -->
-  <div class="col-3 p2">
-    <h3>Business</h3>
-  </div>
-
-  <!-- Column 2 - News story 1 -->
-  <div class="col-3 p-2">
-    <div class="card">
-      <img src="{% static 'main/images/sample-image.jpg' %}" class="card-img-top" alt="sample image">
-      <div class="card-body">
-        <h5 class="card-title">Here's the Headline</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="card-link">Likes</a>
-        <a href="#" class="card-link">Comments</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Column 3 - News story 2 -->
-  <div class="col-3 p-2">
-    <div class="card">
-      <img src="{% static 'main/images/sample-image.jpg' %}" class="card-img-top" alt="sample image">
-      <div class="card-body">
-        <h5 class="card-title">Here's the Headline</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="card-link">Likes</a>
-        <a href="#" class="card-link">Comments</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Column 4 - News story 3 -->
-  <div class="col-3 p-2">
-    <div class="card">
-      <img src="{% static 'main/images/sample-image.jpg' %}" class="card-img-top" alt="sample image">
-      <div class="card-body">
-        <h5 class="card-title">Here's the Headline</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="card-link">Likes</a>
-        <a href="#" class="card-link">Comments</a>
-      </div>
-    </div>
-  </div>
-
-</div>
+{% endfor %}
 
 {% endblock content%}
