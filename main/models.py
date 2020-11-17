@@ -61,8 +61,8 @@ class Article(models.Model):
 
     @property
     def like_count(self):
-        # need to implement smart way to iterate over Articles' Likes
-        pass
+        likes_set = self.likes_set.objects.all()
+        return len(likes_set)
 
     def __str__(self):
         return self.title
@@ -95,6 +95,10 @@ class Comments(models.Model):
             output = " '%s', written by: user, reply to: %s".format(self.comment_content, parent)
         return output
 
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
 class Likes(models.Model):
     '''
     Class that implements the associative entity 'Likes'. Intended to keep track of which User 'Likes'
@@ -102,3 +106,7 @@ class Likes(models.Model):
     '''
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Like'
+        verbose_name_plural = 'Likes'
