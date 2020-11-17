@@ -46,16 +46,24 @@ class Article(models.Model):
     image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
     image_caption = models.CharField(max_length=200, default="IMAGE CAPTION") # NEW
 
+    # Gets the first 25 words in article.content and parses them into a sub_title form
     @property
     def sub_title(self):
-        # need to implement smarter word-based generation
-        return self.title[0:30] + "..."
+        content = self.content.split(" ")
+        content = content[:25]
+        output = ""
+        for i in range(len(content)):
+            if(i == (len(content) -1) ):
+                output += str(content[i]) + "..."
+            else:
+                output += str(content[i]) + " "
+        return output
 
     @property
     def like_count(self):
         # need to implement smart way to iterate over Articles' Likes
         pass
-        
+
     def __str__(self):
         return self.title
 
