@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api',  
+    'api',
     'main',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,9 @@ TEMPLATES = [
         },
     },
 ]
+
+#Setting the default user model to reference custom Accounts model
+AUTH_USER_MODEL = 'accounts.Account'
 
 WSGI_APPLICATION = 'CW3.wsgi.application'
 

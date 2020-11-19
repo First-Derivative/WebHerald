@@ -13,3 +13,11 @@ db.sqlite3
 /**/db.sqlite3
 
 */scripts/
+
+articles_backup.csv
+
+/migrations/
+
+/*/migrations/
+
+/**/migrations/
