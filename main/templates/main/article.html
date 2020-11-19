@@ -36,7 +36,7 @@
     </div>
 
     <div class="article_image pt-3">
-        <img src="{% static 'main/images/'%}{{article.image_url}}" class="img-fluid" alt="sample image">
+        <img src="{% static article.get_imageurl %}" class="img-fluid" alt="sample image">
         <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
     </div>
 

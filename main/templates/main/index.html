@@ -13,7 +13,7 @@
     {% for article in category.articles.all %}
       <div class="col-3 p-2">
         <div class="card">
-          <img src="{% static 'main/images/'%}{{article.image_url}}" class="card-img-top" alt="sample image">
+          <img src="{% static article.get_imageurl %}" class="card-img-top" alt="sample image">
           <div class="card-body">
             <h5 class="card-title"><a href="{% url 'article' article.id %}">{{article.title}}</a></h5>
             <p class="card-text">{{article.sub_title}}</p>

@@ -44,7 +44,13 @@ class Article(models.Model):
     )
 
     image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
-    image_caption = models.CharField(max_length=200, default="IMAGE CAPTION") # NEW
+    image_caption = models.CharField(max_length=200, default="IMAGE CAPTION")
+
+    @property
+    def get_imageurl(self):
+        path = 'main/images/article_thumbnail/'
+        path += self.image_url
+        return path
 
     # Gets the first 25 words in article.content and parses them into a sub_title form
     @property
