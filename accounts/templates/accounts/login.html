@@ -1,8 +1,24 @@
 {% extends 'main/user-form.html' %}
 
 {% block form %}
-{% endblock form %}
+<form method="POST">
+{% csrf_token %}
+    {% for field in login_form %}
 
+    <div class="form-group">
+        {{field.label_tag}}
+
+        {{field}}
+
+        {% for error in field.errors %}
+          <p id="{{field.label}}_error" class="form-text text-danger">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Log in</button>
+</form>
+{% endblock form %}
 
 {% block switch-form %}
 <p><br>Don't have an account? <a href="{% url 'register' %}" class="card-link">Register</a></p>
