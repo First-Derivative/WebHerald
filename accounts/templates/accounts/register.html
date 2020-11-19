@@ -1,0 +1,31 @@
+{% extends 'main/user-form.html' %}
+
+{% block form-heading %}Sign Up{% endblock form-heading %}
+
+{% block form %}
+<form method="POST">
+{% csrf_token %}
+    {% for field in registration_form %}
+
+    <div class="form-group">
+        {{field.label_tag}}
+
+        {{field}}
+
+        {% if field.help_text %}
+          <small id="{{field.label}}_helptext" class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+
+        {% for error in field.errors %}
+          <p id="{{field.label}}_error" class="form-text text-danger">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock form %}
+
+{% block switch-form %}
+  <p><br>Already have an account? <a href="{% url 'login' %}" class="card-link">Log in</a></p>
+{% endblock switch-form %}

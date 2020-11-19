@@ -12,9 +12,3 @@ def getArticlePage(request, article_id):
         'article': Article.objects.get(id=article_id),
         }
     return render(request, 'main/article.html', context)
-
-def login(request):
-    return render(request, 'main/login.html')
-
-def signUp(request):
-    return render(request, 'main/sign-up.html')

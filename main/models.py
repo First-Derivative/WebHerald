@@ -2,46 +2,20 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 
-class ArticleCategory(models.Model):
-    '''
-    Class that implements the associative entity 'ArticleCategory'. Intended to
-    keep track of the articles that are assigned to particular categories.
-    '''
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-            return self.name
-'''
-# Enum class for Categories - commented out for now, as replaced by ArticleCategory class
-class ArticleCategories(models.TextChoices):
-    SPORT = ("SP","Sport")
-    POLITICS = ("PO","Politics")
-    BUSINESS = ("BU", "Business")
-    ENTERTAINMENT = ("EN", "Entertainment")
-    SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
-    WORLD_NEWS = ("WN", "World News")
-'''
+from accounts.models import Account
 
 class Article(models.Model):
     '''
     Class that implements the strong entity 'Article'. Holds data pertaining
     to an article on the web application.
 
-    #currently deprecated field
-    article_categories = models.CharField(max_length=25, choices=ArticleCategories.choices, default=ArticleCategories.SCIENCE_TECHNOLOGY )
     '''
     title = models.CharField(max_length=100, default="ARTICLE TITLE")
     author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
     timestamp = models.DateTimeField(verbose_name="Date of Publishing",auto_now=False, auto_now_add=False, default=datetime.now)
 
     content = models.TextField(default="ARTICLE TEXT CONTENTT")
-    category = models.ForeignKey(
-        ArticleCategory,
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-        related_name='articles', # by calling 'articles' we can fetch all articles in a category
-    )
+
 
     image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
     image_caption = models.CharField(max_length=200, default="IMAGE CAPTION")
@@ -72,6 +46,37 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+class ArticleCategory(models.Model):
+    '''
+    Class that implements the associative entity 'ArticleCategory'. Intended to
+    keep track of the articles that are assigned to set categories. Said categories
+    are defined in the enum_ArticleCategories class.
+    '''
+
+    class Meta():
+        verbose_name = 'Article Category'
+        verbose_name_plural = 'Article Categories'
+
+    class enum_ArticleCategories(models.TextChoices):
+        SPORT = ("SP","Sport")
+        POLITICS = ("PO","Politics")
+        BUSINESS = ("BU", "Business")
+        ENTERTAINMENT = ("EN", "Entertainment")
+        SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
+        WORLD_NEWS = ("WN", "World News")
+
+    category = models.CharField(max_length=25, choices=enum_ArticleCategories.choices, default=enum_ArticleCategories.SCIENCE_TECHNOLOGY)
+    article = models.ForeignKey(
+            Article,
+            null=True,
+            blank=True,
+            on_delete=models.CASCADE,
+            related_name='categories', # by calling 'articles' we can fetch all articles in a category
+        )
+
+    def __str__(self):
+        return self.category
 
 class Comments(models.Model):
     '''

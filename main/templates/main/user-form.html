@@ -11,20 +11,16 @@
 <div class="card" style="width: 25rem;">
   <div class="card-body">
 
-    <h5 class="card-title">
+    <div class="card-title h3">
       {% block form-heading %}{% endblock form-heading %}
-    </h5>
+    </div>
 
     {% block form %}
     {% endblock form %}
 
-    <button type="button" class="btn btn-dark">
-      {% block button-text %}{% endblock button-text%}
-    </button>
-
     {% block switch-form %}
     {% endblock switch-form %}
-    
+
   </div>
 </div>
 </div>
