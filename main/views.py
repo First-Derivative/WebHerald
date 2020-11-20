@@ -1,11 +1,25 @@
 from django.shortcuts import render
-from .models import ArticleCategory, Article
+from .models import CategoryLabel, ArticleCategory, Article
 
-# Create your views here.
 def index(request):
-    return render(request, 'main/index.html', {
-        'categories' : ArticleCategory.objects.all(),
-    })
+
+    '''
+    content class is an object, one entry for each category CategoryLabel
+    that also keeps tracks of the articles with category == CategoryLabel
+    at the appropriate index of content.
+    '''
+
+    labels = []
+
+    for category in CategoryLabel:
+        labels.append(category)
+
+    context = {
+        'categorylabels': labels,
+        'category_list': ArticleCategory.objects.all()
+    }
+
+    return render(request, 'main/index.html',context)
 
 def getArticlePage(request, article_id):
     context = {

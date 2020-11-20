@@ -1,29 +1,29 @@
 {% extends 'main/base.html' %}
-{% load static %}
-
 {% block title %}The News{% endblock title%}
+{% load static %}
 
 {% block content %}
 
-{% for category in categories %}
+{% for category in categorylabels %}
   <div class="row border my-3">
     <div class="col-3 p2">
-      <h3>{{ category.name }}</h3>
+      <h3>{{ category.label }}</h3>
     </div>
-    {% for article in category.articles.all %}
-      <div class="col-3 p-2">
-        <div class="card">
-          <img src="{% static article.get_imageurl %}" class="card-img-top" alt="sample image">
-          <div class="card-body">
-            <h5 class="card-title"><a href="{% url 'article' article.id %}">{{article.title}}</a></h5>
-            <p class="card-text">{{article.sub_title}}</p>
-            <a href="#" class="card-link">{{article.likes}}</a>
-            <a href="#" class="card-link">Comments</a>
+    {% for entry in category_list %}
+      {% if entry.category == category %}
+          <div class="col-3 p-2">
+          <div class="card">
+            <img src="{% static entry.article.get_imageurl %}" class="card-img-top" alt="{{ entry.article.image_caption}}">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'article' entry.article.id %}">{{entry.article.title}}</a></h5>
+              <p class="card-text">{{entry.article.sub_title}}</p>
+              <a href="#" class="card-link">{{entry.article.likes}}</a>
+              <a href="#" class="card-link">Comments</a>
+            </div>
           </div>
-        </div>
-      </div>
+          </div>
+        {% endif %}
     {% endfor %}
 </div>
 {% endfor %}
-
 {% endblock content%}

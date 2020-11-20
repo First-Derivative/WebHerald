@@ -10,15 +10,12 @@ class Article(models.Model):
     to an article on the web application.
 
     '''
-    title = models.CharField(max_length=100, default="ARTICLE TITLE")
-    author = models.CharField(max_length=40, default="ARTICLE AUTHOR")
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=40)
     timestamp = models.DateTimeField(verbose_name="Date of Publishing",auto_now=False, auto_now_add=False, default=datetime.now)
-
-    content = models.TextField(default="ARTICLE TEXT CONTENTT")
-
-
-    image_url = models.CharField(max_length=100, default="IMAGE PLACEHOLDER")
-    image_caption = models.CharField(max_length=200, default="IMAGE CAPTION")
+    content = models.TextField()
+    image_url = models.CharField(max_length=100)
+    image_caption = models.CharField(max_length=200)
 
     @property
     def get_imageurl(self):
@@ -50,37 +47,41 @@ class Article(models.Model):
     class Meta():
         ordering = ["timestamp"]
 
+class CategoryLabel(models.TextChoices):
+    SPORT = ("SP","Sport")
+    POLITICS = ("PO","Politics")
+    BUSINESS = ("BU", "Business")
+    ENTERTAINMENT = ("EN", "Entertainment")
+    SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
+    WORLD_NEWS = ("WN", "World News")
+
 class ArticleCategory(models.Model):
     '''
     Class that implements the associative entity 'ArticleCategory'. Intended to
     keep track of the articles that are assigned to set categories. Said categories
-    are defined in the enum_ArticleCategories class.
+    are defined in the CategoryLabel class.
     '''
 
     class Meta():
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-    class enum_ArticleCategories(models.TextChoices):
-        SPORT = ("SP","Sport")
-        POLITICS = ("PO","Politics")
-        BUSINESS = ("BU", "Business")
-        ENTERTAINMENT = ("EN", "Entertainment")
-        SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
-        WORLD_NEWS = ("WN", "World News")
-
-    category = models.CharField(max_length=25, choices=enum_ArticleCategories.choices, default=enum_ArticleCategories.SCIENCE_TECHNOLOGY)
+    category = models.CharField(max_length=25, choices=CategoryLabel.choices, default=CategoryLabel.SCIENCE_TECHNOLOGY)
     article = models.ForeignKey(
             Article,
             null=True,
             blank=True,
             on_delete=models.CASCADE,
             related_name='categories', # by calling 'articles' we can fetch all articles in a category
-        )
+            )
+
+    @property
+    def category_code(self):
+        return self.category
 
     def __str__(self):
         output = ""
-        for target in self.enum_ArticleCategories:
+        for target in CategoryLabel:
             if(target == self.category):
                 output = target.label
                 break
