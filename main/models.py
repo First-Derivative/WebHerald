@@ -47,6 +47,9 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta():
+        ordering = ["timestamp"]
+
 class ArticleCategory(models.Model):
     '''
     Class that implements the associative entity 'ArticleCategory'. Intended to
@@ -55,8 +58,8 @@ class ArticleCategory(models.Model):
     '''
 
     class Meta():
-        verbose_name = 'Article Category'
-        verbose_name_plural = 'Article Categories'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     class enum_ArticleCategories(models.TextChoices):
         SPORT = ("SP","Sport")
@@ -76,7 +79,12 @@ class ArticleCategory(models.Model):
         )
 
     def __str__(self):
-        return self.category
+        output = ""
+        for target in self.enum_ArticleCategories:
+            if(target == self.category):
+                output = target.label
+                break
+        return output
 
 class Comments(models.Model):
     '''
