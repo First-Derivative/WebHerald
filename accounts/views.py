@@ -51,8 +51,4 @@ def logoutAccount(request):
 
 @login_required
 def getProfilePage(request):
-    current_user = request.user
-    context = {
-    'user' : current_user.id,
-    }
-    return render(request, 'accounts/profile.html', context)
+    return render(request, 'accounts/profile.html')
