@@ -64,9 +64,6 @@
 
     <!-- A main content section -->
     <div class="container">
-      {% if request.user.is_authenticated %}
-        <h3> welcome {{request.user.username}} </h3>
-      {% endif %}
       {% block content %}
       {% endblock content %}
     </div>

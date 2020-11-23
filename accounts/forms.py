@@ -3,12 +3,13 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 
+
 from accounts.models import Account
 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = Account
-        fields = ("email", "username", "password1", "password2")
+        fields = ("email", "username", "dob", "password1", "password2")
 
     email = forms.CharField(max_length=50, help_text="This is what you'll use to login",widget=forms.EmailInput(attrs={
     'placeholder': 'jacque@webster.com',
@@ -18,6 +19,12 @@ class RegisterForm(UserCreationForm):
     username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
     'placeholder': 'RockstarJeans3500',
     'class': 'form-control',
+    }))
+
+    dob = forms.DateField(label="Date of Birth", widget=forms.DateInput(attrs={
+    'type': 'date',
+    'placeholder': '1999-09-09',
+    'class': 'form-control'
     }))
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={

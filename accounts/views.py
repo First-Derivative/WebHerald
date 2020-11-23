@@ -7,6 +7,8 @@ from accounts.forms import RegisterForm, LoginForm
 
 def registerAccount(request):
     context = {}
+    if(request.user.is_authenticated):
+        return redirect('homepage')
 
     if(request.POST):
         form = RegisterForm(request.POST)
