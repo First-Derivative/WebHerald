@@ -34,10 +34,12 @@
       <small style="font-style: italic">Select which categories of articles you want to see on your homepage</small>
 
       <form id="profile_category_form">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="" id="defaultCheck1" {% if check %}checked{% endif %}>
-          <label class="form-check-label" for="defaultCheck1">Checkbox</label>
-        </div>
+        {% for category in categories%}
+          <div class="form-check profile_cb_wrapper">
+            <input class="form-check-input" type="checkbox" name="{{category}}" id="{{category}}" {% if category in personal_categories %} checked="checked" {% endif %}>
+            <label class="form-check-label" for="{{category}}">{{category.label}}</label>
+          </div>
+        {% endfor %}
     </form>
 
     </div>
@@ -46,5 +48,56 @@
 
 </div>
 
-
 {% endblock content%}
+
+
+{% block scripts %}
+  <script>
+    token = '{{csrf_token}}'
+
+    {% for category in categories%}
+
+      $('#{{category}}').change(function() {
+        // if checkbox is being checked
+        if(this.checked == true)
+        {
+          $.ajax({
+            type: 'POST',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'modify_personal_category' %}",
+            data: {
+              'operation':'add',
+              'content': '{{category}}'
+            },
+            success: function(data,textStatus,jqXHR) {
+              console.log("succces")
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+              })
+        }
+        // if checkbox is being unchecked
+        else
+        {
+          $.ajax({
+            type: 'POST',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'modify_personal_category' %}",
+            data: {
+              'operation':'remove',
+              'content': '{{category}}'
+            },
+            success: function(data,textStatus,jqXHR) {
+              console.log("succces")
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+              })
+        }
+      })
+
+    {% endfor %}
+  </script>
+{% endblock scripts %}

@@ -9,10 +9,8 @@ def index(request):
     at the appropriate index of content.
     '''
 
-    labels = [label for label in CategoryLabel]
-
     context = {
-        'categorylabels': labels,
+        'categorylabels': [category for category in CategoryLabel],
         'category_list': ArticleCategory.objects.all()
     }
 

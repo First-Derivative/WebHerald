@@ -13,10 +13,10 @@
       {% if entry.category == category %}
           <div class="col-3 p-2 ">
             <a href="{% url 'article' entry.article.id %}">
-          <div class="card target" id="article_{{entry.id}}">
+          <div class="card index_card target" id="article_{{entry.id}}">
             <!-- <img src="{% static entry.article.get_imageurl %}" class="card-img-top" alt="{{ entry.article.image_caption}}"> -->
             <div class="card-body index_card_body flex-wrap">
-              <h5 class="card-title serifText hover">{{entry.article.title}}</h5>
+              <h5 class="index_card_title serifText hover">{{entry.article.title}}</h5>
               <p class="card-text card_sub_title">{{entry.article.sub_title}}</p>
               <a href="#" class="card-link highlight hover">{{entry.article.like_count}} Likes</a>
               <a href="#" class="card-link card_comments hover">Comments</a>

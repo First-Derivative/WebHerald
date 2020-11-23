@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+from django.core.exceptions import SuspiciousOperation
+
 class AccountManager(BaseUserManager):
     def create_user(self, username, dob, email, password=None):
         if not email:
@@ -47,6 +49,51 @@ class Account(AbstractBaseUser):
     REQUIRED_FIELDS = ('username','dob',)
 
     objects = AccountManager()
+
+    def add_category(self, content):
+        categories = self.private_categories
+
+        if(categories == None):
+            categories = ""
+            categories = content
+            self.private_categories = categories
+            self.save()
+            return
+
+        if(content in categories):
+            raise SuspiciousOperation
+
+        categories += " " + content
+        self.private_categories = categories
+        self.save()
+
+    def remove_category(self, content):
+        categories = self.private_categories
+
+        if(categories == None):
+            categories = ""
+
+        if(not content in categories):
+            raise SuspiciousOperation
+
+        data = categories.split()
+        new_categories = []
+
+        for element in data:
+            if(element == content):
+                continue
+            new_categories.append(element)
+
+        update = " ".join(new_categories)
+        self.private_categories = update
+        self.save()
+
+    def get_category(self):
+        content = self.private_categories
+        print(content)
+        if(not content):
+            return []
+        return content.split(" ")
 
     def __str__(self):
         return self.username

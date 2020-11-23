@@ -13,28 +13,28 @@ class RegisterForm(UserCreationForm):
 
     email = forms.CharField(max_length=50, help_text="This is what you'll use to login",widget=forms.EmailInput(attrs={
     'placeholder': 'jacque@webster.com',
-    'class': 'form-control',
+    'class': 'form-control ',
     }))
 
     username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
     'placeholder': 'RockstarJeans3500',
-    'class': 'form-control',
+    'class': 'form-control ',
     }))
 
     dob = forms.DateField(label="Date of Birth", widget=forms.DateInput(attrs={
     'type': 'date',
     'placeholder': '1999-09-09',
-    'class': 'form-control'
+    'class': 'form-control ',
     }))
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
     'placeholder': 'Password',
-    'class': 'form-control mb-4',
+    'class': 'form-control ',
     }))
 
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
     'placeholder': 'Confirm Password',
-    'class': 'form-control mb-4',
+    'class': 'form-control ',
     }))
 
 
@@ -46,11 +46,11 @@ class RegisterForm(UserCreationForm):
 class LoginForm(ModelForm):
 
     email = forms.CharField(max_length=50,widget=forms.EmailInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control ',
     }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control mb-4',
+        'class': 'form-control ',
     }))
 
     class Meta:

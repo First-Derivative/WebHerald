@@ -14,23 +14,19 @@ a:hover{text-decoration:none;}
 .hover:hover{text-decoration:none;cursor:pointer;}
 
 /* OVERRIDING BOOTSTRAP CSS */
-.btn
-{
-  margin-bottom: 1rem;
-}
 
-.card-title
-{
-    color: #A5B9CC;
-}
+.btn{margin-bottom: 1rem;}
 
+/* END */
+
+/* CUSTOME STYLING */
 
 .card_comments:hover
 {
   color: #f5eed9;
 }
 
-.card
+.index_card
 {
   max-height: 50rem;
   max-width: 50rem;
@@ -38,13 +34,10 @@ a:hover{text-decoration:none;}
   height: 24rem;
 }
 
-.card:hover
+.index_card:hover
 {
-  background-color: #f5eed9;
   border: 0.2rem solid white;
 }
-
-/* END */
 
 .card_sub_title
 {
@@ -69,12 +62,25 @@ a:hover{text-decoration:none;}
   text-decoration: none;
 }
 
+#profile_category_form
+{
+  margin-top: 2rem;
+}
+
+.profile_cb_wrapper
+{
+  margin-bottom: 1rem;
+}
+
 .index_card_container
 {
   margin-top: 2rem;
   padding: 1em;
   border-bottom: 0.2rem solid #343a40;
 }
+
+.index_card_title{color: #A5B9CC;}
+.index_card_title:hover{color: #A5B9CC;}
 
 .profile_container
 {
@@ -90,7 +96,4 @@ a:hover{text-decoration:none;}
   background-color: #343a40;
 }
 
-#profile_category_form
-{
-  margin-top: 2rem;
-}
+/* END */

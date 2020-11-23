@@ -1,8 +1,13 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+from django.core.exceptions import SuspiciousOperation
+
 from accounts.models import Account
+from main.models import CategoryLabel
+
 from accounts.forms import RegisterForm, LoginForm
 
 def registerAccount(request):
@@ -53,4 +58,32 @@ def logoutAccount(request):
 
 @login_required
 def getProfilePage(request):
-    return render(request, 'accounts/profile.html',{'check':True})
+    user = request.user
+    context = {
+        'categories': [category for category in CategoryLabel],
+        'personal_categories': user.get_category()
+    }
+    return render(request, 'accounts/profile.html',context)
+
+@login_required
+def modify_personal_category(request):
+    user = request.user
+    if(request.POST):
+        if(request.POST.get('operation') == 'add'):
+            try:
+                content = request.POST.get('content')
+                user.add_category(content)
+            except SuspiciousOperation:
+                # http response conflict
+                HttpResponse(status=409)
+        else:
+            try:
+                content = request.POST.get('content')
+                user.remove_category(content)
+            except SuspiciousOperation:
+                # http response conflict
+                HttpResponse(status=409)
+        # http response ok
+        return HttpResponse(status=200)
+    else:
+        return redirect('homepage')
