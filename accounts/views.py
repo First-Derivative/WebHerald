@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from accounts.models import Account
 from accounts.forms import RegisterForm, LoginForm
@@ -28,7 +29,7 @@ def loginAccount(request):
     context = {}
 
     if(request.user.is_authenticated):
-        return redirect('hompage')
+        return redirect('homepage')
 
     if(request.method == 'POST'):
         form = LoginForm(request.POST)
@@ -47,3 +48,11 @@ def loginAccount(request):
 def logoutAccount(request):
     logout(request)
     return redirect('homepage')
+
+@login_required
+def getProfilePage(request):
+    current_user = request.user
+    context = {
+    'user' : current_user.id,
+    }
+    return render(request, 'accounts/profile.html', context)

@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }}{% endblock title%}
+
+{% block content %}
+
+<div class="row border my-3" id="article_container">
+
+  <!-- Column 1 - Username/ image -->
+  <div class="col-3 p-2">
+    <div class="diplay_username">
+      <h3>{{request.user.username}}</h3>
+      <p>{{request.user.email}}
+      <br>DOB: {{request.user.dob}}</p>
+    </div>
+
+    <div class="profile_picture">
+      <div>
+      <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3 border" alt="..." width="100px" height="100px">
+      </div>
+      <br>
+      <div>
+      <button type="button" class="btn btn-outline-dark">Add/update profile picture</button>
+      <button type="button" class="btn btn-outline-danger">Delete profile picture</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Column 2 - Article category selection -->
+  <div class="col-9 p-2">
+    <div class ="category_selection">
+      <h5>Choose your favourite article categories</h5>
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+{% endblock content%}
