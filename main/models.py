@@ -27,7 +27,7 @@ class Article(models.Model):
     @property
     def sub_title(self):
         content = self.content.split(" ")
-        content = content[:25]
+        content = content[:20]
         output = ""
         for i in range(len(content)):
             if(i == (len(content) -1) ):

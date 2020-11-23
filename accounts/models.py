@@ -26,7 +26,6 @@ class AccountManager(BaseUserManager):
             username = username,
             dob = dob,
             password = password
-
         )
 
         user.is_admin = True

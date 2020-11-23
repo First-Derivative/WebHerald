@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Castoro&display=swap');
+
+a:hover{text-decoration:none;}
+
+.serifText{font-family: 'Castoro', serif;}
+
+.sansSerifText{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+.target{cursor:pointer;}
+
+.hover:hover{text-decoration:none;cursor:pointer;}
+
+/* OVERRIDING BOOTSTRAP CSS */
+.btn
+{
+  margin-bottom: 1rem;
+}
+
+.card-title
+{
+    color: #A5B9CC;
+}
+
+.card_sub_title, .card_comments
+{
+    color: #64788C;
+}
+
+.card_comments:hover
+{
+  color: #f5eed9;
+}
+
+.card
+{
+  max-height: 50rem;
+  max-width: 50rem;
+  width: 15rem;
+  height: 24rem;
+}
+
+.card:hover
+{
+  background-color: #f5eed9;
+  border: 0.2rem solid white;
+}
+
+#site_title
+{
+  color: white;
+  padding: 0.5rem;
+
+}
+
+#site_title:hover
+{
+  text-decoration: none;
+}
+
+.index_card_container
+{
+  margin-top: 2rem;
+  padding: 1em;
+  border-bottom: 0.2rem solid #343a40;
+}
+
+.profile_container
+{
+  margin-top: 2rem;
+  padding: 1rem;
+  height: 200%;
+  border: 0.15rem solid #343a40;
+  border-radius: 1em;
+}
+
+.index_card_body
+{
+  background-color: #343a40;
+}
+
+#profile_category_form
+{
+  margin-top: 2rem;
+}

@@ -53,4 +53,4 @@ def logoutAccount(request):
 
 @login_required
 def getProfilePage(request):
-    return render(request, 'accounts/profile.html')
+    return render(request, 'accounts/profile.html',{'check':True})

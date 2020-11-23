@@ -5,24 +5,24 @@
 
 {% block content %}
 
-<div class="row border my-3" id="article_container">
+<div class="row profile_container">
 
   <!-- Column 1 - Username/ image -->
   <div class="col-3 p-2">
     <div class="diplay_username">
+      <div class="profile_picture">
+        <div>
+        <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3 border" alt="..." width="100px" height="100px">
+        </div>
+        <br>
+
+      </div>
       <h3>{{request.user.username}}</h3>
       <p>{{request.user.email}}
-      <br>DOB: {{request.user.dob}}</p>
-    </div>
-
-    <div class="profile_picture">
+      <br>Date of birth: {{request.user.dob}}</p>
       <div>
-      <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3 border" alt="..." width="100px" height="100px">
-      </div>
-      <br>
-      <div>
-      <button type="button" class="btn btn-outline-dark">Add/update profile picture</button>
-      <button type="button" class="btn btn-outline-danger">Delete profile picture</button>
+        <button type="button" class="btn btn-outline-dark">Add/update profile picture</button>
+        <button type="button" class="btn btn-outline-danger">Delete profile picture</button>
       </div>
     </div>
   </div>
@@ -30,7 +30,15 @@
   <!-- Column 2 - Article category selection -->
   <div class="col-9 p-2">
     <div class ="category_selection">
-      <h5>Choose your favourite article categories</h5>
+      <h4>Article Categories</h4>
+      <small style="font-style: italic">Select which categories of articles you want to see on your homepage</small>
+
+      <form id="profile_category_form">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="" id="defaultCheck1" {% if check %}checked{% endif %}>
+          <label class="form-check-label" for="defaultCheck1">Checkbox</label>
+        </div>
+    </form>
 
     </div>
   </div>
