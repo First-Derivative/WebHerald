@@ -8,6 +8,9 @@ a:hover{text-decoration:none;}
 
 .target{cursor:pointer;}
 
+.highlight{color:#f5eed9;}
+.highlight:hover{color:#f5eed9;}
+
 .hover:hover{text-decoration:none;cursor:pointer;}
 
 /* OVERRIDING BOOTSTRAP CSS */
@@ -21,10 +24,6 @@ a:hover{text-decoration:none;}
     color: #A5B9CC;
 }
 
-.card_sub_title, .card_comments
-{
-    color: #64788C;
-}
 
 .card_comments:hover
 {
@@ -44,6 +43,19 @@ a:hover{text-decoration:none;}
   background-color: #f5eed9;
   border: 0.2rem solid white;
 }
+
+/* END */
+
+.card_sub_title
+{
+  padding-bottom: 2rem;
+}
+
+.card_sub_title, .card_comments
+{
+  color: #64788C;
+}
+
 
 #site_title
 {

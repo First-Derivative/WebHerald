@@ -27,18 +27,22 @@ class Article(models.Model):
     @property
     def sub_title(self):
         content = self.content.split(" ")
-        content = content[:20]
+        content = content[0:22]
         output = ""
         for i in range(len(content)):
             if(i == (len(content) -1) ):
                 output += str(content[i]) + "..."
+            elif(i==0):
+                output += str(content[i][3:]) + " "
             else:
                 output += str(content[i]) + " "
         return output
 
     @property
     def like_count(self):
-        likes_set = self.likes_set.objects.all()
+        likes_set = self.likes.all()
+        if(not likes_set):
+            return 0
         return len(likes_set)
 
     def __str__(self):
@@ -125,7 +129,7 @@ class Likes(models.Model):
     Class that implements the associative entity 'Likes'. Intended to keep track of which User 'Likes'
     which Article. This relationship is also used in aggregation quieries to derive the total_likes field in 'Article'
     '''
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="likes")
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
