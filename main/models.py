@@ -95,6 +95,7 @@ class Comments(models.Model):
     an Article.
     '''
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     comment_content = models.CharField(max_length=300)
     timestamp = models.DateTimeField(verbose_name='Commented On', auto_now=True) # verbose_name acts as a more legible alias for the field name. auto_now means that if the date value is not given upon object creation then if you save said object it will automatically take the current date and time as the value upon Model.save().
     parent_comment = models.ForeignKey('Comments', blank=True, null=True, on_delete=models.CASCADE)

@@ -2,26 +2,31 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class AccountManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
+    def create_user(self, username, dob, email, password=None):
         if not email:
             raise ValueError("Users require an email address")
         if not username:
             raise ValueError("Users require a username")
+        if not dob:
+            raise ValueError("Users require a date of birth")
 
         user = self.model(
             email = self.normalize_email(email),
-            username = username
+            username = username,
+            dob = dob
         )
 
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, username, password):
+    def create_superuser(self, email, username, dob, password):
         user = self.create_user(
             email = self.normalize_email(email),
             username = username,
+            dob = dob,
             password = password
+
         )
 
         user.is_admin = True
@@ -40,7 +45,7 @@ class Account(AbstractBaseUser):
     private_categories = models.CharField(max_length=24, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('username',)
+    REQUIRED_FIELDS = ('username','dob',)
 
     objects = AccountManager()
 
