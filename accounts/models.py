@@ -30,13 +30,14 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email",max_length=50, unique=True)
-
-    # required fields
     username = models.CharField(max_length=30, unique=True)
     timestamp = models.DateTimeField(verbose_name='Registration timestamp', auto_now_add=True)
+    dob = models.DateField(verbose_name='Date of Birth')
     last_login = models.DateTimeField(verbose_name='Last login timestamp', auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+
+    private_categories = models.CharField(max_length=24, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('username',)

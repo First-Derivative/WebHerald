@@ -9,10 +9,7 @@ def index(request):
     at the appropriate index of content.
     '''
 
-    labels = []
-
-    for category in CategoryLabel:
-        labels.append(category)
+    labels = [label for label in CategoryLabel]
 
     context = {
         'categorylabels': labels,
