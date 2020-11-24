@@ -8,11 +8,11 @@
 <div class="row profile_container">
 
   <!-- Column 1 - Username/ image -->
-  <div class="col-3 p-2">
+  <div class="col-3 pl-3 py-4">
     <div class="diplay_username">
       <div class="profile_picture">
         <div>
-        <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3 border" alt="..." width="100px" height="100px">
+        <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3 border profile_photo" alt="..." width="100px" height="100px">
         </div>
         <br>
 
@@ -28,22 +28,32 @@
   </div>
 
   <!-- Column 2 - Article category selection -->
-  <div class="col-9 p-2">
+  <div class="col-5 px-5 py-4">
     <div class ="category_selection">
       <h4>Article Categories</h4>
-      <small style="font-style: italic">Select which categories of articles you want to see on your homepage</small>
+      <small style="font-style: italic; max-width:12rem;">Select which categories of articles you want to see on your homepage</small>
 
       <form id="profile_category_form">
         {% for category in categories%}
-          <div class="form-check profile_cb_wrapper">
-            <input class="form-check-input" type="checkbox" name="{{category}}" id="{{category}}" {% if category in personal_categories %} checked="checked" {% endif %}>
-            <label class="form-check-label" for="{{category}}">{{category.label}}</label>
-          </div>
+        <div class="form-check profile_cb_wrapper">
+          <input class="form-check-input" type="checkbox" name="{{category}}" id="{{category}}" {% if category in personal_categories %} checked="checked" {% endif %}>
+          <label class="form-check-label" for="{{category}}">{{category.label}}</label>
+        </div>
         {% endfor %}
-    </form>
+      </form>
 
     </div>
   </div>
+
+  <div class="col-4 py-4">
+    <div class ="category_selection">
+      <h4>Edit User Details</h4>
+      <small style="font-style: italic">Enter in your new values and press submit!</small>
+
+    </div>
+  </div>
+
+
 </div>
 
 </div>

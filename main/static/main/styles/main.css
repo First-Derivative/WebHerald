@@ -8,6 +8,10 @@ a:hover{text-decoration:none;}
 
 .target{cursor:pointer;}
 
+.no_borders{
+  border: none !important;
+}
+
 .highlight{color:#f5eed9;}
 .highlight:hover{color:#f5eed9;}
 
@@ -98,6 +102,12 @@ img.card_image{
   height: 200%;
   border: 0.15rem solid #343a40;
   border-radius: 1em;
+}
+
+img.profile_photo
+{
+  height: 128px;
+  width: 128px;
 }
 
 .index_card_body

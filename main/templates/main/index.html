@@ -4,6 +4,8 @@
 
 {% block content %}
 
+<!-- If user has selected any categories -->
+{% if categories %}
 {% for category in categories %}
   <div class="index_card_container flex-wrap row my-3">
     <div class="col-3 p2">
@@ -28,5 +30,14 @@
     {% endfor %}
   </div>
 {% endfor %}
+
+{% else %}
+  <div class="index_card_container no_borders flex-wrap row my-3 py-5">
+    <div class="col-5 p-1">
+      <h3 class="serifText mb-3">You haven't specified which categories you prefer</h3>
+      <small class="serifText">Click on 'My Account' in the top right to change your preference</small>
+    </div>
+  </div>
+{% endif %}
 
 {% endblock content%}

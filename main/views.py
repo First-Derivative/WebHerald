@@ -14,7 +14,8 @@ def index(request):
 
     context = {
         'category_list': ArticleCategory.objects.all(),
-        'nav_categories': [category for category in CategoryLabel]
+        'nav_categories': [category for category in CategoryLabel],
+        'test': []
     }
     if(request.user.is_authenticated):
         user = request.user
