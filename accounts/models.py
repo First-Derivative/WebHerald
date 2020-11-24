@@ -39,7 +39,7 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True)
     timestamp = models.DateTimeField(verbose_name='Registration timestamp', auto_now_add=True)
     dob = models.DateField(verbose_name='Date of Birth')
-    profile_pic = models.ImageField(verbose_name="Profile Picture", default='empty-profile.jpg', null=True, blank=True)
+    profile_pic = models.ImageField(verbose_name="Profile Picture", upload_to="profile_pictures", default='empty-profile.jpg', null=True, blank=True)
     last_login = models.DateTimeField(verbose_name='Last login timestamp', auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

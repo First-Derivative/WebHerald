@@ -25,8 +25,8 @@
           {% csrf_token %}
           {{image_form.as_p}}
           <input type="submit" name="submit" value="Update" class="btn btn-outline-dark">
+          <button type="button" class="btn btn-outline-danger" id="delete_image">Delete</button>
         </form>
-        <button type="button" class="btn btn-outline-danger">Delete</button>
       </div>
     </div>
   </div>
@@ -113,5 +113,6 @@
       })
 
     {% endfor %}
+
   </script>
 {% endblock scripts %}
