@@ -59,6 +59,10 @@ class CategoryLabel(models.TextChoices):
     SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
     WORLD_NEWS = ("WN", "World News")
 
+    def getCategory(self):
+        for category in self:
+            print(category)
+
 class ArticleCategory(models.Model):
     '''
     Class that implements the associative entity 'ArticleCategory'. Intended to

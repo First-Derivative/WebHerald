@@ -88,12 +88,12 @@ class Account(AbstractBaseUser):
         self.private_categories = update
         self.save()
 
-    def get_category(self):
+    @property
+    def get_private_category(self):
         content = self.private_categories
-        print(content)
         if(not content):
             return []
-        return content.split(" ")
+        return self.private_categories
 
     def __str__(self):
         return self.username

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import CategoryLabel, ArticleCategory, Article
 
+from accounts.models import Account
+
 def index(request):
 
     '''
@@ -10,10 +12,18 @@ def index(request):
     '''
 
     context = {
-        'categorylabels': [category for category in CategoryLabel],
         'category_list': ArticleCategory.objects.all()
     }
 
+    if(request.user):
+        user = request.user
+        user_categories = []
+        for category in CategoryLabel:
+             if(category in user.get_private_category):
+                 user_categories.append(category)
+        context['categorylabels'] = user_categories
+    else:
+        context['categorylabels'] = [category for category in CategoryLabel]
     return render(request, 'main/index.html',context)
 
 def getArticlePage(request, article_id):

@@ -61,7 +61,7 @@ def getProfilePage(request):
     user = request.user
     context = {
         'categories': [category for category in CategoryLabel],
-        'personal_categories': user.get_category()
+        'personal_categories': user.get_private_category
     }
     return render(request, 'accounts/profile.html',context)
 
