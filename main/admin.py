@@ -13,4 +13,5 @@ class ArticleCategoryAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(ArticleCategory,ArticleCategoryAdmin)
+admin.site.register(Likes)
 admin.site.register(Comments)

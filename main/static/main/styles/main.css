@@ -136,4 +136,43 @@ img.profile_photo
   background-color: #343a40;
 }
 
+.article_heading_wrapper
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  max-height: 100%;
+  max-width: 85%;
+
+}
+.article_heading_container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+}
+
+
+.article_image_wrapper
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  max-height: 100%;
+}
+
+.article_image_container
+{
+  display: flex;
+  max-width: 85%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.article_image_container > img
+{
+  justify-content: center;
+}
+
 /* END */
