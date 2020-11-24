@@ -52,12 +52,12 @@ class Article(models.Model):
         ordering = ["timestamp"]
 
 class CategoryLabel(models.TextChoices):
-    SPORT = ("SP","Sport")
+    SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
+    ENTERTAINMENT = ("EN", "Entertainment")
+    WORLD_NEWS = ("WN", "World News")
     POLITICS = ("PO","Politics")
     BUSINESS = ("BU", "Business")
-    ENTERTAINMENT = ("EN", "Entertainment")
-    SCIENCE_TECHNOLOGY = ("ST", "Science & Technology")
-    WORLD_NEWS = ("WN", "World News")
+    SPORT = ("SP","Sport")
 
     def getCategory(self):
         for category in self:
