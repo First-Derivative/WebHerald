@@ -17,10 +17,15 @@
     <!-- a litle white space -->
     <br>
 
-    <div class="article_image pt-3">
-      <img src="{% static article.get_imageurl %}" class="img-fluid" alt="{{ article.image_caption }}">
-      <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
+    <div class="article_image_wrapper pt-3">
+      <div class="article_image_container">
+        <img src="{% static article.get_imageurl %}" class="img-fluid" alt="{{ article.image_caption }}">
+        <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
+      </div>
     </div>
+
+    <!-- a litle white space -->
+    <br>
 
     <div class="article_text py-3">
       {% block text %}{{ article.content|safe }}{% endblock %}
