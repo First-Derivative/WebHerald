@@ -16,8 +16,10 @@
           <div class="card-body index_card_body flex-wrap">
             <h5 class="index_card_title serifText hover">{{entry.title}}</h5>
             <p class="card-text card_sub_title">{{entry.sub_title}}</p>
-            <a href="#" class="card-link highlight hover">{{entry.like_count}} Likes</a>
-            <a href="#" class="card-link card_comments hover">Comments</a>
+            <div>
+              <a href="#" class="card-link highlight hover">{{entry.like_count}} Likes</a>
+              <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">Comments</a>
+            </div>
           </div>
         </div>
           </a>
