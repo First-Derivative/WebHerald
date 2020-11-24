@@ -12,7 +12,7 @@
     <div class="diplay_username">
       <div class="profile_picture">
         <div>
-        <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3 border profile_photo" alt="..." width="100px" height="100px">
+        <img src="{{request.user.profile_pic.url}}" class="mr-3" id="profile-pic" width="200px">
         </div>
         <br>
 
@@ -21,8 +21,12 @@
       <p>{{request.user.email}}
       <br>Date of birth: {{request.user.dob}}</p>
       <div>
-        <button type="button" class="btn btn-outline-dark">Add/update profile picture</button>
-        <button type="button" class="btn btn-outline-danger">Delete profile picture</button>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{image_form.as_p}}
+          <input type="submit" name="submit" value="Update" class="btn btn-outline-dark">
+        </form>
+        <button type="button" class="btn btn-outline-danger">Delete</button>
       </div>
     </div>
   </div>

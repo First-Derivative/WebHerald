@@ -62,3 +62,8 @@ class LoginForm(ModelForm):
         password = self.cleaned_data['password']
         if not authenticate(email=email, password=password):
             raise forms.ValidationError("Incorrect Credentials")
+
+class ImageForm(ModelForm):
+    class Meta:
+        model = Account
+        fields = ('profile_pic',)

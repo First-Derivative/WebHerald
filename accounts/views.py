@@ -8,7 +8,7 @@ from django.core.exceptions import SuspiciousOperation
 from accounts.models import Account
 from main.models import CategoryLabel
 
-from accounts.forms import RegisterForm, LoginForm
+from accounts.forms import RegisterForm, LoginForm, ImageForm
 
 def registerAccount(request):
     context = {
@@ -61,7 +61,15 @@ def logoutAccount(request):
 @login_required
 def getProfilePage(request):
     user = request.user
+    form = ImageForm()
+
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+
     context = {
+        'image_form': form,
         'nav_categories': [category for category in CategoryLabel],
         'categories': [category for category in CategoryLabel],
         'personal_categories': user.get_private_category
