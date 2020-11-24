@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import CategoryLabel, ArticleCategory, Article
 
 from accounts.models import Account
+from django.contrib.auth.models import AnonymousUser
 
 def index(request):
 
@@ -14,8 +15,7 @@ def index(request):
     context = {
         'category_list': ArticleCategory.objects.all()
     }
-
-    if(request.user):
+    if(request.user.is_authenticated):
         user = request.user
         user_categories = []
         for category in CategoryLabel:
