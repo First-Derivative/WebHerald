@@ -9,9 +9,11 @@
 
   <!-- Column 1 - Article body -->
   <div class="col-9 px-3 py-2 w-auto">
-    <div class ="article_heading">
-      <h2>{% block headline %}{{ article.title }}{% endblock %}</h2>
-      <h5>{% block sub %}{{ article.sub_title }}{% endblock %}</h5>
+    <div class ="article_heading_wrapper article_heading">
+      <div class="article_heading_container">
+        <h2 class="serifText">{% block headline %}{{ article.title }}{% endblock %}</h2>
+        <h5>{% block sub %}{{ article.sub_title }}{% endblock %}</h5>
+      </div>
     </div>
 
     <!-- a litle white space -->
