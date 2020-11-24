@@ -23,7 +23,7 @@ class Article(models.Model):
         path += self.image_url
         return path
 
-    # Gets the first 25 words in article.content and parses them into a sub_title form
+    # Gets the first 20 words in article.content and parses them into a sub_title form
     @property
     def sub_title(self):
         content = self.content.split(" ")

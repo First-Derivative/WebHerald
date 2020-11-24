@@ -60,7 +60,7 @@ div.article_meta > * {
   color: #f5eed9;
 }
 
-.index_card
+.article_card
 {
   max-height: 50rem;
   max-width: 50rem;
@@ -68,7 +68,7 @@ div.article_meta > * {
   width: 15rem;
 }
 
-.index_card:hover
+.article_card:hover
 {
   border: 0.2rem solid white;
 }
@@ -106,15 +106,15 @@ div.article_meta > * {
   margin-bottom: 1rem;
 }
 
-.index_card_container
+.article_card_container
 {
   margin-top: 2rem;
   padding: 1em;
   border-bottom: 0.2rem solid #343a40;
 }
 
-.index_card_title{color: #A5B9CC;}
-.index_card_title:hover{color: #A5B9CC;}
+.card_title{color: #A5B9CC;}
+.card_title:hover{color: #A5B9CC;}
 
 .profile_container
 {
@@ -131,9 +131,16 @@ img.profile_photo
   width: 128px;
 }
 
-.index_card_body
+.article_card_body
 {
+  position: relative;
   background-color: #343a40;
+}
+
+.card_footer
+{
+  position: absolute;
+  bottom: 1rem;
 }
 
 .article_heading_wrapper

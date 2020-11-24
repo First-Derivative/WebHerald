@@ -4,19 +4,19 @@
 
 {% block content %}
 
-<div class="index_card_container flex-wrap row my-3">
+<div class="article_card_container flex-wrap row my-3">
   <div class="col-3 p2">
     <h3 class="serifText">{{ selected.label }}</h3>
   </div>
   {% for entry in articles_list %}
         <div class="col-3 p-2 ">
           <a href="{% url 'article' entry.id %}">
-        <div class="card index_card target" id="article_{{entry.id}}">
+        <div class="card article_card target" id="article_{{entry.id}}">
           <!-- <img src="{% static entry.get_imageurl %}" class="card-img-top card_image" alt="{{ entry.image_caption}}"> -->
-          <div class="card-body index_card_body flex-wrap">
-            <h5 class="index_card_title serifText hover">{{entry.title}}</h5>
+          <div class="card-body article_card_body flex-wrap">
+            <h5 class="card_title serifText hover">{{entry.title}}</h5>
             <p class="card-text card_sub_title">{{entry.sub_title}}</p>
-            <div>
+            <div class="card_footer">
               <a href="#" class="card-link highlight hover">{{entry.like_count}} Likes</a>
               <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">Comments</a>
             </div>
