@@ -27,7 +27,7 @@ class Article(models.Model):
     @property
     def sub_title(self):
         content = self.content.split(" ")
-        content = content[0:22]
+        content = content[0:20]
         output = ""
         for i in range(len(content)):
             if(i == (len(content) -1) ):
@@ -59,10 +59,6 @@ class CategoryLabel(models.TextChoices):
     BUSINESS = ("BU", "Business")
     SPORT = ("SP","Sport")
 
-    def getCategory(self):
-        for category in self:
-            print(category)
-
 class ArticleCategory(models.Model):
     '''
     Class that implements the associative entity 'ArticleCategory'. Intended to
@@ -85,15 +81,15 @@ class ArticleCategory(models.Model):
 
     @property
     def category_code(self):
-        return self.category
-
-    def __str__(self):
-        output = ""
+        output = None
         for target in CategoryLabel:
             if(target == self.category):
-                output = target.label
+                output = target
                 break
         return output
+
+    def __str__(self):
+        return self.category
 
 class Comments(models.Model):
     '''

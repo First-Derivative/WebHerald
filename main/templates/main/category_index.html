@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% block title %}The News{% endblock title%}
+{% load static %}
+
+{% block content %}
+
+<div class="index_card_container flex-wrap row my-3">
+  <div class="col-3 p2">
+    <h3 class="serifText">{{ selected.label }}</h3>
+  </div>
+  {% for entry in articles_list %}
+        <div class="col-3 p-2 ">
+          <a href="{% url 'article' entry.id %}">
+        <div class="card index_card target" id="article_{{entry.id}}">
+          <!-- <img src="{% static entry.get_imageurl %}" class="card-img-top card_image" alt="{{ entry.image_caption}}"> -->
+          <div class="card-body index_card_body flex-wrap">
+            <h5 class="index_card_title serifText hover">{{entry.title}}</h5>
+            <p class="card-text card_sub_title">{{entry.sub_title}}</p>
+            <a href="#" class="card-link highlight hover">{{entry.like_count}} Likes</a>
+            <a href="#" class="card-link card_comments hover">Comments</a>
+          </div>
+        </div>
+          </a>
+        </div>
+  {% endfor %}
+</div>
+
+{% endblock content%}
+
+{% block scripts%}
+  <script>
+    $('#nav_{{selected}}').addClass('active')
+  </script>
+{% endblock %}

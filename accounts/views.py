@@ -11,7 +11,9 @@ from main.models import CategoryLabel
 from accounts.forms import RegisterForm, LoginForm
 
 def registerAccount(request):
-    context = {}
+    context = {
+        'nav_categories': [category for category in CategoryLabel]
+    }
     if(request.user.is_authenticated):
         return redirect('homepage')
 
@@ -60,6 +62,7 @@ def logoutAccount(request):
 def getProfilePage(request):
     user = request.user
     context = {
+        'nav_categories': [category for category in CategoryLabel],
         'categories': [category for category in CategoryLabel],
         'personal_categories': user.get_private_category
     }

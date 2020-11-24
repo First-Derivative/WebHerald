@@ -24,33 +24,24 @@
     <!-- A header to be used across all the pages of the website -->
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark container mt-3">
-        <h1><a href="{% url 'homepage' %}" class="serifText" id="site_title">The News</a></h1>
+        <h1><a href="{% url 'homepage' %}" class="serifText" id="site_title">WebHerald</a></h1>
       </nav>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light container">
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            {% if request.path == '/' %}
+              <li class="nav-item active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{% url 'homepage' %}">Home</a>
             </li>
+            {% for category in nav_categories %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Politics</a>
+              <a class="nav-link" id="nav_{{category}}" href="{% url 'category_index' category %}">{{category.label}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Business</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Science & Technology</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">World</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Entertainment</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sport</a>
-            </li>
+            {% endfor %}
           </ul>
           <span class="navbar-text style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;"">
             {% if request.user.is_authenticated %}

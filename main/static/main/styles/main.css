@@ -17,6 +17,10 @@ a:hover{text-decoration:none;}
 
 .btn{margin-bottom: 1rem;}
 
+img.card_image{
+  height: 10rem;
+}
+
 /* END */
 
 /* CUSTOME STYLING */
@@ -30,8 +34,8 @@ a:hover{text-decoration:none;}
 {
   max-height: 50rem;
   max-width: 50rem;
-  width: 15rem;
   height: 24rem;
+  width: 15rem;
 }
 
 .index_card:hover
@@ -65,6 +69,11 @@ a:hover{text-decoration:none;}
 #profile_category_form
 {
   margin-top: 2rem;
+}
+
+#article_container
+{
+  padding: 1rem;
 }
 
 .profile_cb_wrapper
