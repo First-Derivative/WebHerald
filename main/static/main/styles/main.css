@@ -12,6 +12,7 @@ a:hover{text-decoration:none;}
   border: none !important;
 }
 
+
 .highlight{color:#f5eed9;}
 .highlight:hover{color:#f5eed9;}
 
@@ -23,6 +24,31 @@ a:hover{text-decoration:none;}
 
 img.card_image{
   height: 10rem;
+}
+
+div.article_meta > * {
+  padding-top: 0rem;
+  padding-bottom: 0.3rem;
+}
+
+.nav_link
+{
+  color: rgba(100, 120, 140, 0.5);
+}
+
+.nav_link:hover
+{
+  color: #A5B9CC;
+}
+
+.nav_active
+{
+  color: #A5B9CC;
+}
+
+.nav_container
+{
+  background-color: #343a40;
 }
 
 /* END */
@@ -60,7 +86,7 @@ img.card_image{
 
 #site_title
 {
-  color: white;
+  color: #A5B9CC;
   padding: 0.5rem;
 
 }
@@ -73,11 +99,6 @@ img.card_image{
 #profile_category_form
 {
   margin-top: 2rem;
-}
-
-#article_container
-{
-  padding: 1rem;
 }
 
 .profile_cb_wrapper

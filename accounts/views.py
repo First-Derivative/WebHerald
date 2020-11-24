@@ -52,6 +52,7 @@ def loginAccount(request):
     else:
         form = LoginForm()
         context['login_form'] = form
+        context['nav_categories'] = [category for category in CategoryLabel]
     return render(request, 'accounts/login.html', context)
 
 def logoutAccount(request):

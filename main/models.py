@@ -89,7 +89,12 @@ class ArticleCategory(models.Model):
         return output
 
     def __str__(self):
-        return self.category
+        output = None
+        for target in CategoryLabel:
+            if(target == self.category):
+                output = target.label
+                break
+        return output
 
 class Comments(models.Model):
     '''

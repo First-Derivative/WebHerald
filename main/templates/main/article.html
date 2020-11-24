@@ -5,57 +5,51 @@
 
 {% block content %}
 
-<div class="row border my-3" id="article_container">
+<div class="row border my-3 p-3" id="article_container">
 
-  <!-- Column 1 - Category Heading,  Meta -->
-  <div class="col-3 p-2">
-    <div class="article_category">
-      <h3>{% block category %}CATEGORY{% endblock %}</h3>
-
+  <!-- Column 1 - Article body -->
+  <div class="col-9 px-3 py-2 w-auto">
+    <div class ="article_heading">
+      <h2>{% block headline %}{{ article.title }}{% endblock %}</h2>
+      <h5>{% block sub %}{{ article.sub_title }}{% endblock %}</h5>
     </div>
 
     <!-- a litle white space -->
     <br>
-    <br>
-
-    <div class="article_meta">
-      <h6>Authored by:</h6>
-      <h5><span style="font-style:italic">{% block author %}{{ article.author }}</span>{% endblock %}</h5>
-      <p>{% block dop %}{{ article.dop }}{% endblock %}</p>
-    </div>
-
-    <div class="likes">
-      <p>{% block likes %}{{ article.like_count }}{% endblock %} likes</p>
-    </div>
-  </div>
-
-  <!-- Column 2 - Article body -->
-  <div class="col-9 p-2">
-    <div class ="article_heading">
-        <h2>{% block headline %}{{ article.title }}{% endblock %}</h2>
-        <h5>{% block sub %}{{ article.sub_title }}{% endblock %}</h5>
-    </div>
 
     <div class="article_image pt-3">
-        <img src="{% static article.get_imageurl %}" class="img-fluid" alt="{{ article.image_caption }}">
-        <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
+      <img src="{% static article.get_imageurl %}" class="img-fluid" alt="{{ article.image_caption }}">
+      <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
     </div>
 
     <div class="article_text py-3">
-    {% block text %}{{ article.content|safe }}{% endblock %}
+      {% block text %}{{ article.content|safe }}{% endblock %}
     </div>
   </div>
+
+  <!-- Column 2 - Category Heading,  Meta -->
+  <div class="col-3 px-0 py-2">
+
+    <div class="article_meta flex-column">
+      <h4><strong>Authored by:</strong></h4>
+      <h4><span style="font-style:italic">{{ article.author }}</span></h4>
+
+      <p style="padding-bottom:0px;padding-top:1rem;"><strong>Category:</strong></p>
+      <p><span style="font-style:italic">{% if selected_category %}{{ selected_category }}{% endif %}</span></p>
+      <p>{% block dop %}{{ article.dop }}{% endblock %}</p>
+      <p>{% block likes %}{{ article.like_count }}{% endblock %} likes</p>
+    </div>
+
 </div>
-
-<!-- Comments -->
-
-<div class="row border my-3" id="comments_section">
-
-  <div class="col-3 p-2">
-      <h2>Comments</h2>
   </div>
 
-  <div class="col-9 p-2">
+
+  <!-- Comments -->
+<div class="row border my-3 p-3 w-auto" id="comments_section">
+
+  <div class="col-9 p-2 width-auto">
+      <h2>Comments</h2>
+
     <!-- Comment post form -->
     <div class="post_comment py-3">
       <form>
@@ -64,7 +58,7 @@
         </div>
         <button type="submit" class="btn btn-dark">Post your comment</button>
       </form>
-    </div>
+  </div>
 
     <hr>
 
@@ -95,3 +89,7 @@
 </div>
 
 {% endblock content%}
+
+<script>
+  $('#nav_EN').addClass('active')
+</script>
