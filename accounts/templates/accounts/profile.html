@@ -20,12 +20,16 @@
       <h3>{{request.user.username}}</h3>
       <p>{{request.user.email}}
       <br>Date of birth: {{request.user.dob}}</p>
-      <div>
+      <div class="image_form">
         <form action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           {{image_form.as_p}}
-          <input type="submit" name="submit" value="Update" class="btn btn-outline-dark">
-          <button type="button" class="btn btn-outline-danger" id="delete_image">Delete</button>
+          <!--
+          <label class="btn btn-outline-primary">Choose file
+            {{image_form.profile_pic}}</label>
+            -->
+          <button type="submit" name="update" class="btn btn-outline-dark">Update</button>
+          <button type="submit" name="delete" class="btn btn-outline-danger" id="delete_image">Delete</button>
         </form>
       </div>
     </div>

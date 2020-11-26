@@ -63,11 +63,20 @@ def logoutAccount(request):
 def getProfilePage(request):
     user = request.user
     form = ImageForm()
+    default = user._meta.get_field('profile_pic').get_default()
 
-    if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
+    if request.method == 'POST' and 'update' in request.POST:
+        try:
+            form = ImageForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+        except ValidationError:
+            # http response conflict
+            HttpResponse(status=409) # is this correct?
+
+    if request.method == 'POST' and 'delete' in request.POST:
+        user.profile_pic = default
+        user.save()
 
     context = {
         'image_form': form,

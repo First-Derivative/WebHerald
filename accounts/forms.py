@@ -67,3 +67,8 @@ class ImageForm(ModelForm):
     class Meta:
         model = Account
         fields = ('profile_pic',)
+        '''
+        widgets = {'profile_pic':forms.FileInput(
+            attrs={'style':'display: none;','class':'form-control', 'required': False, }
+             )}
+        '''
