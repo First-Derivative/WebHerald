@@ -23,30 +23,35 @@
 
     <!-- A header to be used across all the pages of the website -->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark container mt-3">
-        <h1><a href="{% url 'homepage' %}" class="serifText" id="site_title">WebHerald</a></h1>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark nav_header_container container mt-3 pl-4 pb-0">
+        <h1 class="pt-4"><a href="{% url 'homepage' %}" class="serifText pl-0" id="site_title">WebHerald</a></h1>
       </nav>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light container">
+      <nav class="navbar navbar-expand-lg nav_container container pl-4">
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             {% if request.path == '/' %}
-              <li class="nav-item active">
+              <li class="nav-item ">
+                <a class="nav_link nav_active" href="{% url 'homepage' %}">Home</a>
             {% else %}
               <li class="nav-item">
+                <a class="nav_link" href="{% url 'homepage' %}">Home</a>
             {% endif %}
-              <a class="nav-link" href="{% url 'homepage' %}">Home</a>
             </li>
             {% for category in nav_categories %}
-            <li class="nav-item">
-              <a class="nav-link" id="nav_{{category}}" href="{% url 'category_index' category %}">{{category.label}}</a>
+            <li class="nav-item px-3">
+              <a class="nav_link" id="nav_{{category}}" href="{% url 'category_index' category %}">{{category.label}}</a>
             </li>
             {% endfor %}
           </ul>
           <span class="navbar-text style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;"">
             {% if request.user.is_authenticated %}
-            <a href="{% url 'profile' %}">My Account</a> |
-            <a href="{% url 'logout' %}">Log out</a>
+            {% if request.path == '/accounts/profile' %}
+              <a class="nav_link nav_active" href="{% url 'profile' %}">My Account</a> <span style="color:#A5B9CC;">|</span>
+            {% else %}
+              <a class="nav_link" href="{% url 'profile' %}">My Account</a> <span style="color:#A5B9CC;">|</span>
+            {% endif %}
+            <a class="nav_link" href="{% url 'logout' %}">Log out</a>
             {% else %}
             <a href="{% url 'login' %}">Log in</a>
             {% endif %}

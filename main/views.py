@@ -29,10 +29,13 @@ def index(request):
     return render(request, 'main/index.html',context)
 
 def getArticlePage(request, article_id):
+    article = Article.objects.get(id=article_id)
+    selected_category = ArticleCategory.objects.get(article=article)
+    print(selected_category)
     context = {
-        'article': Article.objects.get(id=article_id),
+        'article': article,
+        'selected_category': selected_category,
         'nav_categories': [category for category in CategoryLabel]
-
         }
     return render(request, 'main/article.html', context)
 

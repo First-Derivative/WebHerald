@@ -23,7 +23,7 @@ class Article(models.Model):
         path += self.image_url
         return path
 
-    # Gets the first 25 words in article.content and parses them into a sub_title form
+    # Gets the first 20 words in article.content and parses them into a sub_title form
     @property
     def sub_title(self):
         content = self.content.split(" ")
@@ -89,7 +89,12 @@ class ArticleCategory(models.Model):
         return output
 
     def __str__(self):
-        return self.category
+        output = None
+        for target in CategoryLabel:
+            if(target == self.category):
+                output = target.label
+                break
+        return output
 
 class Comments(models.Model):
     '''
@@ -129,8 +134,24 @@ class Likes(models.Model):
     Class that implements the associative entity 'Likes'. Intended to keep track of which User 'Likes'
     which Article. This relationship is also used in aggregation quieries to derive the total_likes field in 'Article'
     '''
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="likes")
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE,blank=True, null=True, related_name="likes")
+    comment = models.ForeignKey(Comments, on_delete=models.CASCADE,blank=True, null=True, related_name="likes")
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+
+    # properties to tell us if the like is for a comment or article
+
+    @property
+    def for_article(self):
+        if(self.comment == None and (not self.article == None)):
+            return True
+        return False
+
+    @property
+    def for_comment(self):
+        if(self.article == None and (not self.comment == None)):
+            return True
+        return False
 
     class Meta:
         verbose_name = 'Like'
