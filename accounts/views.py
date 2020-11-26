@@ -65,15 +65,17 @@ def getProfilePage(request):
     form = ImageForm()
     default = user._meta.get_field('profile_pic').get_default()
 
+    # Handle image form, case = update image
     if request.method == 'POST' and 'update' in request.POST:
         try:
             form = ImageForm(request.POST, request.FILES, instance=user)
             if form.is_valid():
                 form.save()
         except ValidationError:
-            # http response conflict
+            # unprocessible entity
             HttpResponse(status=409)
 
+    # On 'delete' replace with default profile image
     if request.method == 'POST' and 'delete' in request.POST:
         user.profile_pic = default
         user.save()
@@ -95,8 +97,8 @@ def modify_personal_category(request):
                 content = request.POST.get('content')
                 user.add_category(content)
             except SuspiciousOperation:
-                # unprocessible entity
-                HttpResponse(status=422)
+                # http response conflict
+                HttpResponse(status=409)
         else:
             try:
                 content = request.POST.get('content')

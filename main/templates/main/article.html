@@ -44,7 +44,14 @@
       <p style="padding-bottom:0px;padding-top:1rem;"><strong>Category:</strong></p>
       <p><span style="font-style:italic">{% if selected_category %}{{ selected_category }}{% endif %}</span></p>
       <p>{% block dop %}{{ article.dop }}{% endblock %}</p>
-      <p>{% block likes %}{{ article.like_count }}{% endblock %} likes</p>
+      <p>{% block likes %}
+          <button type="button" class="btn btn-outline-dark" id="like_button">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>
+            {{ article.like_count }}
+          </button>
+        {% endblock %}</p>
     </div>
 
 </div>
