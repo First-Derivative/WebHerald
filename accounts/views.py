@@ -72,7 +72,7 @@ def getProfilePage(request):
                 form.save()
         except ValidationError:
             # http response conflict
-            HttpResponse(status=409) # is this correct?
+            HttpResponse(status=409)
 
     if request.method == 'POST' and 'delete' in request.POST:
         user.profile_pic = default
@@ -95,8 +95,8 @@ def modify_personal_category(request):
                 content = request.POST.get('content')
                 user.add_category(content)
             except SuspiciousOperation:
-                # http response conflict
-                HttpResponse(status=409)
+                # unprocessible entity
+                HttpResponse(status=422)
         else:
             try:
                 content = request.POST.get('content')
