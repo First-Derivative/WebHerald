@@ -138,7 +138,6 @@ class Likes(models.Model):
     comment = models.ForeignKey(Comments, on_delete=models.CASCADE,blank=True, null=True, related_name="likes")
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
 
-
     # properties to tell us if the like is for a comment or article
 
     @property

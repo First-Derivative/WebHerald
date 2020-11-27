@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from .models import CategoryLabel, ArticleCategory, Article
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from .models import CategoryLabel, ArticleCategory, Article, Likes
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 from accounts.models import Account
 
@@ -31,6 +32,7 @@ def index(request):
 def getArticlePage(request, article_id):
     article = Article.objects.get(id=article_id)
     selected_category = ArticleCategory.objects.get(article=article)
+
     print(selected_category)
     context = {
         'article': article,
@@ -64,3 +66,37 @@ def category_index(request, category):
     }
 
     return render(request, 'main/category_index.html', context)
+
+
+@login_required
+def updateLikes(request, article_id):
+    try:
+        # get article and user
+        article = Article.objects.get(id=article_id)
+        user = request.user
+
+        # determine whether user already likes article
+        if request.method == 'GET':
+            if Likes.objects.filter(article=article, user=user).exists():
+                print('user likes this aricle')
+                return JsonResponse({'is_liked': 'true'})
+            else:
+                print('user does not like this article')
+                return JsonResponse({'is_liked': 'false'})
+
+        # Add like
+        if request.method == 'POST':
+            Likes.objects.create(article=article, user=user)
+            likes = article.like_count
+            print(likes)
+            return JsonResponse({'num_likes': likes})
+
+        # Remove like
+        if request.method == 'DELETE':
+            current_like = Likes.objects.filter(article=article, user=user)
+            current_like.delete()
+            likes = article.like_count
+            return JsonResponse({'num_likes': likes})
+
+    except Article.DoesNotExist:
+        return HttpResponseBadRequest("Invalid Article ID")

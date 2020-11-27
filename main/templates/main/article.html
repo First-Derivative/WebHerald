@@ -44,14 +44,18 @@
       <p style="padding-bottom:0px;padding-top:1rem;"><strong>Category:</strong></p>
       <p><span style="font-style:italic">{% if selected_category %}{{ selected_category }}{% endif %}</span></p>
       <p>{% block dop %}{{ article.dop }}{% endblock %}</p>
-      <p>{% block likes %}
-          <button type="button" class="btn btn-outline-dark" id="like_button">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-            </svg>
-            {{ article.like_count }}
-          </button>
-        {% endblock %}</p>
+
+      {% if user.is_authenticated %}
+      <button type="button" class="btn btn-outline-dark like-button" id="{{ article.id }}">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg>
+        <span class="display_numlikes">{% block likes %}{{ article.like_count }}{% endblock %}</span>
+      </button>
+      {% else %}
+        <p>{{article.like_count}} Likes</p>
+      {% endif %}
+
     </div>
 
 </div>
@@ -78,7 +82,7 @@
 
     <!-- Display comments -->
     <div class="media">
-      <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+      <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
       <div class="media-body">
         <h5 class="mt-0">Insert Username</h5>
         This is an example of a parent comment. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
@@ -86,7 +90,7 @@
         <hr>
         <div class="media mt-3">
           <a class="mr-3" href="#">
-            <img src="{% static 'main/images/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+            <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
           </a>
           <div class="media-body">
             <h5 class="mt-0">Insert Username</h5>
@@ -102,8 +106,79 @@
 
 </div>
 
-{% endblock content%}
+{% endblock content %}
 
+{% block scripts %}
 <script>
   $('#nav_EN').addClass('active')
+
+  var article_id
+  var user_liked = false
+  var token = '{{csrf_token}}';
+  var user_auth = '{{user.is_authenticated}}'
+
+  if (user_auth == 'True') { // only handle likes if user is logged in
+
+    $(function() {
+      article_id = $('.like-button').attr('id')
+      console.log(user)
+        // check whether user has liked this article before
+        $.ajax({
+          type: 'GET',
+          headers: { "X-CSRFToken": token },
+          url: "{% url 'likes' 0 %}".replace("0", article_id),
+          dataType: 'json',
+          success: function (response) {
+              // set appearance of like button if already liked
+              if (response.is_liked == 'true') {
+                user_liked = true
+                $('.btn-outline-dark').css('color', 'red')
+              }
+          },
+          error: function(textStatus, errorThrown) {
+              alert("Ajax request failed: " + textStatus + ' ' + errorThrown)
+          }
+        })
+      })
+
+    $(".like-button").click(function() {
+      article_id = $(this).attr('id')
+        if (user_liked == true) {
+          // remove like
+          $.ajax({
+            type: 'DELETE',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'likes' 0 %}".replace("0", article_id),
+            dataType: 'json',
+            success: function (response) {
+              $('.display_numlikes').html(response.num_likes) // update like like_count
+              $('.like-button').css({'color': '#343a40', 'border-color': '#343a40'})
+              user_liked = false
+            },
+            error: function(textStatus, errorThrown) {
+                alert("Ajax request failed: " + textStatus + ' ' + errorThrown)
+            }
+          })
+        }
+        if (user_liked == false) {
+          // register like
+          $.ajax({
+            type: 'POST',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'likes' 0 %}".replace("0", article_id),
+            dataType: 'json',
+            success: function (response) {
+                $('.display_numlikes').html(response.num_likes) // update like like_count
+                $('.like-button').css({'color': 'red', 'border-color': 'red'})
+                user_liked = true
+            },
+            error: function(textStatus, errorThrown) {
+                alert("Ajax request failed: " + textStatus + ' ' + errorThrown)
+            }
+          })
+        }
+
+    })
+  }
 </script>
+{% endblock %}
