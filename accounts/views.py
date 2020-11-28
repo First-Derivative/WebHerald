@@ -3,6 +3,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+
 from django.core.exceptions import SuspiciousOperation
 
 from accounts.models import Account
@@ -25,6 +29,18 @@ def registerAccount(request):
             raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             login(request, account)
+
+            # send welcome email
+            template = render_to_string('accounts/email.html', {'name' : request.user.username})
+            email = EmailMessage(
+                'Thank you for signing up to WebHerald',
+                template,
+                settings.EMAIL_HOST_USER,
+                [request.user.email],
+            )
+            email.fail_silently = False
+            email.send()
+
             return redirect('homepage')
         else:
             context['registration_form'] = form
