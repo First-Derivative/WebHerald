@@ -11,7 +11,9 @@
   <div class="col-9 px-3 py-2 w-auto">
     <div class ="article_heading_wrapper article_heading">
       <div class="article_heading_container">
-        <h2 class="serifText">{% block headline %}{{ article.title }}{% endblock %}</h2>
+        <h4 class="category-header">{% if selected_category %}{{ selected_category }}{% endif %}</h4>
+        <h2>{% block headline %}{{ article.title }}{% endblock %}</h2>
+        <br>
         <h5>{% block sub %}{{ article.sub_title }}{% endblock %}</h5>
       </div>
     </div>
@@ -38,13 +40,10 @@
   <div class="col-3 px-0 py-2">
 
     <div class="article_meta flex-column">
-      <h4><strong>Authored by:</strong></h4>
-      <h4><span style="font-style:italic">{{ article.author }}</span></h4>
-
-      <p style="padding-bottom:0px;padding-top:1rem;"><strong>Category:</strong></p>
-      <p><span style="font-style:italic">{% if selected_category %}{{ selected_category }}{% endif %}</span></p>
-      <p>{% block dop %}{{ article.dop }}{% endblock %}</p>
-
+      <h4><span class="heading_light">Author</span>
+      <br>{{ article.author }}</h4>
+      <p>{{ article.timestamp }}</p>
+      <h4 class="heading_light">Join the debate</h4>
       {% if user.is_authenticated %}
       <button type="button" class="btn btn-outline-dark like-button" id="{{ article.id }}">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +52,7 @@
         <span class="display_numlikes">{% block likes %}{{ article.like_count }}{% endblock %}</span>
       </button>
       {% else %}
-        <p>{{article.like_count}} Likes</p>
+        <p>Please <a href="{% url 'login' %}">log in</a> to your account to join the debate!</p>
       {% endif %}
 
     </div>
@@ -66,7 +65,7 @@
 <div class="row border my-3 p-3 w-auto" id="comments_section">
 
   <div class="col-9 p-2 width-auto">
-      <h2>Comments</h2>
+    <h2>Comments</h2>
 
     <!-- Comment post form -->
     <div class="post_comment py-3">
@@ -133,7 +132,7 @@
               if (response.is_liked == 'true') {
                 console.log('already liked')
                 user_liked = true
-                $('.btn-outline-dark').css({'color': 'red', 'border-color': 'red'})
+                $('.btn-outline-dark').css({'color': '#c70000', 'border-color': '#c70000'})
               }
           },
           error: function(textStatus, errorThrown) {
@@ -170,7 +169,7 @@
             dataType: 'json',
             success: function (response) {
                 $('.display_numlikes').html(response.num_likes) // update like like_count
-                $('.like-button').css({'color': 'red', 'border-color': 'red'})
+                $('.like-button').css({'color': '#c70000', 'border-color': '#c70000'})
                 user_liked = true
             },
             error: function(textStatus, errorThrown) {

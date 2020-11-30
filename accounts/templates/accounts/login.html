@@ -1,5 +1,7 @@
 {% extends 'main/user-form.html' %}
 
+{% block form-heading %}Log In{% endblock form-heading %}
+
 {% block form %}
 <form method="POST">
 {% csrf_token %}
@@ -16,7 +18,7 @@
     </div>
     {% endfor %}
 
-  <button type="submit" class="btn btn-primary">Log in</button>
+  <button type="submit" class="btn btn-dark">Log in</button>
 </form>
 {% endblock form %}
 

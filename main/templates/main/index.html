@@ -7,19 +7,20 @@
 <!-- If user has selected any categories -->
 {% if categories %}
 {% for category in categories %}
-  <div class="article_card_container flex-wrap row my-3">
+  <div class="article_card_container flex-wrap row border my-3">
     <div class="col-3 p2">
-      <h3 class="serifText">{{ category.label }}</h3>
+      <h3 class="category-header">{{ category.label }}</h3>
     </div>
     {% for entry in category_list %}
       {% if entry.category == category %}
           <div class="col-3 p-2 ">
             <a href="{% url 'article' entry.article.id %}">
           <div class="card article_card target" id="article_{{entry.id}}">
-            <!-- <img src="{% static entry.article.get_imageurl %}" class="card-img-top" alt="{{ entry.article.image_caption}}"> -->
+            <img src="{% static entry.article.get_imageurl %}" class="card-img-top" alt="{{ entry.article.image_caption}}">
             <div class="card-body article_card_body flex-wrap">
-              <h5 class="card_title serifText hover">{{entry.article.title}}</h5>
-              <p class="card-text card_sub_title">{{entry.article.sub_title}}</p>
+              <h5 class="card_title hover">{{entry.article.title}}</h5>
+              <h5 class="card-text card_author">{{entry.article.author}}</h5>
+              <!-- <p class="card-text card_sub_title">{{entry.article.sub_title}}</p> -->
               <div class="card_footer">
                 <a class="card-link highlight hover">{{entry.article.like_count}} Likes</a>
                 <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">Comments</a>
@@ -36,8 +37,8 @@
 {% else %}
   <div class="article_card_container no_borders flex-wrap row my-3 py-5">
     <div class="col-5 p-1">
-      <h3 class="serifText mb-3">You haven't specified which categories you prefer</h3>
-      <small class="serifText">Click on 'My Account' in the top right to change your preference</small>
+      <h3 class="mb-3">You haven't specified which categories you prefer</h3>
+      <p>Click on 'My Account' in the top right to change your preference</p>
     </div>
   </div>
 {% endif %}

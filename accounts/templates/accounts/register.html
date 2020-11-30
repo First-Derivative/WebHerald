@@ -22,10 +22,10 @@
     </div>
     {% endfor %}
 
-  <button type="submit" class="btn btn-primary">Register</button>
+  <button type="submit" class="btn btn-dark">Register</button>
 </form>
 {% endblock form %}
 
 {% block switch-form %}
-  <p><br>Already have an account? <a href="{% url 'login' %}" class="card-link">Log in</a></p>
+  <p><br>Already have an account? <a href="{% url 'login' %}" class="card-link login-register">Log in</a></p>
 {% endblock switch-form %}
