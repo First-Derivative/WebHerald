@@ -99,30 +99,29 @@ class ArticleCategory(models.Model):
 class Comments(models.Model):
     '''
     Class that implements the associative entity 'Comments'. Intended to keep track
-    of which User posted what comment_content on which Article. Furthermore a comment foreign key
+    of which User posted what content on which Article. Furthermore a comment foreign key
     may be held in order to discern if a comment is a reply to a parent comment or a general for
     an Article.
     '''
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
-    comment_content = models.CharField(max_length=300)
+    content = models.CharField(max_length=300)
     timestamp = models.DateTimeField(verbose_name='Commented On', auto_now=True) # verbose_name acts as a more legible alias for the field name. auto_now means that if the date value is not given upon object creation then if you save said object it will automatically take the current date and time as the value upon Model.save().
-    parent_comment = models.ForeignKey('Comments', blank=True, null=True, on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE, related_name='child_comments')
 
     @property
-    def hasParent(self):
-        if parent_comment:
+    def isChild(self):
+        if self.parent_comment:
             return True
         return False
 
     def __len__(self):
-        return len(self.comment_content)
+        return len(self.content)
 
     def __str__(self):
-        output = " '%s', written by: user on article: %s".format(self.comment_content, self.article)
-        if(self.hasParent):
-            parent = "user"
-            output = " '%s', written by: user, reply to: %s".format(self.comment_content, parent)
+        output = " '{0}', written by: {1} on article: {2}".format(self.content, self.user.username, self.article.id)
+        if(self.isChild):
+            output = " '{0}', written by: {1}, reply to: {2}".format(self.content, self.user.username,self.parent_comment.id)
         return output
 
     class Meta:

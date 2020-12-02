@@ -7,21 +7,26 @@
 
 <div class="row border my-3 p-3" id="article_container">
 
-  <!-- Column 1 - Article body -->
+  <!-- Column 1 - Article -->
+
+  <!-- Article Header -->
   <div class="col-9 px-3 py-2 w-auto">
     <div class ="article_heading_wrapper article_heading">
       <div class="article_heading_container">
         <h4 class="category-header">{% if selected_category %}{{ selected_category }}{% endif %}</h4>
         <h2>{% block headline %}{{ article.title }}{% endblock %}</h2>
         <br>
+        {% comment 'excess_content '%}
         <h5>{% block sub %}{{ article.sub_title }}{% endblock %}</h5>
+        {% endcomment %}
       </div>
     </div>
 
     <!-- a litle white space -->
     <br>
 
-    <div class="article_image_wrapper pt-3">
+    <!-- Article Image Section -->
+    <div class="article_image_wrapper">
       <div class="article_image_container">
         <img src="{% static article.get_imageurl %}" class="img-fluid" alt="{{ article.image_caption }}">
         <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
@@ -31,7 +36,8 @@
     <!-- a litle white space -->
     <br>
 
-    <div class="article_text py-3">
+    <!-- Article Body -->
+    <div class="article_text pb-3">
       {% block text %}{{ article.content|safe }}{% endblock %}
     </div>
   </div>
@@ -54,56 +60,13 @@
       {% else %}
         <p>Please <a href="{% url 'login' %}">log in</a> to your account to join the debate!</p>
       {% endif %}
-
-    </div>
-
-</div>
-  </div>
-
-
-  <!-- Comments -->
-<div class="row border my-3 p-3 w-auto" id="comments_section">
-
-  <div class="col-9 p-2 width-auto">
-    <h2>Comments</h2>
-
-    <!-- Comment post form -->
-    <div class="post_comment py-3">
-      <form>
-        <div class="form-group">
-          <textarea name="comment" class="form-control" rows="3" placeholder="Join the conversation..."></textarea>
-        </div>
-        <button type="submit" class="btn btn-dark">Post your comment</button>
-      </form>
-  </div>
-
-    <hr>
-
-    <!-- Display comments -->
-    <div class="media">
-      <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
-      <div class="media-body">
-        <h5 class="mt-0">Insert Username</h5>
-        This is an example of a parent comment. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        <h6><br>Reply</h6>
-        <hr>
-        <div class="media mt-3">
-          <a class="mr-3" href="#">
-            <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
-          </a>
-          <div class="media-body">
-            <h5 class="mt-0">Insert Username</h5>
-            This is an example of a reply. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            <h6><br>Reply</h6>
-            <hr>
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>
 
 </div>
+
+{% include 'main/article_comments.html' %}
 
 {% endblock content %}
 

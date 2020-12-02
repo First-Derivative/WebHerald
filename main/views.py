@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import CategoryLabel, ArticleCategory, Article, Likes
+from .models import *
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 
@@ -32,10 +32,12 @@ def index(request):
 def getArticlePage(request, article_id):
     article = Article.objects.get(id=article_id)
     selected_category = ArticleCategory.objects.get(article=article)
+    comments = Comments.objects.filter(article=article)
+    comments = comments.filter(parent_comment=None)
 
-    print(selected_category)
     context = {
         'article': article,
+        'article_comments': comments,
         'selected_category': selected_category,
         'nav_categories': [category for category in CategoryLabel]
         }

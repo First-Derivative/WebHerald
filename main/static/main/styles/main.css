@@ -7,15 +7,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'DM Serif Display', serif;
 }
 
-.heading_light {
-  color: #64788C;
-}
-
 .target{cursor:pointer;}
+
+.serif{ font-family: 'DM Serif Display', serif; }
 
 .no_borders{
   border: none !important;
@@ -68,13 +66,19 @@ div.article_meta > * {
   background-color: #343a40;
 }
 
+.figure-caption
+{
+  padding-top: 1rem;
+}
+
+
 /* END */
 
 /* CUSTOME STYLING */
 
 .card_comments:hover
 {
-  color: #f5eed9;
+  color: #c70000;
 }
 
 .article_card
@@ -83,13 +87,20 @@ div.article_meta > * {
   max-width: 50rem;
   height: 24rem;
   width: 15rem;
-  border-top: 1px solid #c70000;
-  border-bottom: 1px solid #c70000;
+  /* border-top: 0.rem solid #c70000; */
+  border-bottom: 0.1rem solid #c70000;
 }
 
 .article_card:hover
 {
-  border: 0.2rem solid white;
+  border: 0.1rem solid #c70000;
+}
+
+.article_card_container
+{
+  margin-top: 2rem;
+  padding: 1em;
+  border-bottom: 0.2rem solid #343a40;
 }
 
 .card_sub_title
@@ -115,12 +126,6 @@ div.article_meta > * {
   text-decoration: none;
 }
 
-.article_card_container
-{
-  margin-top: 2rem;
-  padding: 1em;
-  border-bottom: 0.2rem solid #343a40;
-}
 
 .card_title{color: #343a40;}
 .card_title:hover{color: #343a40;}
@@ -132,11 +137,6 @@ div.article_meta > * {
   color: #c70000;
 }
 
-.article_card_body
-{
-  position: relative;
-  background-color: #f5f5f5;
-}
 
 .card_footer
 {
@@ -163,6 +163,12 @@ div.article_meta > * {
   max-width: 100%;
 }
 
+.article_card_body
+{
+  position: relative;
+  background-color: #f5f5f5;
+}
+
 .article_image_wrapper
 {
   display: flex;
@@ -182,6 +188,7 @@ div.article_meta > * {
 div.article_image_container > img
 {
   justify-content: center;
+  /* border: 0.15rem solid #c70000; */
 }
 
 /* Log in / Register */
@@ -215,3 +222,59 @@ img.profile_photo
 }
 
 /* END */
+
+/* COMMENT STYLING */
+
+.comment_content
+{
+  margin-bottom: 0rem;
+}
+
+.comment_header
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}
+
+.comment_header > small
+{
+  color: grey;
+}
+
+.parent_comment
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 0rem;
+}
+
+.parent_comment_wrapper
+{
+  padding-bottom: 1rem;
+}
+
+.child_comment_wrapper
+{
+  margin-left: 5rem;
+}
+
+.child_comment
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 0rem;
+}
+
+.comment_reply_btn
+{
+  margin-top: 1rem;
+  width: 4rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  font-size: 0.8rem;
+}

@@ -14,5 +14,6 @@
 ### [Markdown (syntax) Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 
 ---
-## Note for Peer:
-N/A
+## Requirements:
+1. Pillow
+2. django-cleanup
