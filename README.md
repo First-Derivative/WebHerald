@@ -17,7 +17,10 @@
 #### Notes for Discussion
 1. Comments implementation scope
 2. Login validation error not working
-3.
+
+#### known bugs
+1. Login validation
+2. When deleting the last comment on an article: the no comments message doesn't appear
 
 ---
 ## Requirements:

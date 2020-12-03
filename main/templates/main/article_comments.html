@@ -127,16 +127,17 @@
         'article': "{{ article.id }}"
       },
       success: function(response){
-        new_content = `<div class="media parent_comment_wrapper">
+        id = response.comment
+        new_content = `<div class="media parent_comment_wrapper" id="comment_${id}">
                         <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
 
                         <div class="media-body parent_comment">
 
-                          <div class="comment_header mt-0 mb-2">
+                          <div class="comment_header mt-0 mb-2" id="comment_header_${id}">
                             <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                             <div style="flex-grow:2;"></div>
-                              <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_${response.comment}">Edit</button>
-                              <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn__${response.comment}">Delete</button>
+                              <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_${id}">Edit</button>
+                              <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn_${id}">Delete</button>
                           </div>
 
                           <p class="comment_content">${content}</p>
@@ -155,6 +156,22 @@
 
         $('#comments_section').append(new_content)
         $('#new_comment_content').val("")
+
+        $(`#comment_header_${id}`).on("click", `#comment_delete_btn_${id}`, function() {
+          $.ajax(
+                {
+                method: 'DELETE',
+                headers: { "X-CSRFToken": token },
+                url: "{% url 'removeComment' 0 %}".replace(0, id),
+                success: function(){
+                  $(`#comment_${id}`).remove()
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert("textStatus: " + textStatus + " " + errorThrown)
+                }
+              })
+        })
+
       },
       error: function(jqXHR, textStatus, errorThrown){
         alert("textStatus: " + textStatus + " " + errorThrown)
