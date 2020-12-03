@@ -1,6 +1,6 @@
 {% extends 'main/user-form.html' %}
 
-{% block form-heading %}Log In{% endblock form-heading %}
+{% block form-heading %}<h2>Log In</h2>{% endblock form-heading %}
 
 {% block form %}
 <form method="POST">
@@ -20,6 +20,13 @@
 
   <button type="submit" class="btn btn-dark">Log in</button>
 </form>
+
+  {% for message in messages %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+  {% endfor %}
+
 {% endblock form %}
 
 {% block switch-form %}

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -65,6 +66,10 @@ def loginAccount(request):
             if(user):
                 login(request, user)
                 return redirect("homepage")
+        else:
+            messages.info(request, 'Email or password is incorrect, please try again')
+            return redirect("login")
+
     else:
         form = LoginForm()
         context['login_form'] = form
