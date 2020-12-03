@@ -11,7 +11,7 @@
       {% if request.user.is_authenticated %}
       <form id="new_comment_form">
         <div class="form-group" >
-          <textarea name="comment" class="form-control" rows="3" placeholder="Join the conversation..." id="new_comment_content"></textarea>
+          <textarea name="comment" class="form-control" rows="2" placeholder="Join the conversation..." id="new_comment_content"></textarea>
         </div>
         <button type="button" class="btn btn-dark" id="new_comment_submit">Post your comment</button>
       </form>
@@ -35,7 +35,7 @@
 
               <!-- PARENT COMMENT -->
               <div class="media parent_comment_wrapper" id="comment_{{comment.id}}">
-                <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+                <img src="{% static comment.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px" >
 
                 <div class="media-body parent_comment">
 
@@ -43,15 +43,22 @@
                     <h5 class="mr-3 mb-0">{{comment.user.username}}</h5>
                     <div style="flex-grow:2;"></div>
                     {% if request.user == comment.user%}
+                      <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
+                      <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="comment_delete_btn_{{comment.id}}">
+                      {% comment 'temp' %}
                       <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_{{comment.id}}">Edit</button>
                       <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn_{{comment.id}}">Delete</button>
+                      {% endcomment %}
                     {% endif %}
                   </div>
 
                   <p class="comment_content">{{comment.content}}</p>
                   <small class="serif comment_date"> Timestamp: {{comment.timestamp}}</small>
-                  <div class="comment_footer">
-                    <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn">Reply</button>
+                  <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{comment.id}}">Reply</button>
+                  <div class="comment_footer"  style="display:none" id="comment_footer_{{comment.id}}">
+                    <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
+                    <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_{{comment.id}}">Cancel</button>
+                    <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_{{comment.id}}">Reply</button>
                   </div>
 
                 </div>
@@ -70,14 +77,18 @@
                       <h5 class="mr-3 mb-0">{{child_comment.user.username}}</h5>
                       <div style="flex-grow:2;"></div>
                       {% if request.user == child_comment.user%}
-                        <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_{{child_comment.id}}">Edit</button>
-                        <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn_{{child_comment.id}}">Delete</button>
+                        <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
+                        <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="child_comment_delete_btn_{{comment.id}}">
                       {% endif %}
                     </div>
 
                     <p class="comment_content">{{child_comment.content}}</p>
                     <small class="serif comment_date"> Timestamp: {{child_comment.timestamp}}</small>
-                    <div class="comment_footer">
+                    <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{child_comment.id}}">Reply</button>
+                    <div class="comment_footer"  style="display:none" id="comment_footer_{{child_comment.id}}">
+                      <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{child_comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
+                      <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_{{child_comment.id}}">Cancel</button>
+                      <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_{{child_comment.id}}">Reply</button>
                     </div>
 
                   </div>
@@ -104,15 +115,58 @@
 
 <script>
 
+  // Front End functionality
+
   no_comments = true; // used to delete default 'no comments yet content'
 
-  if($('#no_comments').length == 0) { // updates no_comments
-    no_comments = false;
-  }
+  if($('#no_comments').length == 0){ no_comments = false;} // updates no_comments
 
   token = '{{csrf_token}}'
 
+  $('#new_comment_content').autoResize(); // Adds autoresizing to post new comment textarea
+
   // Handling new comment adding
+
+  var deleteHandler =  function(id){
+
+    wideselector = `#comment_header_${id}`
+    deleteselector = `#comment_delete_btn_${id}`
+    commentselector = `#comment_${id}`
+
+    $(wideselector).on("click", deleteselector, function() {
+      $.ajax(
+            {
+            method: 'DELETE',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'removeComment' 0 %}".replace(0, id),
+            success: function(){
+              $(commentselector).remove()
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+          })
+          })
+    }
+
+
+  var replyToggler = function(id){
+
+    commentfooter_selector = `#comment_footer_${id}`
+    commentreply_selector = `#comment_reply_btn_${id}`
+    comment_cancel_selector = `#comment_cancel_reply_btn_${id}`
+
+    $(commentreply_selector).click(function(){ // reply toggle
+      $(commentfooter_selector).toggle()
+      $(commentreply_selector).toggle()
+    })
+
+    $(comment_cancel_selector).click(function(){ // reply toggle
+      $(commentfooter_selector).toggle()
+      $(commentreply_selector).toggle()
+    })
+  }
+
 
   $('#new_comment_submit').click(function() {
     content = $('#new_comment_content').val()
@@ -129,21 +183,24 @@
       success: function(response){
         id = response.comment
         new_content = `<div class="media parent_comment_wrapper" id="comment_${id}">
-                        <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+                        <img src="{% static request.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px">
 
                         <div class="media-body parent_comment">
 
                           <div class="comment_header mt-0 mb-2" id="comment_header_${id}">
                             <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                             <div style="flex-grow:2;"></div>
-                              <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_${id}">Edit</button>
-                              <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn_${id}">Delete</button>
+                            <img src="{% static '/main/images/icons/edit_icon.png'%}" class="mr-3 target" alt="...">
+                            <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" alt="..." id="comment_delete_btn_${id}">
                           </div>
 
                           <p class="comment_content">${content}</p>
                           <small class="serif comment_date"> Timestamp: now </small>
-                          <div class="comment_footer">
-                            <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn">Reply</button>
+                          <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_${id}">Reply</button>
+                          <div class="comment_footer"  style="display:none" id="comment_footer_${id}">
+                            <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{request.user.username}}" id="new_reply_${id}"></textarea>
+                            <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_${id}">Cancel</button>
+                            <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_${id}">Reply</button>
                           </div>
 
                         </div>
@@ -157,20 +214,11 @@
         $('#comments_section').append(new_content)
         $('#new_comment_content').val("")
 
-        $(`#comment_header_${id}`).on("click", `#comment_delete_btn_${id}`, function() {
-          $.ajax(
-                {
-                method: 'DELETE',
-                headers: { "X-CSRFToken": token },
-                url: "{% url 'removeComment' 0 %}".replace(0, id),
-                success: function(){
-                  $(`#comment_${id}`).remove()
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                  alert("textStatus: " + textStatus + " " + errorThrown)
-                }
-              })
-        })
+        // add delete functionality for appended comment
+        deleteHandler(id)
+
+        // add toggle reply functionality for appended comment
+        replyToggler(id)
 
       },
       error: function(jqXHR, textStatus, errorThrown){
@@ -179,46 +227,29 @@
     })
   })
 
-  // Handling comment deleting
   {% if article_comments %}
 
     {% for comment in article_comments %}
 
-      $("#comment_header_{{comment.id}}").on("click", "#comment_delete_btn_{{comment.id}}", function() {
-        $.ajax(
-              {
-              method: 'DELETE',
-              headers: { "X-CSRFToken": token },
-              url: "{% url 'removeComment' comment.id %}",
-              success: function(){
-                $("#comment_{{comment.id}}").remove()
-              },
-              error: function(jqXHR, textStatus, errorThrown){
-                alert("textStatus: " + textStatus + " " + errorThrown)
-              }
-            })
-      })
+      // Handling comment deleting for parent comments
+      deleteHandler({{comment.id}})
+
+      // Handling comment replying for parent comments
+      replyToggler({{comment.id}})
 
       {% for child_comment in comment.child_comments.all %}
 
-        $("#comment_header_{{child_comment.id}}").on("click", "#comment_delete_btn_{{child_comment.id}}", function() {
-          $.ajax(
-                {
-                method: 'DELETE',
-                headers: { "X-CSRFToken": token },
-                url: "{% url 'removeComment' child_comment.id %}",
-                success: function(){
-                  $("#comment_{{child_comment.id}}").remove()
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                  alert("textStatus: " + textStatus + " " + errorThrown)
-                }
-              })
-        })
+      // Handling comment deleting for children comments
+      deleteHandler({{child_comment.comment.id}})
+
+      // Handling comment replying for children comments
+      replyToggler({{child_comment.id}})
 
       {% endfor %}
 
     {% endfor %}
 
   {% endif %}
+
+
 </script>

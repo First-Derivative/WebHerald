@@ -99,7 +99,7 @@ def updateLikes(request, article_id):
 
 @login_required
 def addComment(request):
-    if(request.POST):
+    if(request.method == 'POST'):
         post = request.POST
         state = post.get('state')
         if(state == 'new_comment'):

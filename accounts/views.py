@@ -21,7 +21,7 @@ def registerAccount(request):
     if(request.user.is_authenticated):
         return redirect('homepage')
 
-    if(request.POST):
+    if(request.method == 'POST'):
         form = RegisterForm(request.POST)
         if(form.is_valid()):
             form.save()
@@ -82,7 +82,7 @@ def getProfilePage(request):
     default = user._meta.get_field('profile_pic').get_default()
 
     # Handle image form, case = update image
-    if request.method == 'POST' and 'update' in request.POST:
+    if(request.method == 'POST' and 'update' in request.POST):
         try:
             form = ImageForm(request.POST, request.FILES, instance=user)
             if form.is_valid():
@@ -92,7 +92,7 @@ def getProfilePage(request):
             HttpResponse(status=409)
 
     # On 'delete' replace with default profile image
-    if request.method == 'POST' and 'delete' in request.POST:
+    if(request.method == 'POST' and 'delete' in request.POST):
         user.profile_pic = default
         user.save()
 
@@ -107,7 +107,7 @@ def getProfilePage(request):
 @login_required
 def modify_personal_category(request):
     user = request.user
-    if(request.POST):
+    if(request.method == 'POST'):
         if(request.POST.get('operation') == 'add'):
             try:
                 content = request.POST.get('content')

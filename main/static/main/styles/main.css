@@ -213,6 +213,7 @@ img.profile_photo
 {
   height: 128px;
   width: 128px;
+  border-radius: 50%;
 }
 
 #profile_category_form
@@ -246,6 +247,25 @@ img.profile_photo
 .comment_header > button
 {
   margin-left: 0.5rem;
+}
+
+.comment_header > img
+{
+  margin-left: 1rem;
+  position: relative;
+  bottom: -0.3rem;
+}
+
+.comment_user_img
+{
+  border-radius: 50%;
+  position: relative;
+  top: 0.2rem;
+}
+
+.comment_footer
+{
+  padding-top: 1rem;
 }
 
 .comment_date
