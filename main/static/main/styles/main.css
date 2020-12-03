@@ -11,6 +11,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'DM Serif Display', serif;
 }
 
+.heading_light {
+  color: #64788C;
+}
+
 .target{cursor:pointer;}
 
 .serif{ font-family: 'DM Serif Display', serif; }
