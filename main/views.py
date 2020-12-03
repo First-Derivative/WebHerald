@@ -124,7 +124,21 @@ def addComment(request):
     return redirect('homepage')
 
 @login_required
-def removeComment(request):
-    if(request.POST):
-        return HttpResponse(status=200)
+def removeComment(request, comment_id):
+    if(request.method == 'DELETE'):
+        comment = None
+        user = request.user
+
+        #verify comment
+        try:
+            comment = Comments.objects.get(id=comment_id)
+        except Comments.DoesNotExist:
+            return HttpResponseBadRequest("Invalid Comment ID")
+
+        #verify user
+        if(comment.user == user):
+            comment.delete()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponseBadRequest("Suspicious Request")
     return redirect('homepage')

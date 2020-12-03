@@ -34,12 +34,12 @@
           {% for comment in article_comments %}
 
               <!-- PARENT COMMENT -->
-              <div class="media parent_comment_wrapper">
+              <div class="media parent_comment_wrapper" id="comment_{{comment.id}}">
                 <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
 
-                <div class="media-body  parent_comment" id="comment_{{comment.id}}">
+                <div class="media-body parent_comment">
 
-                  <div class="comment_header mt-0 mb-2">
+                  <div class="comment_header mt-0 mb-2" id="comment_header_{{comment.id}}">
                     <h5 class="mr-3 mb-0">{{comment.user.username}}</h5>
                     <div style="flex-grow:2;"></div>
                     {% if request.user == comment.user%}
@@ -61,12 +61,12 @@
               {% for child_comment in comment.child_comments.all %}
 
                 <!--  CHILD COMMENTS  -->
-                <div class="media mb-5 child_comment_wrapper">
+                <div class="media mb-5 child_comment_wrapper" id="comment_{{comment.id}}">
                 <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
 
-                  <div class="media-body child_comment" id="{{child_comment.id}}">
+                  <div class="media-body child_comment">
 
-                    <div class="comment_header mt-0 mb-2">
+                    <div class="comment_header mt-0 mb-2" id="comment_header_{{child_comment.id}}">
                       <h5 class="mr-3 mb-0">{{child_comment.user.username}}</h5>
                       <div style="flex-grow:2;"></div>
                       {% if request.user == child_comment.user%}
@@ -167,14 +167,36 @@
 
     {% for comment in article_comments %}
 
-      $("#comments_section").on("click", "#comment_delete_btn_{{comment.id}}", function() {
-          alert("deleting adult comment")
+      $("#comment_header_{{comment.id}}").on("click", "#comment_delete_btn_{{comment.id}}", function() {
+        $.ajax(
+              {
+              method: 'DELETE',
+              headers: { "X-CSRFToken": token },
+              url: "{% url 'removeComment' comment.id %}",
+              success: function(){
+                $("#comment_{{comment.id}}").remove()
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+                alert("textStatus: " + textStatus + " " + errorThrown)
+              }
+            })
       })
 
       {% for child_comment in comment.child_comments.all %}
 
-        $("#comments_section").on("click", "#comment_delete_btn_{{child_comment.id}}", function() {
-          alert("deleteing child comment")
+        $("#comment_header_{{child_comment.id}}").on("click", "#comment_delete_btn_{{child_comment.id}}", function() {
+          $.ajax(
+                {
+                method: 'DELETE',
+                headers: { "X-CSRFToken": token },
+                url: "{% url 'removeComment' child_comment.id %}",
+                success: function(){
+                  $("#comment_{{child_comment.id}}").remove()
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert("textStatus: " + textStatus + " " + errorThrown)
+                }
+              })
         })
 
       {% endfor %}

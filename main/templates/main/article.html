@@ -28,7 +28,7 @@
     <!-- Article Image Section -->
     <div class="article_image_wrapper">
       <div class="article_image_container">
-        <img src="{% static article.get_imageurl %}" class="img-fluid" alt="{{ article.image_caption }}">
+        <img src="{% static article.get_imageurl %}" class="img-fluid" title="{{ article.image_caption }}">
         <figcaption class="figure-caption">{% block caption %}{{ article.image_caption }}{% endblock %}</figcaption>
       </div>
     </div>
