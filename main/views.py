@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 
 from accounts.models import Account
@@ -58,9 +58,6 @@ def category_index(request, category):
     for category_entry in ArticleCategory.objects.all():
         if(category_entry.category_code == selected):
             articles_list.append(category_entry.article)
-
-    print(articles_list)
-
     context = {
         'selected': selected,
         'articles_list': articles_list,
@@ -80,17 +77,14 @@ def updateLikes(request, article_id):
         # determine whether user already likes article
         if request.method == 'GET':
             if Likes.objects.filter(article=article, user=user).exists():
-                print('user likes this aricle')
                 return JsonResponse({'is_liked': 'true'})
             else:
-                print('user does not like this article')
                 return JsonResponse({'is_liked': 'false'})
 
         # Add like
         if request.method == 'POST':
             Likes.objects.create(article=article, user=user)
             likes = article.like_count
-            print(likes)
             return JsonResponse({'num_likes': likes})
 
         # Remove like
@@ -102,3 +96,35 @@ def updateLikes(request, article_id):
 
     except Article.DoesNotExist:
         return HttpResponseBadRequest("Invalid Article ID")
+
+@login_required
+def addComment(request):
+    if(request.POST):
+        post = request.POST
+        state = post.get('state')
+        if(state == 'new_comment'):
+            post_article = post.get('article')
+            article = None
+            content = post.get('content')
+            user = request.user
+
+            # verifying article
+            try:
+                article = Article.objects.get(id=post_article)
+            except Article.DoesNotExist:
+                return HttpResponseBadRequest("Invalid Article ID")
+
+            new_comment = Comments(article=article, user=user, content=content)
+            new_comment.save()
+            return JsonResponse({'comment': new_comment.id})
+        elif(state == 'reply'):
+            post_user = post.get('user')
+            return HttpResponse(status=200)
+        return HttpResponseBadRequest("Suspicious Request")
+    return redirect('homepage')
+
+@login_required
+def removeComment(request):
+    if(request.POST):
+        return HttpResponse(status=200)
+    return redirect('homepage')

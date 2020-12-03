@@ -14,6 +14,12 @@
 ### [Markdown (syntax) Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 
 ---
+#### Notes for Discussion
+1. Comments implementation scope
+2. Login validation error not working
+3.
+
+---
 ## Requirements:
 1. Pillow
 2. django-cleanup

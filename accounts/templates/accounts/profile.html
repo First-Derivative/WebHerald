@@ -76,8 +76,7 @@
     {% for category in categories%}
 
       $('#{{category}}').change(function() {
-        // if checkbox is being checked
-        if(this.checked == true)
+        if(this.checked == true) // if checkbox is being checked
         {
           $.ajax({
             type: 'POST',
@@ -95,8 +94,7 @@
             }
               })
         }
-        // if checkbox is being unchecked
-        else
+        else // if checkbox is being unchecked
         {
           $.ajax({
             type: 'POST',

@@ -234,12 +234,17 @@ img.profile_photo
 {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: baseline;
   width: 100%;
 }
 
-.comment_header > small
+.comment_header > button
+{
+  margin-left: 0.5rem;
+}
+
+.comment_date
 {
   color: grey;
 }
@@ -270,11 +275,12 @@ img.profile_photo
   margin-top: 0rem;
 }
 
-.comment_reply_btn
+.comment_btn
 {
   margin-top: 1rem;
   width: 4rem;
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   font-size: 0.8rem;
+  text-align: center;
 }

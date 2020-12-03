@@ -1,19 +1,19 @@
 {% load static %}
 
 <!-- Comments -->
-<div class="row border my-3 p-3 w-100" id="comments_section">
+<div class="row border my-3 p-3 w-100">
 
   <div class="p-2 w-100" >
-    <h2>Comments</h2>
+    <h2>Comments </h2>
 
     <!-- Comment post form -->
     <div class="post_comment pt-3 w-auto" id="comment_post_wrapper">
       {% if request.user.is_authenticated %}
       <form id="new_comment_form">
         <div class="form-group" >
-          <textarea name="comment" class="form-control" rows="3" placeholder="Join the conversation..."></textarea>
+          <textarea name="comment" class="form-control" rows="3" placeholder="Join the conversation..." id="new_comment_content"></textarea>
         </div>
-        <button type="submit" class="btn btn-dark">Post your comment</button>
+        <button type="button" class="btn btn-dark" id="new_comment_submit">Post your comment</button>
       </form>
       {% else %}
         <div>
@@ -25,9 +25,9 @@
     <hr>
 
     <!-- Display comments -->
-    <div class="media mt-5" id="comments_display">
+    <div class="media mt-5">
 
-      <div class="media-body ml-4">
+      <div class="media-body ml-4" id="comments_section">
 
         {% if article_comments %}
 
@@ -37,45 +37,63 @@
               <div class="media parent_comment_wrapper">
                 <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
 
-                <div class="media-body  parent_comment">
+                <div class="media-body  parent_comment" id="comment_{{comment.id}}">
+
                   <div class="comment_header mt-0 mb-2">
                     <h5 class="mr-3 mb-0">{{comment.user.username}}</h5>
-                    <small class="serif"> commented on: {{comment.timestamp}}</small>
-
+                    <div style="flex-grow:2;"></div>
+                    {% if request.user == comment.user%}
+                      <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_{{comment.id}}">Edit</button>
+                      <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn_{{comment.id}}">Delete</button>
+                    {% endif %}
                   </div>
 
                   <p class="comment_content">{{comment.content}}</p>
-                  <button type="button" class="btn btn-dark comment_reply_btn">Reply</button>
+                  <small class="serif comment_date"> Timestamp: {{comment.timestamp}}</small>
+                  <div class="comment_footer">
+                    <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn">Reply</button>
+                  </div>
+
                 </div>
 
               </div>
 
               {% for child_comment in comment.child_comments.all %}
+
                 <!--  CHILD COMMENTS  -->
                 <div class="media mb-5 child_comment_wrapper">
                 <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
 
-                  <div class="media-body child_comment">
+                  <div class="media-body child_comment" id="{{child_comment.id}}">
+
                     <div class="comment_header mt-0 mb-2">
                       <h5 class="mr-3 mb-0">{{child_comment.user.username}}</h5>
-                      <small class="serif"> commented on: {{child_comment.timestamp}}</small>
+                      <div style="flex-grow:2;"></div>
+                      {% if request.user == child_comment.user%}
+                        <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_{{child_comment.id}}">Edit</button>
+                        <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn_{{child_comment.id}}">Delete</button>
+                      {% endif %}
                     </div>
 
                     <p class="comment_content">{{child_comment.content}}</p>
-                    <button type="button" class="btn btn-dark comment_reply_btn">Reply</button>
-                  </div>
+                    <small class="serif comment_date"> Timestamp: {{child_comment.timestamp}}</small>
+                    <div class="comment_footer">
+                    </div>
 
+                  </div>
                 </div>
+
               {% endfor %}
+
           {% endfor %}
 
         {% else %}
 
-          <div class="ml-3 pb-5" >
+          <div class="ml-3 pb-5" id="no_comments" >
             <h4>No comments yet! Be the first.</h4>
           </div>
 
-        {% endif%}
+        {% endif %}
 
       </div>
 
@@ -83,3 +101,85 @@
   </div>
 
 </div>
+
+<script>
+
+  no_comments = true; // used to delete default 'no comments yet content'
+
+  if($('#no_comments').length == 0) { // updates no_comments
+    no_comments = false;
+  }
+
+  token = '{{csrf_token}}'
+
+  // Handling new comment adding
+
+  $('#new_comment_submit').click(function() {
+    content = $('#new_comment_content').val()
+
+    $.ajax({
+      type: 'POST',
+      headers: { "X-CSRFToken": token },
+      url: "{% url 'addComment' %}",
+      data:{
+        'state': 'new_comment',
+        'content': content,
+        'article': "{{ article.id }}"
+      },
+      success: function(response){
+        new_content = `<div class="media parent_comment_wrapper">
+                        <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+
+                        <div class="media-body parent_comment">
+
+                          <div class="comment_header mt-0 mb-2">
+                            <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
+                            <div style="flex-grow:2;"></div>
+                              <button type="button" class="btn btn-secondary comment_btn" id="comment_edit_btn_${response.comment}">Edit</button>
+                              <button type="button" class="btn btn-danger comment_btn" id="comment_delete_btn__${response.comment}">Delete</button>
+                          </div>
+
+                          <p class="comment_content">${content}</p>
+                          <small class="serif comment_date"> Timestamp: now </small>
+                          <div class="comment_footer">
+                            <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn">Reply</button>
+                          </div>
+
+                        </div>
+
+                      </div>`
+
+        if(no_comments){
+          $('#no_comments').remove()
+        }
+
+        $('#comments_section').append(new_content)
+        $('#new_comment_content').val("")
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+        alert("textStatus: " + textStatus + " " + errorThrown)
+      }
+    })
+  })
+
+  // Handling comment deleting
+  {% if article_comments %}
+
+    {% for comment in article_comments %}
+
+      $("#comments_section").on("click", "#comment_delete_btn_{{comment.id}}", function() {
+          alert("deleting adult comment")
+      })
+
+      {% for child_comment in comment.child_comments.all %}
+
+        $("#comments_section").on("click", "#comment_delete_btn_{{child_comment.id}}", function() {
+          alert("deleteing child comment")
+        })
+
+      {% endfor %}
+
+    {% endfor %}
+
+  {% endif %}
+</script>
