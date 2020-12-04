@@ -101,25 +101,45 @@ def updateLikes(request, article_id):
 def addComment(request):
     if(request.method == 'POST'):
         post = request.POST
+        user = request.user
         state = post.get('state')
         if(state == 'new_comment'):
-            post_article = post.get('article')
+            article_id = post.get('article')
             article = None
             content = post.get('content')
-            user = request.user
 
             # verifying article
             try:
-                article = Article.objects.get(id=post_article)
+                article = Article.objects.get(id=article_id)
             except Article.DoesNotExist:
                 return HttpResponseBadRequest("Invalid Article ID")
 
             new_comment = Comments(article=article, user=user, content=content)
             new_comment.save()
-            return JsonResponse({'comment': new_comment.id})
-        elif(state == 'reply'):
-            post_user = post.get('user')
-            return HttpResponse(status=200)
+            return JsonResponse({'id': new_comment.id,'username':user.username,'timestamp':new_comment.timestamp})
+        elif(state == 'new_reply'):
+            article_id = post.get('article')
+            parent_id  = post.get('parent')
+            content = post.get('content')
+            article = None
+            parent = None
+
+            # verifying article
+            try:
+                article = Article.objects.get(id=article_id)
+            except Article.DoesNotExist:
+                return HttpResponseBadRequest("Invalid Article ID")
+
+            # verifying parent commnet
+            try:
+                parent = Comments.objects.get(id=parent_id)
+            except Comments.DoesNotExist:
+                return HttpResponseBadRequest("Invalid Comment ID")
+
+            new_comment = Comments(article=article, user=user, content=content, parent_comment=parent)
+            new_comment.save()
+            
+            return JsonResponse({'id': new_comment.id,'timestamp':new_comment.timestamp})
         return HttpResponseBadRequest("Suspicious Request")
     return redirect('homepage')
 

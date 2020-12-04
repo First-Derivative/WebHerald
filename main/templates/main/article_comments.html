@@ -12,7 +12,7 @@
       <form id="new_comment_form">
         <div class="form-group" >
           <textarea name="comment" class="form-control" rows="2" placeholder="Join the conversation..." id="new_comment_content"></textarea>
-          <p class="text-danger pt-3" id="new_comment_error"></p>
+          <p style="display:none" class="text-danger pt-3 mb-0" id="new_comment_error"></p>
         </div>
         <button type="button" class="btn btn-dark" id="new_comment_submit">Post your comment</button>
       </form>
@@ -28,7 +28,7 @@
     <!-- Display comments -->
     <div class="media mt-5">
 
-      <div class="media-body ml-4" id="comments_section">
+      <div class="media-body ml-4" id="comments_section" name="">
 
         {% if article_comments %}
 
@@ -55,6 +55,7 @@
 
                   <div class="comment_footer"  style="display:none" id="comment_footer_{{comment.id}}">
                     <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
+                    <p style="display: none;" class="text-danger pt-3 mb-0" id="reply_error_{{comment.id}}"><p>
                     <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_{{comment.id}}">Cancel</button>
                     <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_{{comment.id}}">Reply</button>
                   </div>
@@ -67,7 +68,7 @@
 
                 <!--  CHILD COMMENTS  -->
                 <div class="media mb-5 child_comment_wrapper" id="comment_{{child_comment.id}}">
-                <img src="{% static 'images/profile_pictures/empty-profile.jpg' %}" class="mr-3" alt="..." width="64px" height="64px">
+                <img src="{% static child_comment.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px">
 
                   <div class="media-body child_comment">
 
@@ -82,12 +83,14 @@
 
                     <p class="comment_content">{{child_comment.content}}</p>
                     <small class="serif comment_date"> Timestamp: {{child_comment.timestamp}}</small>
+                    {% comment %}
                     <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{child_comment.id}}">Reply</button>
                     <div class="comment_footer"  style="display:none" id="comment_footer_{{child_comment.id}}">
                       <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{child_comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
                       <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_{{child_comment.id}}">Cancel</button>
                       <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_{{child_comment.id}}">Reply</button>
                     </div>
+                    {% endcomment %}
 
                   </div>
                 </div>
@@ -122,6 +125,8 @@
 
   token = '{{csrf_token}}'
 
+
+
   $('#new_comment_content').autoResize(); // Adds autoresizing to post new comment textarea
 
   // Handling new comment adding
@@ -130,13 +135,14 @@
 
     content = $('#new_comment_content').val()
 
-    if(content == "")
+    if(content == "") // validates for non-empty content
     {
+      $('#new_comment_error').toggle()
       $('#new_comment_error').text("You can't post an empty comment!")
       return
     }
 
-    $('#new_comment_error').val("")
+    $('#new_comment_error').toggle()
     $('#new_comment_error').text("")
 
     $.ajax({
@@ -149,7 +155,9 @@
         'article': "{{ article.id }}"
       },
       success: function(response){
-        id = response.comment
+        id = response.id
+        timestamp = response.timestamp
+        username = response.username
         new_content = `<div class="media parent_comment_wrapper" id="comment_${id}">
                         <img src="{% static request.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px">
 
@@ -163,10 +171,10 @@
                           </div>
 
                           <p class="comment_content">${content}</p>
-                          <small class="serif comment_date"> Timestamp: now </small>
+                          <small class="serif comment_date"> Timestamp: ${timestamp}</small>
                           <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_${id}">Reply</button>
                           <div class="comment_footer"  style="display:none" id="comment_footer_${id}">
-                            <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{request.user.username}}" id="new_reply_${id}"></textarea>
+                            <textarea name="reply" class="form-control" rows="1" placeholder="Reply to ${username}" id="new_reply_${id}"></textarea>
                             <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_${id}">Cancel</button>
                             <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_${id}">Reply</button>
                           </div>
@@ -184,7 +192,7 @@
 
         // add delete functionality for appended comment
         $(`#comment_delete_btn_${id}`).on("click", function() {
-          proper_id = $(this).attr('name');
+          proper_id = $(this).attr('name')
 
           $.ajax({
             method: 'DELETE',
@@ -201,8 +209,99 @@
         })
 
         // add toggle reply functionality for appended comment
+
+        $(`#comment_reply_btn_${id}`).click(function(){
+          $(`#comment_footer_${id}`).toggle()
+          $(`#comment_reply_btn_${id}`).toggle()
+        })
+
+        $(`#comment_cancel_reply_btn_${id}`).click(function(){
+          $(`#comment_footer_${id}`).toggle()
+          $(`#comment_reply_btn_${id}`).toggle()
+        })
+
+        // add add new reply for appended comment
+        $(`#comment_submit_reply_btn_${id}`).on("click", function(){
+          console.log('creating new reply post')
+          content = $(`#new_reply_${id}`).val()
+          parent_comment = id
+          parent_selector = '#comment_' + id
+
+          article_id = $('#article_container').attr('name')
+
+          if(content == "")
+          {
+            $(`#reply_error_${id}`).toggle()
+            $(`#reply_error_${id}`).text("You can't reply with an empty comment!")
+            return
+          }
+
+          $(`#new_reply_${id}`).val("")
+          $(`#reply_error_${id}`).text("")
+          $(`#reply_error_${id}`).toggle()
+
+          $.ajax({
+            type: 'POST',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'addComment' %}",
+            data:{
+              'state': 'new_reply',
+              'content': content,
+              'article': article_id,
+              'parent': parent_comment
+            },
+            success: function(response){
+              reply_id = response.id
+              reply_timestamp = response.timestamp
+              new_reply = `<div class="media mb-5 child_comment_wrapper" id="comment_${reply_id}">
+                              <img src="{% static request.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px">
+
+                                <div class="media-body child_comment">
+
+                                  <div class="comment_header mt-0 mb-2" id="comment_header_${reply_id}">
+                                    <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
+                                    <div style="flex-grow:2;"></div>
+                                      <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
+                                      <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${reply_id}" id="comment_delete_btn_${reply_id}">
+                                  </div>
+
+                                  <p class="comment_content">${content}</p>
+                                  <small class="serif comment_date"> Timestamp: ${reply_timestamp} </small>
+                                </div>
+                              </div>`
+
+              $(parent_selector).after(new_reply)
+              $(`#comment_footer_${id}`).toggle()
+              $(`#comment_reply_btn_${id}`).toggle()
+              $(`#reply_error_${id}`).toggle()
+
+              // add delete functionality for appended reply
+              $(`#comment_delete_btn_${reply_id}`).on("click", function() {
+                proper_id = $(this).attr('name')
+
+                $.ajax({
+                  method: 'DELETE',
+                  headers: { "X-CSRFToken": token },
+                  url: "{% url 'removeComment' 0 %}".replace(0, proper_id),
+                  success: function(){
+                    $(`#comment_${proper_id}`).remove()
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    alert("textStatus: " + textStatus + " " + errorThrown)
+                  }
+                })
+
+              })
+
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+          })
+        })
+
     },
-    function(jqXHR, textStatus, errorThrown){
+    error: function(jqXHR, textStatus, errorThrown){
       alert("textStatus: " + textStatus + " " + errorThrown)
     }
     })
@@ -231,14 +330,76 @@
 
       // Handling comment replying for parent comments
 
-      $('#comment_reply_btn_{{comment.id}}').click(function(){ // reply toggle
+      // front end reply toggles
+      $('#comment_reply_btn_{{comment.id}}').click(function(){
+        $('#comment_footer_{{comment.id}}').toggle()
+        $('#comment_reply_btn_{{comment.id}}').toggle()
+      })
+      $('#comment_cancel_reply_btn_{{comment.id}}').click(function(){
+        $('#reply_error_{{comment.id}}').text("")
+        $('#reply_error_{{comment.id}}').toggle()
         $('#comment_footer_{{comment.id}}').toggle()
         $('#comment_reply_btn_{{comment.id}}').toggle()
       })
 
-      $('#comment_cancel_reply_btn_{{comment.id}}').click(function(){ // reply toggle
-        $('#comment_footer_{{comment.id}}').toggle()
-        $('#comment_reply_btn_{{comment.id}}').toggle()
+      // ajax new comment_reply
+      $('#comment_submit_reply_btn_{{comment.id}}').click(function(){
+
+        content = $('#new_reply_{{comment.id}}').val()
+        parent_comment = {{comment.id}}
+        parent_selector = '#comment_{{comment.id}}'
+
+        if(content == "")
+        {
+          $('#reply_error_{{comment.id}}').toggle()
+          $('#reply_error_{{comment.id}}').text("You can't reply with an empty comment!")
+          return
+        }
+
+        $('#new_reply_{{comment.id}}').val("")
+        $('#reply_error_{{comment.id}}').text("")
+        $('#reply_error_{{comment.id}}').toggle()
+
+        $.ajax({
+          type: 'POST',
+          headers: { "X-CSRFToken": token },
+          url: "{% url 'addComment' %}",
+          data:{
+            'state': 'new_reply',
+            'content': content,
+            'article': "{{ article.id }}",
+            'parent': parent_comment
+          },
+          success: function(response){
+            id = response.id
+            timestamp = response.timestamp
+            new_content = `<div class="media mb-5 child_comment_wrapper" id="comment_${id}">
+                            <img src="{% static request.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px">
+
+                              <div class="media-body child_comment">
+
+                                <div class="comment_header mt-0 mb-2" id="comment_header_${id}">
+                                  <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
+                                  <div style="flex-grow:2;"></div>
+                                    <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
+                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="comment_delete_btn_{{child_comment.id}}">
+                                </div>
+
+                                <p class="comment_content">${content}</p>
+                                <small class="serif comment_date"> Timestamp: ${timestamp} </small>
+                              </div>
+                            </div>`
+
+            $(parent_selector).after(new_content)
+            $('#comment_footer_{{comment.id}}').toggle()
+            $('#comment_reply_btn_{{comment.id}}').toggle()
+            $('#reply_error_{{comment.id}}').toggle()
+
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert("textStatus: " + textStatus + " " + errorThrown)
+          }
+        })
       })
 
       {% for child_comment in comment.child_comments.all %}
@@ -250,7 +411,7 @@
         $.ajax({
               method: 'DELETE',
               headers: { "X-CSRFToken": token },
-              url: "{% url 'removeComment' comment.id %}",
+              url: "{% url 'removeComment' child_comment.id %}",
               success: function(){
                 $('#comment_{{child_comment.id}}').remove()
               },
@@ -260,18 +421,17 @@
             })
       })
 
+      {% comment 'if child replying needed' %}
       // Handling comment replying for children comments
-
       $('#comment_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
         $('#comment_footer_{{child_comment.id}}').toggle()
         $('#comment_reply_btn_{{child_comment.id}}').toggle()
       })
-
       $('#comment_cancel_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
         $('#comment_footer_{{child_comment.id}}').toggle()
         $('#comment_reply_btn_{{child_comment.id}}').toggle()
       })
-
+      {% endcomment %}
 
       {% endfor %}
 
