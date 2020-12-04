@@ -18,7 +18,7 @@
               <h5 class="card-text card_author">{{entry.author}}</h5>
               <div class="card_footer">
                 <a href="#" class="card-link highlight hover">{{entry.like_count}} Likes</a>
-                <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">Comments</a>
+                <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">{{entry.comment_count}} Comments</a>
               </div>
             </div>
           </div>

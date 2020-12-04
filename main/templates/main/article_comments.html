@@ -44,16 +44,22 @@
                     <h5 class="mr-3 mb-0">{{comment.user.username}}</h5>
                     <div style="flex-grow:2;"></div>
                     {% if request.user == comment.user%}
-                      <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
+                      <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="..." id="comment_edit_btn_{{comment.id}}">
                       <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="comment_delete_btn_{{comment.id}}">
                     {% endif %}
                   </div>
+
                   <div class='comment_body' id="comment_body_{{comment.id}}">
                     <p class="comment_content" id="comment_content_{{comment.id}}">{{comment.content}}</p>
+                    <textarea style="display:none" name="edit" class="form-control" rows="1" id="edit_field_{{comment.id}}">{{comment.content}}</textarea>
+                    <p style="display:none" class="text-danger pt-3 mb-0" id="edit_error_{{comment.id}}"></p>
+                    <button style="display:none" type="button" class="btn btn-dark comment_btn " id="comment_cancel_edit_btn_{{comment.id}}">Cancel</button>
+                    <button style="display:none" type="button" class="btn btn-danger comment_btn " id="comment_save_edit_btn_{{comment.id}}">Save</button>
                   </div>
-                  <small class="serif comment_date"> Timestamp: {{comment.timestamp}}</small>
 
+                  <small class="serif comment_date"> Timestamp: {{comment.timestamp}}</small>
                   <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{comment.id}}">Reply</button>
+
                   <div class="comment_footer"  style="display:none" id="comment_footer_{{comment.id}}">
                     <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
                     <p style="display: none;" class="text-danger pt-3 mb-0" id="reply_error_{{comment.id}}"><p>
@@ -77,17 +83,24 @@
                       <h5 class="mr-3 mb-0">{{child_comment.user.username}}</h5>
                       <div style="flex-grow:2;"></div>
                       {% if request.user == child_comment.user%}
-                        <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" title="edit comment "alt="...">
+                        <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" title="edit comment "alt="..." id="comment_edit_btn_{{child_comment.id}}">
                         <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" title="delete comment" alt="..." id="comment_delete_btn_{{child_comment.id}}">
                       {% endif %}
                     </div>
 
-                    <p class="comment_content">{{child_comment.content}}</p>
+                    <div class='comment_body' id="comment_body_{{child_comment.id}}">
+                      <p class="comment_content" id="comment_content_{{child_comment.id}}">{{child_comment.content}}</p>
+                      <textarea style="display:none" name="edit" class="form-control" rows="1" id="edit_field_{{child_comment.id}}">{{child_comment.content}}</textarea>
+                      <p style="display:none" class="text-danger pt-3 mb-0" id="edit_error_{{child_comment.id}}"></p>
+                      <button style="display:none" type="button" class="btn btn-dark comment_btn " id="comment_cancel_edit_btn_{{child_comment.id}}">Cancel</button>
+                      <button style="display:none" type="button" class="btn btn-danger comment_btn " id="comment_save_edit_btn_{{child_comment.id}}">Save</button>
+                    </div>
+
                     <small class="serif comment_date"> Timestamp: {{child_comment.timestamp}}</small>
                     {% comment %}
                     <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{child_comment.id}}">Reply</button>
                     <div class="comment_footer"  style="display:none" id="comment_footer_{{child_comment.id}}">
-                      <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{child_comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
+                      <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{child_comment.user.username}}" id="new_reply_{{child_comment.id}}"></textarea>
                       <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_{{child_comment.id}}">Cancel</button>
                       <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_{{child_comment.id}}">Reply</button>
                     </div>
@@ -320,7 +333,7 @@
 
     {% for comment in article_comments %}
 
-      // Handling comment deleting for parent comment {{comment.id}}
+      // Handling comment deleting for parent comments
       $('#comment_delete_btn_{{comment.id}}').click(function(){
 
         $.ajax({
@@ -336,6 +349,7 @@
             })
       })
 
+
       // Handling comment replying for parent comments
 
       // front end reply toggles
@@ -349,7 +363,6 @@
         $('#comment_footer_{{comment.id}}').toggle()
         $('#comment_reply_btn_{{comment.id}}').toggle()
       })
-
       $('#new_reply_{{comment.id}}').autoResize();
 
       // ajax new comment_reply
@@ -430,11 +443,85 @@
         })
       })
 
+      // Handling comment editing for parent comments
+
+      // front end edit toggles
+      $('#comment_edit_btn_{{comment.id}}').click(function(e){
+
+        $.ajax({
+          type: 'GET',
+          url: "{% url 'getCommentContents' comment.id %}",
+          success: function(response){
+            content = response.content
+            $('#edit_field_{{comment.id}}').val(content)
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert("textStatus: " + textStatus + " " + errorThrown)
+          }
+        })
+
+        $('#comment_content_{{comment.id}}').toggle()
+        $('#edit_field_{{comment.id}}').toggle()
+
+        $('#comment_cancel_edit_btn_{{comment.id}}').toggle()
+        $('#comment_save_edit_btn_{{comment.id}}').toggle()
+
+        $('#comment_reply_btn_{{comment.id}}').toggle()
+      })
+      $('#comment_cancel_edit_btn_{{comment.id}}').click(function(e){
+
+        $('#comment_content_{{comment.id}}').toggle()
+        $('#edit_field_{{comment.id}}').toggle()
+
+        $('#comment_cancel_edit_btn_{{comment.id}}').toggle()
+        $('#comment_save_edit_btn_{{comment.id}}').toggle()
+
+        $('#comment_reply_btn_{{comment.id}}').toggle()
+        $('#edit_error_{{comment.id}}').text("")
+        $('#edit_error_{{comment.id}}').toggle()
+      })
+
+      // ajax edit comment
+      $('#comment_save_edit_btn_{{comment.id}}').click(function(){
+
+        content = $('#edit_field_{{comment.id}}').val()
+
+        if(content == '')
+        {
+          $('#edit_error_{{comment.id}}').text("You can't have an empty comment!")
+          $('#edit_error_{{comment.id}}').toggle()
+          return
+        }
+
+        $.ajax({
+          type: 'POST',
+          headers: { "X-CSRFToken": token },
+          url: "{% url 'modifyComment' comment.id %}",
+          data:{
+            'content': content,
+            'article': "{{ article.id }}"
+          },
+          success: function(response){
+            $('#comment_content_{{comment.id}}').text(content)
+
+            $('#comment_content_{{comment.id}}').toggle()
+            $('#edit_field_{{comment.id}}').toggle()
+
+            $('#comment_cancel_edit_btn_{{comment.id}}').toggle()
+            $('#comment_save_edit_btn_{{comment.id}}').toggle()
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert("textStatus: " + textStatus + " " + errorThrown)
+          }
+        })
+
+      })
+
       {% for child_comment in comment.child_comments.all %}
 
-      // Handling comment deleting for children comments
+        // Handling comment deleting for children comments
 
-      $('#comment_delete_btn_{{child_comment.id}}').click(function(){
+        $('#comment_delete_btn_{{child_comment.id}}').click(function(){
 
         $.ajax({
               method: 'DELETE',
@@ -449,17 +536,93 @@
             })
       })
 
-      {% comment 'if child replying needed' %}
-      // Handling comment replying for children comments
-      $('#comment_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
+
+        // Handling comment editing for child comments
+
+        // front end edit toggles
+        $('#comment_edit_btn_{{child_comment.id}}').click(function(e){
+
+          $.ajax({
+            type: 'GET',
+            url: "{% url 'getCommentContents' child_comment.id %}",
+            success: function(response){
+              content = response.content
+              $('#edit_field_{{child_comment.id}}').val(content)
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+          })
+
+          $('#comment_content_{{child_comment.id}}').toggle()
+          $('#edit_field_{{child_comment.id}}').toggle()
+
+          $('#comment_cancel_edit_btn_{{child_comment.id}}').toggle()
+          $('#comment_save_edit_btn_{{child_comment.id}}').toggle()
+
+          $('#comment_reply_btn_{{child_comment.id}}').toggle()
+        })
+        $('#comment_cancel_edit_btn_{{child_comment.id}}').click(function(e){
+
+          $('#comment_content_{{child_comment.id}}').toggle()
+          $('#edit_field_{{child_comment.id}}').toggle()
+
+          $('#comment_cancel_edit_btn_{{child_comment.id}}').toggle()
+          $('#comment_save_edit_btn_{{child_comment.id}}').toggle()
+
+          $('#comment_reply_btn_{{child_comment.id}}').toggle()
+          $('#edit_error_{{child_comment.id}}').text("")
+          $('#edit_error_{{child_comment.id}}').toggle()
+      })
+
+      // ajax edit comment
+      $('#comment_save_edit_btn_{{child_comment.id}}').click(function(){
+
+        content = $('#edit_field_{{child_comment.id}}').val()
+
+        if(content == '')
+        {
+          $('#edit_error_{{child_comment.id}}').text("You can't have an empty comment!")
+          $('#edit_error_{{child_comment.id}}').toggle()
+          return
+        }
+
+        $.ajax({
+          type: 'POST',
+          headers: { "X-CSRFToken": token },
+          url: "{% url 'modifyComment' child_comment.id %}",
+          data:{
+            'content': content,
+            'article': "{{ article.id }}"
+          },
+          success: function(response){
+
+            $('#comment_content_{{child_comment.id}}').text(content)
+
+            $('#comment_content_{{child_comment.id}}').toggle()
+            $('#edit_field_{{child_comment.id}}').toggle()
+
+            $('#comment_cancel_edit_btn_{{child_comment.id}}').toggle()
+            $('#comment_save_edit_btn_{{child_comment.id}}').toggle()
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert("textStatus: " + textStatus + " " + errorThrown)
+          }
+        })
+
+      })
+
+        {% comment 'if child replying needed' %}
+        // Handling comment replying for children comments
+        $('#comment_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
         $('#comment_footer_{{child_comment.id}}').toggle()
         $('#comment_reply_btn_{{child_comment.id}}').toggle()
       })
-      $('#comment_cancel_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
+        $('#comment_cancel_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
         $('#comment_footer_{{child_comment.id}}').toggle()
         $('#comment_reply_btn_{{child_comment.id}}').toggle()
       })
-      {% endcomment %}
+        {% endcomment %}
 
       {% endfor %}
 

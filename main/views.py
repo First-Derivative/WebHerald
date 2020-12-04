@@ -176,3 +176,38 @@ def removeComment(request, comment_id):
         else:
             return HttpResponseBadRequest("Suspicious Request")
     return redirect('homepage')
+
+@login_required
+def getCommentContents(request, comment_id):
+    if(request.method == 'GET'):
+        comment = None
+        try:
+            comment = Comments.objects.get(id=comment_id)
+        except Comments.DoesNotExist:
+            return HttpResponseBadRequest("Invalid Comment ID")
+
+        return JsonResponse({'content': comment.content})
+    return redirect('homepage')
+
+@login_required
+def modifyComment(request, comment_id):
+    if(request.method == 'POST'):
+        user = request.user
+        content = request.POST.get('content')
+        comment = None
+        #verify comment
+        try:
+            comment = Comments.objects.get(id=comment_id)
+        except Comments.DoesNotExist:
+            return HttpResponseBadRequest("Invalid Comment ID")
+
+        #verify user
+        if(comment.user == user):
+            comment.content = content
+            comment.save()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponseBadRequest("Suspicious Request")
+
+        HttpResponse(status=200)
+    return redirect('homepage')
