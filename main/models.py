@@ -45,6 +45,13 @@ class Article(models.Model):
             return 0
         return len(likes_set)
 
+    @property
+    def comment_count(self):
+        comments_set = self.comments.all()
+        if(not comments_set):
+            return 0
+        return len(comments_set)
+
     def __str__(self):
         return self.title
 
@@ -103,7 +110,7 @@ class Comments(models.Model):
     may be held in order to discern if a comment is a reply to a parent comment or a general for
     an Article.
     '''
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, related_name="comments")
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     content = models.CharField(max_length=300)
     timestamp = models.DateTimeField(verbose_name='Commented On', auto_now=True) # verbose_name acts as a more legible alias for the field name. auto_now means that if the date value is not given upon object creation then if you save said object it will automatically take the current date and time as the value upon Model.save().
