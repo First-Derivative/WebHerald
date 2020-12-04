@@ -175,6 +175,7 @@
                           <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_${id}">Reply</button>
                           <div class="comment_footer"  style="display:none" id="comment_footer_${id}">
                             <textarea name="reply" class="form-control" rows="1" placeholder="Reply to ${username}" id="new_reply_${id}"></textarea>
+                            <p style="display: none;" class="text-danger pt-3 mb-0" id="reply_error_${id}"><p>
                             <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_${id}">Cancel</button>
                             <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_${id}">Reply</button>
                           </div>
@@ -216,6 +217,8 @@
         })
 
         $(`#comment_cancel_reply_btn_${id}`).click(function(){
+          $(`#reply_error_${id}`).text("")
+          $(`#reply_error_${id}`).toggle()
           $(`#comment_footer_${id}`).toggle()
           $(`#comment_reply_btn_${id}`).toggle()
         })
@@ -231,6 +234,7 @@
 
           if(content == "")
           {
+            console.log("appended error")
             $(`#reply_error_${id}`).toggle()
             $(`#reply_error_${id}`).text("You can't reply with an empty comment!")
             return
@@ -382,7 +386,7 @@
                                   <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                                   <div style="flex-grow:2;"></div>
                                     <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
-                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="comment_delete_btn_{{child_comment.id}}">
+                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${id}" id="comment_delete_btn_{{child_comment.id}}">
                                 </div>
 
                                 <p class="comment_content">${content}</p>
@@ -394,6 +398,24 @@
             $('#comment_footer_{{comment.id}}').toggle()
             $('#comment_reply_btn_{{comment.id}}').toggle()
             $('#reply_error_{{comment.id}}').toggle()
+
+            // add delete functionality for appended comment
+            $(`#comment_delete_btn_${id}`).on("click", function() {
+              proper_id = $(this).attr('name')
+
+              $.ajax({
+                method: 'DELETE',
+                headers: { "X-CSRFToken": token },
+                url: "{% url 'removeComment' 0 %}".replace(0, proper_id),
+                success: function(){
+                  $(`#comment_${proper_id}`).remove()
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert("textStatus: " + textStatus + " " + errorThrown)
+                }
+              })
+
+            })
 
           },
           error: function(jqXHR, textStatus, errorThrown){
