@@ -64,11 +64,19 @@
     <div class="container">
       {% block content %}
       {% endblock content %}
+
+      <div class="home target">
+        <img src="{% static 'main/images/icons/arrow_icon.png' %}">
+      </div>
     </div>
 
     {% block scripts %}
 
     {% endblock scripts %}
-
+    <script>
+      $('.home').click(function(){
+        $(window).scrollTop(0)
+      })
+    </script>
   </body>
 </html>

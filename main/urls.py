@@ -8,5 +8,5 @@ urlpatterns = [
     path('article/<int:article_id>', getArticlePage, name='article'),
     path('api/likes/<int:article_id>', updateLikes, name='likes'),
     path('api/comments/add', addComment, name='addComment'),
-    path('api/comments/remove/<int:comment_id>', removeComment, name='removeComment')
+    path('api/comments/<int:comment_id>/remove', removeComment, name='removeComment')
 ]
