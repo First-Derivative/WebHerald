@@ -116,7 +116,15 @@ def addComment(request):
 
             new_comment = Comments(article=article, user=user, content=content)
             new_comment.save()
-            return JsonResponse({'id': new_comment.id,'username':user.username,'timestamp':new_comment.timestamp})
+
+            # timestamp processing for json response
+            timestamp = new_comment.timestamp
+            timestamp = str(timestamp).split(" ")
+            timestamp[1] = timestamp[1][:8]
+            timestamp_string = " ".join(timestamp)
+
+
+            return JsonResponse({'id': new_comment.id,'username':user.username,'timestamp':timestamp_string})
         elif(state == 'new_reply'):
             article_id = post.get('article')
             parent_id  = post.get('parent')
@@ -138,8 +146,14 @@ def addComment(request):
 
             new_comment = Comments(article=article, user=user, content=content, parent_comment=parent)
             new_comment.save()
-            
-            return JsonResponse({'id': new_comment.id,'timestamp':new_comment.timestamp})
+
+            # timestamp processing for json response
+            timestamp = new_comment.timestamp
+            timestamp = str(timestamp).split(" ")
+            timestamp[1] = timestamp[1][:8]
+            timestamp_string = " ".join(timestamp)
+
+            return JsonResponse({'id': new_comment.id,'timestamp':timestamp_string})
         return HttpResponseBadRequest("Suspicious Request")
     return redirect('homepage')
 

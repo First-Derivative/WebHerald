@@ -48,11 +48,12 @@
                       <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="comment_delete_btn_{{comment.id}}">
                     {% endif %}
                   </div>
-
-                  <p class="comment_content">{{comment.content}}</p>
+                  <div class='comment_body' id="comment_body_{{comment.id}}">
+                    <p class="comment_content" id="comment_content_{{comment.id}}">{{comment.content}}</p>
+                  </div>
                   <small class="serif comment_date"> Timestamp: {{comment.timestamp}}</small>
-                  <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{comment.id}}">Reply</button>
 
+                  <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_{{comment.id}}">Reply</button>
                   <div class="comment_footer"  style="display:none" id="comment_footer_{{comment.id}}">
                     <textarea name="reply" class="form-control" rows="1" placeholder="Reply to {{comment.user.username}}" id="new_reply_{{comment.id}}"></textarea>
                     <p style="display: none;" class="text-danger pt-3 mb-0" id="reply_error_{{comment.id}}"><p>
@@ -76,8 +77,8 @@
                       <h5 class="mr-3 mb-0">{{child_comment.user.username}}</h5>
                       <div style="flex-grow:2;"></div>
                       {% if request.user == child_comment.user%}
-                        <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
-                        <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." id="comment_delete_btn_{{child_comment.id}}">
+                        <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" title="edit comment "alt="...">
+                        <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" title="delete comment" alt="..." id="comment_delete_btn_{{child_comment.id}}">
                       {% endif %}
                     </div>
 
@@ -166,7 +167,7 @@
                           <div class="comment_header mt-0 mb-2" id="comment_header_${id}">
                             <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                             <div style="flex-grow:2;"></div>
-                            <img src="{% static '/main/images/icons/edit_icon.png'%}" class="mr-3 target" alt="...">
+                            <img src="{% static '/main/images/icons/edit_icon.png'%}" class="mr-3 target" title="edit comment" alt="...">
                             <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${id}" id="comment_delete_btn_${id}">
                           </div>
 
@@ -222,6 +223,9 @@
           $(`#comment_footer_${id}`).toggle()
           $(`#comment_reply_btn_${id}`).toggle()
         })
+
+        // add resizable reply
+        $(`#new_reply_${id}`).autoResize();
 
         // add add new reply for appended comment
         $(`#comment_submit_reply_btn_${id}`).on("click", function(){
@@ -345,6 +349,8 @@
         $('#comment_footer_{{comment.id}}').toggle()
         $('#comment_reply_btn_{{comment.id}}').toggle()
       })
+
+      $('#new_reply_{{comment.id}}').autoResize();
 
       // ajax new comment_reply
       $('#comment_submit_reply_btn_{{comment.id}}').click(function(){

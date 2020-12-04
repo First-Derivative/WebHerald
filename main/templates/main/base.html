@@ -65,18 +65,22 @@
       {% block content %}
       {% endblock content %}
 
+      {% comment 'scrollToTop'%}
       <div class="home target">
         <img src="{% static 'main/images/icons/arrow_icon.png' %}">
       </div>
+      <script>
+        $('.home').click(function(){
+          $(window).scrollTop(0)
+        })
+      </script>
+      {% endcomment %}
+
     </div>
 
     {% block scripts %}
 
     {% endblock scripts %}
-    <script>
-      $('.home').click(function(){
-        $(window).scrollTop(0)
-      })
-    </script>
+
   </body>
 </html>
