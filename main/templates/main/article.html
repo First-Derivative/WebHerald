@@ -50,13 +50,26 @@
       <br>{{ article.author }}</h4>
       <p>{{ article.timestamp }}</p>
       <h4 class="heading_light">Join the debate</h4>
+
       {% if user.is_authenticated %}
-      <button type="button" class="btn btn-outline-dark like-button" id="{{ article.id }}">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-        </svg>
-        <span class="display_numlikes">{% block likes %}{{ article.like_count }}{% endblock %}</span>
-      </button>
+      <span>
+        <button type="button" class="like-button btn btn-outline-dark" id="{{ article.id }}">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+          </svg>
+          <span class="display_numlikes">{% block likes %}{{ article.like_count }}{% endblock %}</span>
+        </button>
+      </span>
+
+      <a id="comments_button" href="#comments_section">
+        <button type="button" class="btn btn-outline-dark">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+            </svg>
+            <span class="display_numcomments">{% block comments %}{{ article.comment_count }}{% endblock %}</span>
+        </button>
+      </a>
+
       {% else %}
         <p>Please <a href="{% url 'login' %}">log in</a> to your account to join the debate!</p>
       {% endif %}
@@ -94,7 +107,7 @@
               if (response.is_liked == 'true') {
                 console.log('already liked')
                 user_liked = true
-                $('.btn-outline-dark').css({'color': '#c70000', 'border-color': '#c70000'})
+                $('.like-button').css({'color': '#c70000', 'border-color': '#c70000'})
               }
           },
           error: function(textStatus, errorThrown) {

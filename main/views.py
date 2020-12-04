@@ -14,7 +14,7 @@ def index(request):
     '''
 
     context = {
-        'category_list': ArticleCategory.objects.all(),
+        'category_list': ArticleCategory.objects.order_by('-article_id'),
         'nav_categories': [category for category in CategoryLabel],
         'test': []
     }

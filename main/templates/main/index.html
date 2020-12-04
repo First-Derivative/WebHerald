@@ -9,7 +9,7 @@
 {% for category in categories %}
   <div class="article_card_container flex-wrap row border my-3">
     <div class="col-3 p2">
-      <h3 class="category-header">{{ category.label }}</h3>
+      <h3 class="category-header"><a href="{% url 'category_index' category %}">{{ category.label }}</a></h3>
     </div>
     {% for entry in category_list %}
       {% if entry.category == category %}
@@ -23,7 +23,7 @@
               <!-- <p class="card-text card_sub_title">{{entry.article.sub_title}}</p> -->
               <div class="card_footer">
                 <a class="card-link highlight hover">{{entry.article.like_count}} Likes</a>
-                <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">Comments</a>
+                <a href="{% url 'article' entry.id %}#comments_section" class="card-link card_comments hover">{{entry.article.comment_count}} Comments</a>
               </div>
             </div>
           </div>
