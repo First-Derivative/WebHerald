@@ -46,14 +46,14 @@
           </ul>
           <span class="navbar-text style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;"">
             {% if request.user.is_authenticated %}
-            {% if request.path == '/accounts/profile' %}
-              <a class="nav_link nav_active" href="{% url 'profile' %}">My Account</a> <span style="color:#A5B9CC;">|</span>
+              {% if request.path == '/accounts/profile' %}
+                <a class="nav_link nav_active" href="{% url 'profile' %}">My Account</a> <span style="color:#A5B9CC;">|</span>
+              {% else %}
+                <a class="nav_link" href="{% url 'profile' %}">My Account</a> <span style="color:#A5B9CC;">|</span>
+              {% endif %}
+              <a class="nav_link" href="{% url 'logout' %}">Log out</a>
             {% else %}
-              <a class="nav_link" href="{% url 'profile' %}">My Account</a> <span style="color:#A5B9CC;">|</span>
-            {% endif %}
-            <a class="nav_link" href="{% url 'logout' %}">Log out</a>
-            {% else %}
-            <a class="nav_link" href="{% url 'login' %}">Log in</a>
+                <a class="nav_link" href="{% url 'login' %}">Log in</a>
             {% endif %}
           </span>
         </div>

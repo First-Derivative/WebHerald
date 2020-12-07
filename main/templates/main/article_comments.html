@@ -130,7 +130,6 @@
 
 <script>
 
-
   // Front End functionality
 
   no_comments = true; // used to delete default 'no comments yet content'
@@ -151,14 +150,16 @@
 
     if(content == "") // validates for non-empty content
     {
-      $('#new_comment_error').toggle()
+      $('#new_comment_error').show()
       $('#new_comment_error').text("You can't post an empty comment!")
       return
     }
+    else {
+      $('#new_comment_error').hide()
+      $('#new_comment_error').text("")
+    }
 
-    $('#new_comment_error').toggle()
-    $('#new_comment_error').text("")
-
+    // creates new comment for DOM and implements all functionality handlers
     $.ajax({
       type: 'POST',
       headers: { "X-CSRFToken": token },
@@ -180,18 +181,26 @@
                           <div class="comment_header mt-0 mb-2" id="comment_header_${id}">
                             <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                             <div style="flex-grow:2;"></div>
-                            <img src="{% static '/main/images/icons/edit_icon.png'%}" class="mr-3 target" title="edit comment" alt="...">
+                            <img src="{% static '/main/images/icons/edit_icon.png'%}" class="mr-3 target" title="edit comment" alt="..." name="${id}" id="comment_edit_btn_${id}">
                             <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${id}" id="comment_delete_btn_${id}">
                           </div>
 
-                          <p class="comment_content">${content}</p>
+                          <div class='comment_body' id="comment_body_${id}">
+                            <p class="comment_content" id="comment_content_${id}">${content}</p>
+                            <textarea style="display:none" name="${id}" class="form-control" rows="1" id="edit_field_${id}"></textarea>
+                            <p style="display:none" class="text-danger pt-3 mb-0" id="edit_error_${id}"></p>
+                            <button style="display:none" type="button" class="btn btn-dark comment_btn" name="${id}" id="comment_cancel_edit_btn_${id}">Cancel</button>
+                            <button style="display:none" type="button" class="btn btn-danger comment_btn " name="${id}" id="comment_save_edit_btn_${id}">Save</button>
+                          </div>
+
                           <small class="serif comment_date"> Timestamp: ${timestamp}</small>
                           <button type="button" class="btn btn-dark comment_btn" id="comment_reply_btn_${id}">Reply</button>
+
                           <div class="comment_footer"  style="display:none" id="comment_footer_${id}">
                             <textarea name="reply" class="form-control" rows="1" placeholder="Reply to ${username}" id="new_reply_${id}"></textarea>
                             <p style="display: none;" class="text-danger pt-3 mb-0" id="reply_error_${id}"><p>
-                            <button type="button" class="btn btn-dark comment_btn " id="comment_cancel_reply_btn_${id}">Cancel</button>
-                            <button type="button" class="btn btn-danger comment_btn " id="comment_submit_reply_btn_${id}">Reply</button>
+                            <button type="button" class="btn btn-dark comment_btn" name="${id}" id="comment_cancel_reply_btn_${id}">Cancel</button>
+                            <button type="button" class="btn btn-danger comment_btn" name="${id}" id="comment_submit_reply_btn_${id}">Reply</button>
                           </div>
 
                         </div>
@@ -223,24 +232,108 @@
 
         })
 
+
+        // add edit functionality for appended comment
+
+        // front end edit toggles
+        $(`#comment_edit_btn_${id}`).on("click", function(){
+          proper_id = $(this).attr('name')
+
+          $.ajax({
+            type: 'GET',
+            url: "{% url 'getCommentContents' 0 %}".replace(0, proper_id),
+            success: function(response){
+              content = response.content
+              $(`#edit_field_${proper_id}`).val(content)
+              $(`#comment_content_${proper_id}`).hide()
+              $(`#edit_field_${proper_id}`).show()
+
+              $(`#comment_cancel_edit_btn_${proper_id}`).show()
+              $(`#comment_save_edit_btn_${proper_id}`).show()
+
+              $(`#comment_reply_btn_${proper_id}`).hide()
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+          })
+        })
+
+        $(`#comment_cancel_edit_btn_${id}`).on("click", function(){
+          proper_id = $(this).attr('name')
+
+          $(`#comment_content_${proper_id}`).show()
+          $(`#edit_field_${proper_id}`).hide()
+
+          $(`#comment_cancel_edit_btn_${proper_id}`).hide()
+          $(`#comment_save_edit_btn_${proper_id}`).hide()
+
+          $(`#comment_reply_btn_${proper_id}`).show()
+          $(`#edit_error_${proper_id}`).text("")
+          $(`#edit_error_${proper_id}`).hide()
+        })
+
+        // update new comment from edit
+        $(`#comment_save_edit_btn_${id}`).on("click", function(){
+          proper_id = $(this).attr('name')
+          content = $(`#edit_field_${proper_id}`).val()
+
+          if(content == '')
+          {
+            $(`#edit_error_${proper_id}`).text("You can't have an empty comment!")
+            $(`#edit_error_${proper_id}`).show()
+            return
+          }
+
+          $.ajax({
+            type: 'POST',
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'modifyComment' 0 %}".replace(0, proper_id),
+            data:{
+              'content': content,
+              'article': "{{ article.id }}"
+            },
+            success: function(response){
+
+              $(`#comment_content_${proper_id}`).text(content)
+
+              $(`#comment_content_${proper_id}`).show()
+              $(`#edit_field_${proper_id}`).hide()
+
+              $(`#comment_cancel_edit_btn_${proper_id}`).hide()
+              $(`#comment_save_edit_btn_${proper_id}`).hide()
+
+              $(`#comment_reply_btn_${proper_id}`).show()
+
+              // just to be safe
+              $(`#edit_error_${proper_id}`).hide()
+              $(`#edit_erro_${proper_id}`).text("")
+
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+              alert("textStatus: " + textStatus + " " + errorThrown)
+            }
+          })
+        })
+
         // add toggle reply functionality for appended comment
 
         $(`#comment_reply_btn_${id}`).click(function(){
-          $(`#comment_footer_${id}`).toggle()
-          $(`#comment_reply_btn_${id}`).toggle()
+          $(`#comment_footer_${id}`).show()
+          $(`#comment_reply_btn_${id}`).hide()
         })
 
         $(`#comment_cancel_reply_btn_${id}`).click(function(){
           $(`#reply_error_${id}`).text("")
-          $(`#reply_error_${id}`).toggle()
-          $(`#comment_footer_${id}`).toggle()
-          $(`#comment_reply_btn_${id}`).toggle()
+          $(`#reply_error_${id}`).hide()
+          $(`#comment_footer_${id}`).hide()
+          $(`#comment_reply_btn_${id}`).show()
         })
 
         // add resizable reply
         $(`#new_reply_${id}`).autoResize();
 
-        // add add new reply for appended comment
+        // add  new reply for appended comment
         $(`#comment_submit_reply_btn_${id}`).on("click", function(){
           console.log('creating new reply post')
           content = $(`#new_reply_${id}`).val()
@@ -251,15 +344,14 @@
 
           if(content == "")
           {
-            console.log("appended error")
-            $(`#reply_error_${id}`).toggle()
+            $(`#reply_error_${id}`).show()
             $(`#reply_error_${id}`).text("You can't reply with an empty comment!")
             return
           }
 
           $(`#new_reply_${id}`).val("")
           $(`#reply_error_${id}`).text("")
-          $(`#reply_error_${id}`).toggle()
+          $(`#reply_error_${id}`).hide()
 
           $.ajax({
             type: 'POST',
@@ -282,24 +374,32 @@
                                   <div class="comment_header mt-0 mb-2" id="comment_header_${reply_id}">
                                     <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                                     <div style="flex-grow:2;"></div>
-                                      <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
+                                      <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="..." name="${reply_id}" id="comment_edit_btn_${reply_id}">
                                       <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${reply_id}" id="comment_delete_btn_${reply_id}">
                                   </div>
 
-                                  <p class="comment_content">${content}</p>
+                                  <div class='comment_body' id="comment_body_${reply_id}">
+                                    <p class="comment_content" id="comment_content_${reply_id}">${content}</p>
+                                    <textarea style="display:none" name="edit" class="form-control" rows="1" id="edit_field_${reply_id}"></textarea>
+                                    <p style="display:none" class="text-danger pt-3 mb-0" id="edit_error_${reply_id}"></p>
+                                    <button style="display:none" type="button" class="btn btn-dark comment_btn" name="${reply_id}" id="comment_cancel_edit_btn_${reply_id}">Cancel</button>
+                                    <button style="display:none" type="button" class="btn btn-danger comment_btn " name="${reply_id}" id="comment_save_edit_btn_${reply_id}">Save</button>
+                                  </div>
+
                                   <small class="serif comment_date"> Timestamp: ${reply_timestamp} </small>
                                 </div>
                               </div>`
 
               $(parent_selector).after(new_reply)
-              $(`#comment_footer_${id}`).toggle()
-              $(`#comment_reply_btn_${id}`).toggle()
-              $(`#reply_error_${id}`).toggle()
+              $(`#comment_footer_${id}`).hide()
+              $(`#comment_reply_btn_${id}`).show()
+              $(`#reply_error_${id}`).hide()
 
-              // add delete functionality for appended reply
+              // delete functionality for appended reply
+
               $(`#comment_delete_btn_${reply_id}`).on("click", function() {
                 proper_id = $(this).attr('name')
-
+                console.log('deleting reply comment')
                 $.ajax({
                   method: 'DELETE',
                   headers: { "X-CSRFToken": token },
@@ -314,6 +414,84 @@
 
               })
 
+              // edit functionality for appended reply
+
+              // front end edit toggles
+              $(`#comment_edit_btn_${reply_id}`).on("click", function(){
+                proper_id = $(this).attr('name')
+
+                $.ajax({
+                  type: 'GET',
+                  url: "{% url 'getCommentContents' 0 %}".replace(0, proper_id),
+                  success: function(response){
+                    content = response.content
+                    $(`#edit_field_${proper_id}`).val(content)
+                    $(`#comment_content_${proper_id}`).hide()
+                    $(`#edit_field_${proper_id}`).show()
+
+                    $(`#comment_cancel_edit_btn_${proper_id}`).show()
+                    $(`#comment_save_edit_btn_${proper_id}`).show()
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    alert("textStatus: " + textStatus + " " + errorThrown)
+                  }
+                })
+              })
+
+              $(`#comment_cancel_edit_btn_${reply_id}`).on("click", function(){
+                proper_id = $(this).attr('name')
+
+                $(`#comment_content_${proper_id}`).show()
+                $(`#edit_field_${proper_id}`).hide()
+
+                $(`#comment_cancel_edit_btn_${proper_id}`).hide()
+                $(`#comment_save_edit_btn_${proper_id}`).hide()
+
+                $(`#edit_error_${proper_id}`).text("")
+                $(`#edit_error_${proper_id}`).hide()
+              })
+
+              // update new comment from edit
+              $(`#comment_save_edit_btn_${reply_id}`).on("click", function(){
+                proper_id = $(this).attr('name')
+                content = $(`#edit_field_${proper_id}`).val()
+
+                if(content == '')
+                {
+                  $(`#edit_error_${proper_id}`).text("You can't have an empty comment!")
+                  $(`#edit_error_${proper_id}`).show()
+                  return
+                }
+
+                $.ajax({
+                  type: 'POST',
+                  headers: { "X-CSRFToken": token },
+                  url: "{% url 'modifyComment' 0 %}".replace(0, proper_id),
+                  data:{
+                    'content': content,
+                    'article': "{{ article.id }}"
+                  },
+                  success: function(response){
+
+                    $(`#comment_content_${proper_id}`).text(content)
+
+                    $(`#comment_content_${proper_id}`).show()
+                    $(`#edit_field_${proper_id}`).hide()
+
+                    $(`#comment_cancel_edit_btn_${proper_id}`).hide()
+                    $(`#comment_save_edit_btn_${proper_id}`).hide()
+
+                    // just to be safe
+                    $(`#edit_error_${proper_id}`).hide()
+                    $(`#edit_erro_${proper_id}`).text("")
+
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    alert("textStatus: " + textStatus + " " + errorThrown)
+                  }
+                })
+              })
+
             },
             error: function(jqXHR, textStatus, errorThrown){
               alert("textStatus: " + textStatus + " " + errorThrown)
@@ -326,6 +504,7 @@
       alert("textStatus: " + textStatus + " " + errorThrown)
     }
     })
+
   })
 
   // for all article_comments
@@ -354,15 +533,20 @@
 
       // front end reply toggles
       $('#comment_reply_btn_{{comment.id}}').click(function(){
-        $('#comment_footer_{{comment.id}}').toggle()
-        $('#comment_reply_btn_{{comment.id}}').toggle()
+
+        $('#comment_footer_{{comment.id}}').show()
+        $('#comment_reply_btn_{{comment.id}}').hide()
+
       })
       $('#comment_cancel_reply_btn_{{comment.id}}').click(function(){
+
         $('#reply_error_{{comment.id}}').text("")
-        $('#reply_error_{{comment.id}}').toggle()
-        $('#comment_footer_{{comment.id}}').toggle()
-        $('#comment_reply_btn_{{comment.id}}').toggle()
+        $('#reply_error_{{comment.id}}').hide()
+        $('#comment_footer_{{comment.id}}').hide()
+        $('#comment_reply_btn_{{comment.id}}').show()
+
       })
+
       $('#new_reply_{{comment.id}}').autoResize();
 
       // ajax new comment_reply
@@ -374,14 +558,14 @@
 
         if(content == "")
         {
-          $('#reply_error_{{comment.id}}').toggle()
+          $('#reply_error_{{comment.id}}').show()
           $('#reply_error_{{comment.id}}').text("You can't reply with an empty comment!")
           return
         }
 
         $('#new_reply_{{comment.id}}').val("")
         $('#reply_error_{{comment.id}}').text("")
-        $('#reply_error_{{comment.id}}').toggle()
+        $('#reply_error_{{comment.id}}').hide()
 
         $.ajax({
           type: 'POST',
@@ -405,7 +589,7 @@
                                   <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                                   <div style="flex-grow:2;"></div>
                                     <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
-                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${id}" id="comment_delete_btn_{{child_comment.id}}">
+                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${id}" id="comment_delete_btn_${id}">
                                 </div>
 
                                 <p class="comment_content">${content}</p>
@@ -414,9 +598,9 @@
                             </div>`
 
             $(parent_selector).after(new_content)
-            $('#comment_footer_{{comment.id}}').toggle()
-            $('#comment_reply_btn_{{comment.id}}').toggle()
-            $('#reply_error_{{comment.id}}').toggle()
+            $('#comment_footer_{{comment.id}}').hide()
+            $('#comment_reply_btn_{{comment.id}}').show()
+            $('#reply_error_{{comment.id}}').hide()
 
             // add delete functionality for appended comment
             $(`#comment_delete_btn_${id}`).on("click", function() {
@@ -454,31 +638,33 @@
           success: function(response){
             content = response.content
             $('#edit_field_{{comment.id}}').val(content)
+            $('#comment_content_{{comment.id}}').hide()
+            $('#edit_field_{{comment.id}}').show()
+
+            $('#comment_cancel_edit_btn_{{comment.id}}').show()
+            $('#comment_save_edit_btn_{{comment.id}}').show()
+
+            $('#comment_reply_btn_{{comment.id}}').hide()
           },
           error: function(jqXHR, textStatus, errorThrown){
             alert("textStatus: " + textStatus + " " + errorThrown)
           }
         })
 
-        $('#comment_content_{{comment.id}}').toggle()
-        $('#edit_field_{{comment.id}}').toggle()
 
-        $('#comment_cancel_edit_btn_{{comment.id}}').toggle()
-        $('#comment_save_edit_btn_{{comment.id}}').toggle()
-
-        $('#comment_reply_btn_{{comment.id}}').toggle()
       })
       $('#comment_cancel_edit_btn_{{comment.id}}').click(function(e){
 
-        $('#comment_content_{{comment.id}}').toggle()
-        $('#edit_field_{{comment.id}}').toggle()
+        $('#comment_content_{{comment.id}}').show()
+        $('#edit_field_{{comment.id}}').hide()
 
-        $('#comment_cancel_edit_btn_{{comment.id}}').toggle()
-        $('#comment_save_edit_btn_{{comment.id}}').toggle()
+        $('#comment_cancel_edit_btn_{{comment.id}}').hide()
+        $('#comment_save_edit_btn_{{comment.id}}').hide()
 
-        $('#comment_reply_btn_{{comment.id}}').toggle()
+        $('#comment_reply_btn_{{comment.id}}').show()
+
         $('#edit_error_{{comment.id}}').text("")
-        $('#edit_error_{{comment.id}}').toggle()
+        $('#edit_error_{{comment.id}}').hide()
       })
 
       // ajax edit comment
@@ -489,7 +675,7 @@
         if(content == '')
         {
           $('#edit_error_{{comment.id}}').text("You can't have an empty comment!")
-          $('#edit_error_{{comment.id}}').toggle()
+          $('#edit_error_{{comment.id}}').show()
           return
         }
 
@@ -504,11 +690,12 @@
           success: function(response){
             $('#comment_content_{{comment.id}}').text(content)
 
-            $('#comment_content_{{comment.id}}').toggle()
-            $('#edit_field_{{comment.id}}').toggle()
+            $('#comment_content_{{comment.id}}').show()
+            $('#edit_field_{{comment.id}}').hide()
 
-            $('#comment_cancel_edit_btn_{{comment.id}}').toggle()
-            $('#comment_save_edit_btn_{{comment.id}}').toggle()
+            $('#comment_cancel_edit_btn_{{comment.id}}').hide()
+            $('#comment_save_edit_btn_{{comment.id}}').hide()
+            $('#comment_reply_btn_{{comment.id}}').show()
           },
           error: function(jqXHR, textStatus, errorThrown){
             alert("textStatus: " + textStatus + " " + errorThrown)
@@ -548,31 +735,34 @@
             success: function(response){
               content = response.content
               $('#edit_field_{{child_comment.id}}').val(content)
+
+              $('#comment_content_{{child_comment.id}}').hide()
+              $('#edit_field_{{child_comment.id}}').show()
+
+              $('#comment_cancel_edit_btn_{{child_comment.id}}').show()
+              $('#comment_save_edit_btn_{{child_comment.id}}').show()
+
+              $('#comment_reply_btn_{{child_comment.id}}').hide()
             },
             error: function(jqXHR, textStatus, errorThrown){
               alert("textStatus: " + textStatus + " " + errorThrown)
             }
           })
 
-          $('#comment_content_{{child_comment.id}}').toggle()
-          $('#edit_field_{{child_comment.id}}').toggle()
 
-          $('#comment_cancel_edit_btn_{{child_comment.id}}').toggle()
-          $('#comment_save_edit_btn_{{child_comment.id}}').toggle()
-
-          $('#comment_reply_btn_{{child_comment.id}}').toggle()
         })
         $('#comment_cancel_edit_btn_{{child_comment.id}}').click(function(e){
 
-          $('#comment_content_{{child_comment.id}}').toggle()
-          $('#edit_field_{{child_comment.id}}').toggle()
+          $('#comment_content_{{child_comment.id}}').show()
+          $('#edit_field_{{child_comment.id}}').hide()
 
-          $('#comment_cancel_edit_btn_{{child_comment.id}}').toggle()
-          $('#comment_save_edit_btn_{{child_comment.id}}').toggle()
+          $('#comment_cancel_edit_btn_{{child_comment.id}}').hide()
+          $('#comment_save_edit_btn_{{child_comment.id}}').hide()
 
-          $('#comment_reply_btn_{{child_comment.id}}').toggle()
+          $('#comment_reply_btn_{{child_comment.id}}').show()
+
           $('#edit_error_{{child_comment.id}}').text("")
-          $('#edit_error_{{child_comment.id}}').toggle()
+          $('#edit_error_{{child_comment.id}}').hide()
       })
 
       // ajax edit comment
@@ -583,7 +773,7 @@
         if(content == '')
         {
           $('#edit_error_{{child_comment.id}}').text("You can't have an empty comment!")
-          $('#edit_error_{{child_comment.id}}').toggle()
+          $('#edit_error_{{child_comment.id}}').show()
           return
         }
 
@@ -599,11 +789,11 @@
 
             $('#comment_content_{{child_comment.id}}').text(content)
 
-            $('#comment_content_{{child_comment.id}}').toggle()
-            $('#edit_field_{{child_comment.id}}').toggle()
+            $('#comment_content_{{child_comment.id}}').show()
+            $('#edit_field_{{child_comment.id}}').hide()
 
-            $('#comment_cancel_edit_btn_{{child_comment.id}}').toggle()
-            $('#comment_save_edit_btn_{{child_comment.id}}').toggle()
+            $('#comment_cancel_edit_btn_{{child_comment.id}}').hide()
+            $('#comment_save_edit_btn_{{child_comment.id}}').hide()
           },
           error: function(jqXHR, textStatus, errorThrown){
             alert("textStatus: " + textStatus + " " + errorThrown)
@@ -613,14 +803,14 @@
       })
 
         {% comment 'if child replying needed' %}
-        // Handling comment replying for children comments
-        $('#comment_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
-        $('#comment_footer_{{child_comment.id}}').toggle()
-        $('#comment_reply_btn_{{child_comment.id}}').toggle()
-      })
-        $('#comment_cancel_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
-        $('#comment_footer_{{child_comment.id}}').toggle()
-        $('#comment_reply_btn_{{child_comment.id}}').toggle()
+          // Handling comment replying for children comments
+          $('#comment_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
+          $('#comment_footer_{{child_comment.id}}').toggle()
+          $('#comment_reply_btn_{{child_comment.id}}').toggle()
+        })
+          $('#comment_cancel_reply_btn_{{child_comment.id}}').click(function(){ // reply toggle
+          $('#comment_footer_{{child_comment.id}}').toggle()
+          $('#comment_reply_btn_{{child_comment.id}}').toggle()
       })
         {% endcomment %}
 

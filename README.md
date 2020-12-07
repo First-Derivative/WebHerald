@@ -15,15 +15,16 @@
 
 ---
 #### Notes for Discussion
-1. Comments implementation scope
-2. Login validation error not working
-3. Styling options
-4. Bugs
+1. Bugs
 
 #### known bugs
 1. Login validation
 2. When deleting the last comment on an article: the no comments message doesn't appear
 3. Line breaks are not read for a new comment in comment_content
+4. Timestamp for ajax comments different format than get request DOM
+5. Timestamp for edited comments should be updated, can get updated timestamp from response.data
+6. Posting a new comment should set window location to the new comment 
+
 ---
 ## Requirements:
 1. Pillow
