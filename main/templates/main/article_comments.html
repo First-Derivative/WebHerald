@@ -142,7 +142,7 @@
 
   $('#new_comment_content').autoResize(); // Adds autoresizing to post new comment textarea
 
-  // Handling new comment adding
+  // Handling Dynamically appended comments to DOM via AJAX
   $('#new_comment_submit').click(function(e) {
     e.preventDefault();
 
@@ -214,7 +214,7 @@
         $('#comments_section').append(new_content)
         $('#new_comment_content').val("")
 
-        // add delete functionality for appended comment
+        // add delete functionality for appended new comment
         $(`#comment_delete_btn_${id}`).on("click", function() {
           proper_id = $(this).attr('name')
 
@@ -233,7 +233,7 @@
         })
 
 
-        // add edit functionality for appended comment
+        // add edit functionality for appended new comment
 
         // front end edit toggles
         $(`#comment_edit_btn_${id}`).on("click", function(){
@@ -316,7 +316,7 @@
           })
         })
 
-        // add toggle reply functionality for appended comment
+        // add toggle reply functionality for appended new comment
 
         $(`#comment_reply_btn_${id}`).click(function(){
           $(`#comment_footer_${id}`).show()
@@ -330,10 +330,10 @@
           $(`#comment_reply_btn_${id}`).show()
         })
 
-        // add resizable reply
+        // add resizable reply for appended new comment
         $(`#new_reply_${id}`).autoResize();
 
-        // add  new reply for appended comment
+        // add  new reply for appended new comment
         $(`#comment_submit_reply_btn_${id}`).on("click", function(){
           console.log('creating new reply post')
           content = $(`#new_reply_${id}`).val()
@@ -507,7 +507,7 @@
 
   })
 
-  // for all article_comments
+  // Handling all features for static comments sent over by backend with GET
   {% if article_comments %}
 
     {% for comment in article_comments %}
@@ -578,22 +578,29 @@
             'parent': parent_comment
           },
           success: function(response){
-            id = response.id
-            timestamp = response.timestamp
-            new_content = `<div class="media mb-5 child_comment_wrapper" id="comment_${id}">
+            reply_id = response.id
+            reply_timestamp = response.timestamp
+            new_content = `<div class="media mb-5 child_comment_wrapper" id="comment_${reply_id}">
                             <img src="{% static request.user.profile_pic.url %}" class="mr-3 comment_user_img" alt="..." width="64px" height="64px">
 
                               <div class="media-body child_comment">
 
-                                <div class="comment_header mt-0 mb-2" id="comment_header_${id}">
+                                <div class="comment_header mt-0 mb-2" id="comment_header_${reply_id}">
                                   <h5 class="mr-3 mb-0">{{request.user.username}}</h5>
                                   <div style="flex-grow:2;"></div>
-                                    <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="...">
-                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${id}" id="comment_delete_btn_${id}">
+                                    <img src="{% static '/main/images/icons/edit_icon.png'%}" class=" target" title="edit comment" alt="..." name="${reply_id}" id="comment_edit_btn_${reply_id}">
+                                    <img src="{% static '/main/images/icons/delete_icon.png'%}" class="target" title="delete comment" alt="..." name="${reply_id}" id="comment_delete_btn_${reply_id}">
                                 </div>
 
-                                <p class="comment_content">${content}</p>
-                                <small class="serif comment_date"> Timestamp: ${timestamp} </small>
+                                <div class='comment_body' id="comment_body_${reply_id}">
+                                  <p class="comment_content" id="comment_content_${reply_id}">${content}</p>
+                                  <textarea style="display:none" name="edit" class="form-control" rows="1" id="edit_field_${reply_id}"></textarea>
+                                  <p style="display:none" class="text-danger pt-3 mb-0" id="edit_error_${reply_id}"></p>
+                                  <button style="display:none" type="button" class="btn btn-dark comment_btn" name="${reply_id}" id="comment_cancel_edit_btn_${reply_id}">Cancel</button>
+                                  <button style="display:none" type="button" class="btn btn-danger comment_btn " name="${reply_id}" id="comment_save_edit_btn_${reply_id}">Save</button>
+                                </div>
+
+                                <small class="serif comment_date"> Timestamp: ${reply_timestamp} </small>
                               </div>
                             </div>`
 
@@ -603,7 +610,7 @@
             $('#reply_error_{{comment.id}}').hide()
 
             // add delete functionality for appended comment
-            $(`#comment_delete_btn_${id}`).on("click", function() {
+            $(`#comment_delete_btn_${reply_id}`).on("click", function() {
               proper_id = $(this).attr('name')
 
               $.ajax({
@@ -620,6 +627,83 @@
 
             })
 
+            // Adding editing for new reply
+
+            // front end edit toggles
+            $(`#comment_edit_btn_${reply_id}`).on("click", function(){
+              proper_id = $(this).attr('name')
+
+              $.ajax({
+                type: 'GET',
+                url: "{% url 'getCommentContents' 0 %}".replace(0, proper_id),
+                success: function(response){
+                  content = response.content
+                  $(`#edit_field_${proper_id}`).val(content)
+                  $(`#comment_content_${proper_id}`).hide()
+                  $(`#edit_field_${proper_id}`).show()
+
+                  $(`#comment_cancel_edit_btn_${proper_id}`).show()
+                  $(`#comment_save_edit_btn_${proper_id}`).show()
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert("textStatus: " + textStatus + " " + errorThrown)
+                }
+              })
+            })
+
+            $(`#comment_cancel_edit_btn_${reply_id}`).on("click", function(){
+              proper_id = $(this).attr('name')
+
+              $(`#comment_content_${proper_id}`).show()
+              $(`#edit_field_${proper_id}`).hide()
+
+              $(`#comment_cancel_edit_btn_${proper_id}`).hide()
+              $(`#comment_save_edit_btn_${proper_id}`).hide()
+
+              $(`#edit_error_${proper_id}`).text("")
+              $(`#edit_error_${proper_id}`).hide()
+            })
+
+            // update new comment from edit
+            $(`#comment_save_edit_btn_${reply_id}`).on("click", function(){
+              proper_id = $(this).attr('name')
+              content = $(`#edit_field_${proper_id}`).val()
+
+              if(content == '')
+              {
+                $(`#edit_error_${proper_id}`).text("You can't have an empty comment!")
+                $(`#edit_error_${proper_id}`).show()
+                return
+              }
+
+              $.ajax({
+                type: 'POST',
+                headers: { "X-CSRFToken": token },
+                url: "{% url 'modifyComment' 0 %}".replace(0, proper_id),
+                data:{
+                  'content': content,
+                  'article': "{{ article.id }}"
+                },
+                success: function(response){
+
+                  $(`#comment_content_${proper_id}`).text(content)
+
+                  $(`#comment_content_${proper_id}`).show()
+                  $(`#edit_field_${proper_id}`).hide()
+
+                  $(`#comment_cancel_edit_btn_${proper_id}`).hide()
+                  $(`#comment_save_edit_btn_${proper_id}`).hide()
+
+                  // just to be safe
+                  $(`#edit_error_${proper_id}`).hide()
+                  $(`#edit_erro_${proper_id}`).text("")
+
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert("textStatus: " + textStatus + " " + errorThrown)
+                }
+              })
+            })
           },
           error: function(jqXHR, textStatus, errorThrown){
             alert("textStatus: " + textStatus + " " + errorThrown)

@@ -203,6 +203,8 @@ def modifyComment(request, comment_id):
 
         #verify user
         if(comment.user == user):
+            if(comment.content == content): # early exit
+                return HttpResponse(status=200)
             comment.content = content
             comment.save()
             return HttpResponse(status=200)
