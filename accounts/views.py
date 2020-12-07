@@ -69,7 +69,6 @@ def loginAccount(request):
         else:
             messages.info(request, 'Email or password is incorrect, please try again')
             return redirect("login")
-
     else:
         form = LoginForm()
         context['login_form'] = form

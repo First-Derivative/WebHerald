@@ -1,0 +1,494 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "1qfzpyzlb4bzyxr02l1515je7wnadt88",
+  "fields": {
+    "session_data": ".eJxVjDEOwjAMRe-SGUUhbh3CyN4zRHbs0AJqpaadEHdHkTrA-t97_20S7duY9qprmsRcTTSn340pP3VuQB403xebl3lbJ7ZNsQetdlhEX7fD_TsYqY6thlzUB1YP0MlFswR2LihiJ-4MfUbg6IGkB4riUTh7pg5LIXSMYj5fAHc4tg:1kmNO1:9fWwruRiOUIxKZZ0rdz4vspKM4qnpdho2X3rwM6CRYA",
+    "expire_date": "2020-12-21T20:45:33.596Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "3qs4j4mf80ukjzmjg6ssdsrlk87k0d7j",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlk4i3-U9JwhWu-ucQDZUpxUiLtDpBTQvpl5LzXiupRx7TKPE6uzMurwuyWkh9QN8B3rrWlqdZmnpDdF77Tra2N5Xnb376BgL9_agthETEPgANn46KwI5Ig5OUDjLRpGH8hgcDmeEgl4pqNFZyJkHNT7AwBjOJs:1khCFg:PvTznoQuZS2BsDyV7JmOW6yoe6dQo3LR62PcK3RU2W4",
+    "expire_date": "2020-12-07T13:51:32.394Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9ybywrpmz98ku2oswvsmjcwyu323i26b",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGllex79Q0nMGa9dr4wBypDipEHeHSCmgfTPzXiLitta49bzEicVZgBan35EwPXLbCd-x3WaZ5rYuE8ldkQft8jpzfl4O9--gYq_f2sGgwLuRM5uQNFGypXhvNAZlDRXQmIBdclkVz1oNxFScMYEseD0W8f4ABzs4Lg:1kmNoi:7v7bfCzrIc9kyCcTKFkP6sc8bxJBJcE-Y9im4STpN0s",
+    "expire_date": "2020-12-21T21:13:08.403Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "f4vqyl9z63rr2yro7h5q2cgbysg7ordn",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlk4i3-U9JwhWu-ucQDZUpxUiLtDpBTQvpl5LzXiupRx7TKPE6uzMurwuyWkh9QN8B3rrWlqdZmnpDdF77Tra2N5Xnb376BgL9_agthETEPgANn46KwI5Ig5OUDjLRpGH8hgcDmeEgl4pqNFZyJkHNT7AwBjOJs:1kmOVq:sqI8ifj4Pr8uGulZH-BRsANIk_ZQe8Mq4igiYKoPts4",
+    "expire_date": "2020-12-21T21:57:42.031Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "hcbc59ps8h86djdaxjupqs2wiihr1a76",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSHlAkVduu83EO4DqRqalHZl_HfbpAvdnpk5bxXTupS4NpnjyOqqTKdOvyMmekrdCT9SvU-aprrMI-pd0QdtephYXrfD_TsoqZWtzpzEugv1Z0fkCAQFBKzzHhOCmGwNM2wIEcAAGaYgobfBB-yyYfX5AjU9OQQ:1kmNTF:sJ0jwThpLP3Z2WvzwJdz95YwU0E8kjFnXqV8CNG2tkI",
+    "expire_date": "2020-12-21T20:50:57.491Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kr5w0nokva2r7wue3yawmxkvawmsoup8",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGll4WfyhpM8ZIq-9iwPIluKkQtwdIqWA9s3Me6kxrksZ187zOGV1UQbV4XekmB5cN5Lvsd6aTq0u80R6U_ROux5a5ud1d_8OSuzlWwtZYx0JpQw-eDgnIWKDJggEQnDCngCdZQ4hZzwBgHNAePQSPYp6fwAgjjhR:1kmO1X:omnkntvQfqmUf4DP7eoFujp_BMO7uBIXwlDsmBfir6k",
+    "expire_date": "2020-12-21T21:26:23.993Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "n0osnwwh5q1nne3jygofkd7sm9gsm4xa",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlk4i3-U9JwhWu-ucQDZUpxUiLtDpBTQvpl5LzXiupRx7TKPE6uzMurwuyWkh9QN8B3rrWlqdZmnpDdF77Tra2N5Xnb376BgL9_agthETEPgANn46KwI5Ig5OUDjLRpGH8hgcDmeEgl4pqNFZyJkHNT7AwBjOJs:1km22F:nsIcmcB_KLdiddnAYZTdEW-z43WAL-N0vehZNhEkyy0",
+    "expire_date": "2020-12-20T21:57:39.456Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "wn19wdpnsev6pwt3wn10kwgonam8bsz3",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCgMBSX7j0DmWFQqgaS0q6MdzckXej2v_f-W0TctxL3nte4sDgLPYnT70iYnrkOwg-s9yZTq9u6kByKPGiX18b5dTncv4OCvYyaDJnEKgMiGzWxus1Zu-AtsXcOAlkNljQS-QTBA3icPGacQwrWGfH5Ah7WODY:1kmO0J:lnoAS47IzcZq9hYcte4RrjXK6bH8Ms19c64eLaRToO8",
+    "expire_date": "2020-12-21T21:25:07.735Z"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 1,
+  "fields": {
+    "title": "Yes, Dominic Cummings has gone, but he wasn't the only problem at No 10",
+    "author": "Dominic Grieve",
+    "timestamp": "2020-11-20T03:45:13.236Z",
+    "content": "<p>As they exit No 10 Dominic Cummings and his associates will leave behind a seemingly contradictory legacy. On the one hand, their unscrupulous campaigning skills helped deliver the outcome of the 2016 referendum on the EU and the scale of Boris Johnson’s victory in the general election in 2019. On the other, their astonishing capacity to generate destructive mayhem left much debris at the heart of government.\r</p><p>\r</p><p>The two, of course, went together, as could be seen during the political crisis over prorogation last year. The No 10 press operation was turned into a lie factory spewing out factual untruths about the government’s intentions and smears against anyone trying to stand in its way. It then sold the new “withdrawal deal” as not involving the risk of a hard border between Great Britain and Northern Ireland, only for it now to be the government’s position that this deal risks exactly that outcome.\r</p><p>\r</p><p>Politics is not for the fainthearted, but during Cummings’ tenure we saw the disappearance of any standards of conduct at the heart of government. We have had summary sackings of fellow special advisers, one of whom is now receiving tens of thousands of pounds in compensation. Public trust and respect for government has been eroded by the double standards of Cummings’ personal conduct over lockdown and the prime minister’s policy zig-zags.\r</p><p>\r</p><p>Most recently, the clear terms of the ministerial code have been ignored to bring forward the clauses of the internal market bill, which flagrantly breaches international law. This has turned out to be not just a crime but also an error. Far from the lack of scruple delivering some negotiating advantage with the EU, it has backfired spectacularly, prompting a rebellion in both Commons and Lords and souring relations with the new US president at a time when Brexit maximises the prime minister’s need for goodwill.\r</p><p>\r</p><p>Nor is there anything positive to show on the promised modernisation of government and civil service. While Michael Gove may make speeches about encouraging civil servants to take risks, Cummings’ threatened change was by “hard rain” and denigration, which was hardly likely to make them feel valued. A sense of public duty and probity is a cornerstone of any Whitehall reforms, so it is an odd way forward for the cabinet secretary to give civil servants specific direction to work in breach of their own standards on the internal market bill.\r</p><p>\r</p><p>But, perhaps most damagingly, I note that when I talk with younger people they communicate their sense of government as being corrupt – almost accepting it as normal. That view is the inevitable consequence of the cronyism and party politicisation of administrative decisions that has surfaced in the last 12 months.\r</p><p>\r</p><p>As I remain a Conservative, despite having been thrown out by my party, I have no reason to wish this government to fail, however saddened I might be at what has been done to it and by it. Some of my ex-colleagues are hoping now for a reset, with the prime minister returning to more orthodox methods, with respectable advisers and a cabinet government that allows ministers some independence of thought. That leaves massive challenges relating to Covid, the economy, Brexit, the union of the UK, the climate crisis and social needs. But the change in personnel might at least help underpin some reasoned decision-making.\r</p><p>\r</p><p>The government has only days to decide whether it wants a thin deal or no deal. The former would help minimise disruption in January, but both are likely to be unsatisfactory and our future wellbeing as a nation is going to depend on what longer-term relationship with our neighbours can be achieved. These will all require hard choices, particularly as the public has been so consistently misled as to the reality of our country’s strengths and weaknesses. But that is what good governance is about.\r</p><p>\r</p><p>But, much as I would be pleased at such a transformation, I have doubts that the prime minister is capable of it. Those of us who have watched him in action as a colleague over the years can appreciate the engaging optimism that forms the base of his success as a communicator. But behind this lies a vacuum of detail, industry and integrity. It is this vacuum that gets filled by chaos. Equally troubling is the tendency when facing hard choices to take refuge in Churchillian “heroics” that serve only his personal short-term needs and can be reckless as to consequences.\r</p><p>\r</p><p>Outside observers have often predicted a skilful change of direction towards rational decision-making on many occasions, but it has failed to transpire. My former colleagues need to ask themselves the question: what, in the last 11 months since Brexit, reflects well on us as a party in government? If the answer is as damning as it looks, then what are they going to do about it?\r</p><p>\r</p><p>Dominic Grieve was Conservative MP for Beaconsfield from 1997 to 2019, and attorney general from 2010 to 2014</p>",
+    "image_url": "cummings.jpg",
+    "image_caption": "Boris Johnson, Michael Gove and Dominic Cummings at Vote Leave HQ, June 2016. Photograph: Andrew Parsons/Parsons Media"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 2,
+  "fields": {
+    "title": "Lewis Hamilton's bravery stood out at 10 – what he has done since is extraordinary",
+    "author": "John Watson",
+    "timestamp": "2020-11-20T03:45:45.571Z",
+    "content": "<p>It is impossible to compare drivers across different eras of motor racing, they can only really be judged as of their time. But what I can say without hesitation about Lewis Hamilton now he has secured his seventh world championship is that he is, by a million miles, the greatest driver of his generation and you can argue he will go on to be the greatest Formula One driver of all time.\r</p><p>\r</p><p>Until now the greatest for me was Juan Manuel Fangio because I was a child of that era and Fangio won five championships when drivers were being killed and he did it with four different manufacturers. That was an exceptional record, no one thought it could be beaten. Then Michael Schumacher came along and took seven and matching that did not seem realistic. Now there is Lewis not only equalling Michael but in every position to go one better as the most successful driver in F1. There could easily be an eighth and ninth championship and right now it is hard not to picture it because his talent and the engineering expertise Mercedes have demonstrated is mind-blowing.\r</p><p>\r</p><p>No one imagined Lewis would come so far but the attributes that brought him to these heights have been clear since he was a child. I first became aware of him at the Autosport awards in 1995. It was when as a young guy in karting he walked up to the McLaren team principal Ron Dennis and said: “I want to drive for you one day.” Here was a kid who had the courage to walk up to Ron, who was a fearsome figure in some respects, and Lewis was only 10 at the time. It made him stand out. Everything that followed has seemed to bear out this ambition and determination. He has combined it with a natural talent that he has only sharpened over the years and a desire to win that has become such a potent and powerful package.\r</p><p>\r</p><p>When he started in F1 Lewis unquestionably had ability in abundance. He had unbelievable speed and could push it to the very limits, all the things a young guy coming into a top team needed. It made him impossible to ignore in his first season. I am a huge fan of Fernando Alonso and he went to McLaren in 2007 as a double world champion but Lewis was immediately phenomenal.\r</p><p>\r</p><p>Taking on Alonso showed his fearlessness. If I had a teammate of the quality and reputation of Alonso you would remain in his shadow until you had established yourself. Lewis just got in the car and drove, he didn’t care. He was determined to do his best and if in the process he was beating his teammate he didn’t give it a second thought. For Lewis, Alonso was there as a target – the benchmark – and Lewis was out to beat him.\r</p><p>\r</p><p>What is also very impressive is that he was growing up in public, a daunting task for anyone. After his first title in 2008 it was an era when you had to be in the right team at the right time and by 2012 he was beginning to rebel, to feel the constrictions placed on him by McLaren. Lewis recognised that for him to fulfil further ambitions he needed more space, more freedom and that was offered by Mercedes, who he joined in 2013.\r</p><p>\r</p><p>It was a brave move, but Lewis was evolving into his own person. To leave McLaren was a risk but ultimately a racing driver has to seek out what is best for them. With six titles now for Mercedes his judgment has been proved to be spot on.\r</p><p>\r</p><p>What he has done since is extraordinary. He has been in the dominant car but even then you have to able to go out and deliver repeatedly, to win, win, win. When you start to win at the level he has you do not think about anything else, you rock up to a grand prix and you think you are going to win. You believe you are the best. Lewis has proved he is.\r</p><p>\r</p><p>He has also become a very important role model. Motor racing was regarded as a white person’s sport but Lewis had broken though that and shown that a young man from Stevenage with no history in motor sport can make it. Yet what Lewis represents is not just of import to the black community, he is an illustration to any child that it doesn’t matter what your background or your ethnicity is. If you have a dream and the self-belief then you can get out there and follow it.\r</p><p>\r</p><p>Perhaps what has given me most pleasure is how he has made it look easy. It is hard to express quite how good Lewis is because of the control he exhibits. In the car he never looks extended. Some drivers you can see as soon as they are out of the car they are mentally and physically wrecked but Lewis always appears completely composed.\r</p><p>\r</p><p>This is why he stands at the very top of the sport. A driver might come along and be quicker over a single lap but that’s not what makes you a seven-times world champion. It is about doing it metronomically and doing it year in, year out. That is very, very hard, yet he has done it and Lewis makes it look sublime.\r</p><p>\r</p><p>John Watson drove in Formula One from 1973-1985</p>",
+    "image_url": "lewis.jpg",
+    "image_caption": "Lewis Hamilton celebrates after winning his first F1 world championship in 2008. He is now level with Michael Schumacher on seven titles. Photograph: Rui Vieira/PA"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 3,
+  "fields": {
+    "title": "Speedy work on Covid gives the vaccine industry a shot in the arm",
+    "author": "Julia Kollewe",
+    "timestamp": "2020-11-20T03:46:12.534Z",
+    "content": "<p>The leading candidate to become the world’s first Covid-19 vaccine, developed by the US pharmaceutical company Pfizer and Germany’s BioNTech, had its genesis in late January 2020. Uğur Şahin, chief executive of the Mainz-based biotech, read about coronavirus in the Lancet and worried that the outbreak could grow into a pandemic.\r</p><p>\r</p><p>Şahin summoned colleagues to tell them that the company would shift its focus from cancer treatments to finding a vaccine for the deadly virus. It would use a method based on mRNA, whereby a stretch of genetic material from the coronavirus is injected into the body, resulting in human cells producing its so-called spike protein. This in turn triggers an immune response. Pfizer stepped in to help with development and distribution costs.\r</p><p>\r</p><p>Last Monday (9 November), the two companies surprised the world with news that in global trials the vaccine had been 90% effective in protecting people from the virus, raising hopes that an end to the pandemic could be in sight – and sending global stock markets soaring. Pfizer boss Albert Bourla, who sold $5.6m (£4.3m) of shares on the same day, called it “the greatest medical advance in the last 100 years”.\r</p><p>\r</p><p>After further tests, the firms plan to submit the vaccine for emergency regulatory approval later this month, and it could be shipped around the world by December. Global sales could reach $13bn next year, evenly split between the two companies, according to estimates from investment bank Morgan Stanley. Other vaccines are not far behind in development.\r</p><p>\r</p><p>Normally, it takes more than 10 years to develop a vaccine, at a typical cost of between $500m and $1.2bn. Vaccines generally have a 6% chance of making it to market, according to the International Federation of Pharmaceutical Manufacturers and Associations (IFPMA). The Covid-19 pandemic, which has killed more than a million people, sparked a global race to find a vaccine, and 10 are now in late-stage clinical trials.\r</p><p>\r</p><p>Gavi, an alliance of public and private bodies that aims to increase immunisation in poor countries, is behind the Covax facility, a fund for future Covid-19 vaccines. Its managing director, Aurélia Nguyen, said: “This is quite unprecedented. Nothing like it has ever been attempted. We are doing this many times faster than has ever been done before.”\r</p><p>\r</p><p>She said there had been a large international effort, with governments and health organisations pre-ordering hundreds of millions of doses from vaccine makers. Steps that are normally taken sequentially had been carried out in parallel, including manufacturing doses without knowing whether the vaccine works, and submitting regular clinical data to regulators during trials with tens of thousands of volunteers, rather than at the end of the process.\r</p><p>\r</p><p>Emily Field, head of European pharmaceutical research at Barclays bank, said the pharma industry had a head start after the 2003 Sars and the 2012 Mers epidemics – both caused by coronaviruses – and had already been working on mRNA technologies, which can be adapted to different viruses.\r</p><p>\r</p><p>US biotech firm Moderna said it would know by the end of November whether its vaccine, which also relies on mRNA technology, works. In the UK, AstraZeneca and the University of Oxford, whose vaccine is based on a modified chimpanzee cold virus, expect to have final data by the end of the year.\r</p><p>\r</p><p>Vaccines from US firms Johnson & Johnson and Novavax are also in late-stage clinical trials, as are Russia’s Sputnik vaccine and a CoronaVac vaccine from Chinese biotech firm Sinovac. France’s Sanofi Pasteur and the UK’s GSK, the world’s biggest vaccine-maker by sales, are collaborating on a vaccine that is expected to be ready next summer.\r</p><p>\r</p><p>Governments and other public organisations have poured more than $12bn of development and manufacturing funding into the six frontrunners in the western world, according to Médecins Sans Frontières (MSF). While Pfizer has not had any research funding from the US government, its German partner had €475m from the German government and the European Investment Bank, and the US government agreed to pay nearly $2bn for production and nationwide delivery of 100 million doses.\r</p><p>\r</p><p>Gavi said on Friday that it had raised more than $2bn from governments and the Bill & Melinda Gates Foundation to fund Covid-19 vaccines for low- and middle-income countries, but that at least $5bn more would be needed next year.\r</p><p>\r</p><p>The speed with which these vaccines are being developed has raised concerns that trials may have been rushed and corners cut. However, experts say the candidate vaccines have been tested for safety and efficacy in large international trials, and that drug regulators can be trusted. Kate Elder, a senior vaccines policy adviser at MSF, said: “We can trust these stringent regulatory authorities to complete the necessary checks and balances to ensure safety.”\r</p><p>\r</p><p>The history of vaccines started with one against smallpox, introduced by Edward Jenner in 1796, after he observed that milkmaids who had previously had cowpox did not catch smallpox. Jenner took material from a cowpox sore on a milkmaid’s hand and injected it into the arm of his gardener’s nine-year-old son. Almost two centuries later, in 1980, the world was declared free of smallpox.\r</p><p>\r</p><p>For years, the development of new vaccines has been in the hands of a few big pharmaceutical companies – Merck, Pfizer, Johnson & Johnson, GSK and Sanofi. But a number of local firms, such as India’s Serum Institute, produce vaccines more cheaply.\r</p><p>\r</p><p>Vaccines tend to be more difficult to manufacture than traditional drugs: setting up the necessary hermetically sealed facility costs between $10m and $100m, according to the IFPMA.\r</p><p>\r</p><p>And because many childhood vaccines are administered only once and last a lifetime, the global vaccines market, with sales of $32.5bn last year, is small in comparison with the pharmaceuticals market of $880bn, according to Evaluate Pharma. About 116 million children are vaccinated worldwide every year, according to the World Health Organization [WHO], and this helps prevent up to 3 million deaths.\r</p><p>\r</p><p>The price of vaccines varies widely. A dose of simple tetanus vaccine can cost as little as 3p in poorer countries, while a dose of the six-in-one vaccine DTaP-HepB-Hib-IPV – given to young children to protect against diphtheria, tetanus, pertussis, hepatitis B, polio and Haemophilus influenzae type B (Hib) – can cost $92 in the US.\r</p><p>\r</p><p>Viagra-maker Pfizer’s bestselling product last year was its pneumonia vaccine, Prevnar 13, which brought it annual revenues of nearly $6bn. The vaccine costs around $227 per dose in the US, and four shots are required.\r</p><p>\r</p><p>Pricing for the future Covid-19 vaccines ranges from AstraZeneca’s $3-$5 a dose and Johnson & Johnson’s $10 – on a not-for-profit basis guaranteed for the current pandemic – to Pfizer’s $19.50 a shot and Moderna’s $37.\r</p><p>\r</p><p>A separate issue is rising vaccine scepticism around the world. Elder at MSF said: “In 2019, the WHO named vaccine hesitancy as one of the top 10 threats to global health. Here in the US, a recent poll showed that more than half of people said they wouldn’t take a Covid-19 vaccine.”\r</p><p>\r</p><p>But tackling scepticism will be a future concern: governments desperately need viable vaccines first.</p>",
+    "image_url": "vaccine.jpg",
+    "image_caption": "A volunteer being given a dose of a coronavirus vaccine produced by BioNTech. Photograph: PA"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 4,
+  "fields": {
+    "title": "Too many cooks: who is the best TV chef?",
+    "author": "Jonathan Nunn",
+    "timestamp": "2020-11-20T03:48:08.297Z",
+    "content": "<p>We should probably preface this by pointing out that the very notion of a “TV chef” is a peculiar modern invention. Being a TV chef isn’t necessarily about being an actual chef at all, but a chimeric blend of mediums: some are natural writers who TV execs realised would also be natural broadcasters (Nigella Lawson, back with a new BBC series this week); some are essentially reading out their columns, ASMR style, with the backdrop of a nice garden (Nigel Slater); some are chefs so obsessed with the exotica of travel that in another era they would likely have been mid-ranking colonial governors somewhere in the British Raj (Rick Stein).\r</p><p>\r</p><p>The true golden age of the TV chef came somewhere in the late 90s, with the emergence of chefs who seemed to have been purpose-built for TV. Watching Ready Steady Cook, you never got the impression that Antony Worrall Thompson, Brian Turner and Nick Nairn were successful chefs running acclaimed kitchens, even though in reality they were; they simply existed as avatars of dad-banter who knew their way around a pot and pan. Remember, this was an era before the likes of Gordon Ramsay and Heston Blumenthal, when being a TV chef meant you could partake in gunge-related activities and strip nude in front of a baying audience of middle-aged mums for a charity telethon, and everyone thought it was an extremely normal thing to do.\r</p><p>\r</p><p>It is for this exact reason that the greatest TV chef of all time is Ainsley Harriott. An absolutely exquisite broadcaster in his pomp, you cannot visualise him actually being a chef anywhere outside of a TV set or a cup-soup packet, although he did once work as a restaurant sous chef for a period. Could you imagine the stress of working in a kitchen with him? You’ve just seated 10 covers and the orders are flooding in: “Five tasting menus, three monkfish and a côte de boeuf, medium rare.” You’re concentrating on getting that fish à la nacre, but Harriott has just started to salsa, completely messing up your mise en place. At the pass, your hard work has just been undone as Harriott, gurning and wielding a comically large pepper grinder that he definitely brought in from home, has over-seasoned everything.\r</p><p>\r</p><p>This is a world away from the serious business of TV cheffing today. With the rise of talent-based cooking shows such as Great British Menu, a TV chef is simply an actual chef who has been plucked from the ignominy of running their own kitchen, and is then told to look suitably sullen for the camera (this is done using the subtle technique of brandishing a knife or folding their arms and flexing while wearing an apron).\r</p><p>\r</p><p>In this new world where the chef is now expected to give their opinion on everything from politics to the climate crisis, Harriott is a dying breed. He is an intractable, all-or-nothing proposition: a chef who can only be on TV, and who, on TV, can only be a chef – no one is going to watch Civilisation With Ainsley Harriott. He is a reminder of a time when being a chef just meant wearing a big white hat at a jaunty angle and making sexual innuendos; a simpler time, perhaps, but undoubtedly a better one.</p>",
+    "image_url": "chef.jpg",
+    "image_caption": "Whisky business … (l-r) Ainsley Harriott, Gordon Ramsay and Nigella Lawson. Composite: Guardian"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 5,
+  "fields": {
+    "title": "SpaceX Nasa launch: astronauts head to International Space Station onboard Dragon capsule",
+    "author": "Helen Sullivan",
+    "timestamp": "2020-11-20T03:48:25.565Z",
+    "content": "<p>SpaceX has launched four astronauts to the International Space Station on the first full-fledged taxi flight for Nasa by a private company.</p>\r\n\r\nThe Falcon rocket thundered into the night from Kennedy Space Center in Florida with three Americans and one Japanese onboard, the second crew to be launched by SpaceX. The Dragon capsule on top – named Resilience by its crew in light of this year’s many challenges, most notably Covid-19 – is due to reach the space station after 27-and-a-half hours and remain there until spring.</p><p>SpaceX founder and chief executive Elon Musk was forced to monitor the action from afar after being sidelined by the virus. He tweeted that he “most likely” had a moderate case of Covid-19. Nasa policy at Kennedy Space Center requires anyone testing positive for coronavirus to quarantine and remain isolated.</p><p>Sunday’s launch comes just a few months after a two-pilot test flight by SpaceX and kicks off what Nasa hopes will be a long series of crew rotations between the US and the space station, after years of delay. More people means more science research at the orbiting lab, officials said.</p>\r\n</p><p>“This is another historic moment,” Nasa administrator Jim Bridenstine said on Friday. But he noted: “Make no mistake: Vigilance is always required on every flight.”\r\n</p><p>\r\n</p><p>The flight to the space station should be entirely automated, although the crew can take control if needed.\r\n</p><p>Four hours after liftoff, Nasa announced that it was investigating “an issue with propellant heaters and continuing to gather data”. Half an hour later, Nasa tweeted: “Teams are troubleshooting propellant heaters that heat the fuel aboard Crew Dragon. Temperatures remain stable and the crew remains safe.”\r\n</p><p>\r\n</p><p>The role of the propellant heaters is to keep the fuel above 60F, according to CBS space journalist William Harwood.By around five hours after liftoff, the issue had been resolved, as had a problem with the Thermal Control System, which was running slightly too cold.\r\n</p><p>\r\n</p><p>With Covid-19 still surging, Nasa continued the safety precautions put in place for SpaceX’s crew launch in May. The astronauts went into quarantine with their families in October. All launch personnel wore masks, and the number of guests at Kennedy was limited. Even the two astronauts on the first SpaceX crew flight stayed behind at Johnson Space Center in Houston.\r\n</p><p>\r\n</p><p>Vice President Mike Pence, chairman of the National Space Council, travelled from Washington to watch the launch.\r\n</p><p>\r\n</p><p>Nasa worried a weekend liftoff – coupled with a dramatic nighttime launch – could lead to a superspreader event and urged crowds to wear masks and maintain safe distances. Similar pleas for SpaceX’s first crew launch on 30 May went unheeded.\r\n</p><p>\r\n</p><p>The crew – comprising three men and one woman, led by Commander Mike Hopkins, an Air Force colonel – named their capsule Resilience in a nod not only to the pandemic, but also racial injustice and contentious politics. It’s about as diverse as space crews come, with physicist Shannon Walker, as well as Navy Commander Victor Glover, the first Black astronaut on a long-term space station mission, and Japan’s Soichi Noguchi, who became the first person in almost 40 years to launch on three types of spacecraft.\r\n</p><p>\r\n</p><p>They rode out to the launch pad in Teslas after exchanging high-fives and embraces with their children and spouses, who huddled at the open car windows. Musk was replaced by SpaceX president Gwynne Shotwell in bidding the astronauts farewell.\r\n</p><p>\r\n</p><p>The Dragon capsule is quite spacious – it can carry up to seven people. Previous space capsules have launched with no more than three. The extra room in the capsule was used for science experiments and supplies.\r\n</p><p>\r\n</p><p>The four astronauts will be joining two Russians and one American who flew to the space station last month from Kazakhstan.\r\n</p><p>\r\n</p><p>The first-stage booster – which landed on an ocean platform several minutes after liftoff – is expected to be recycled by SpaceX for the next crew launch, scheduled for the end of March. That would set up the newly launched astronauts for a return to Earth in April. SpaceX plans to launch yet another crew several months after that.\r\n</p><p>\r\n</p><p>SpaceX and Nasa wanted the booster recovered so badly that they delayed the launch attempt by a day, to give the floating platform time to reach its position in the Atlantic over the weekend following rough seas.</p>",
+    "image_url": "astronauts.jpg",
+    "image_caption": "Nasa astronauts Shannon Walker, Victor Glover, commander Mike Hopkins and Japan Aerospace Exploration Agency astronaut Soichi Noguchi inside SpaceX’s Crew Dragon spacecraft. Photograph: AP"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 6,
+  "fields": {
+    "title": "EU must assert autonomy in face of US-China dominance, says Macron",
+    "author": "Patrick Wintour",
+    "timestamp": "2020-11-20T03:48:39.862Z",
+    "content": "<p>European leaders must not let up on efforts to construct an autonomous bloc that is capable of resisting the duopoly of China and the US, Emmanuel Macron has said in his first extended response to the US presidential election.\r</p><p>\r</p><p>The French president said the US would only respect Europe if it was sovereign with respect to its own defence, technology and currency. Warning that US values and interests were not quite the same as Europe’s, he said: “It is not tenable that our international policies should be dependent on it or to be trailing behind it.” The same need for independence applied even more to China, he added.\r</p><p>\r</p><p>His analysis came in a marathon interview in the journal Le Grand Continent, conducted last Thursday, in which he called for a redoubling of the protection of the values of the European enlightenment against “barbarity and obscurantism”. Le Grand Continent is the review attached to the leading French thinktank Groupe d’Études Géopolitiques.\r</p><p>\r</p><p>Macron suggested 2020 may prove to be a landmark year similar to 1945, 1968 and 2007. Much of the interview considered the extent to which the forces that led to Donald Trump’s election in 2016, and the UK’s Brexit vote, could be contained, and reversed.\r</p><p>\r</p><p>“The changeover of the administration in America is an opportunity to to pursue in a truly peaceful and calm manner what allies need to understand among themselves – which is that we need to continue to build our independence for ourselves, as the US does for itself and as China does for itself.”\r</p><p>\r</p><p>He explicitly claimed that the German chancellor, Angela Merkel, was resisting German politicians who have described the search for European autonomy as an illusion, saying such a view is a “historical misinterpretation”.\r</p><p>\r</p><p>“It is vital that our Europe finds the ways and the means to decide for itself to rely on itself, not to depend on others in every area, technological, health, geopolitics, and to be able to cooperate with whomever it chooses,” he said.\r</p><p>\r</p><p>Macron added that although the US was Europe’s historical ally, cherishing similar principles, “our values are not quite the same. We have an attachment to social democracy, to more equality. Our reactions are not quite the same”.\r</p><p>\r</p><p>Macron, who previously criticised Nato as being “brain-dead”, said: “Europe has a lot of thoughts unthought. On a geostrategic level we had forgotten to think because we thought our geopolitical relations through Nato.”\r</p><p>\r</p><p>Calling for a reinvention of international cooperation, he said the current multilateral frameworks were blocked. “The UN security council no longer produces useful solutions today. We all have some responsibility to bear when some [institutions] such as the World Health Organization find themselves hostages to the crises of multilateralism.”\r</p><p>\r</p><p>He said the deep crisis of cooperation was a crisis born of conflicting values, including the rise of neoconservatism and a breakdown in the universal principle of inviolable human rights. This rupture, he said, “is the fruit of ideological choices fully endorsed by powers that see in it the means to rise, and a form of fatigue, of breakdown”.\r</p><p>\r</p><p>Without mentioning Turkey directly, he said: “Authoritarian regional powers are re-emerging, theocracies are re-emerging. It is an extraordinary acceleration of a return of religion on the political scene in a number of these countries.”\r</p><p>\r</p><p>Europe, Macron suggested, was fighting against “a colossal step backward in history”, led by those who use radical Islamism to challenge freedom of expression. Insisting he respected cultures and civilisations, he said “nevertheless I am not going to change our laws because they shock elsewhere”.\r</p><p>\r</p><p>He attributed some of the rise of populism to the effect of a breakpoint in the previous Washington consensus about the virtues of globalisation. “When the middle classes no longer have the means to progress and see their situation sliding year after year, a doubt about democracy sets in. That is what we are seeing precisely everywhere, from the US of Donald Trump, to Brexit and the warning shots in our country,” he said.\r</p><p>\r</p><p>Macron warned that social media had become an instrument for the rejection of all expertise, be it political, academic or scientific. “We have not organised a public order for this space. The virtual space over determines our choices today, and at the same time it transforms our political life. And therefore it disrupts democracies and our lives.”\r</p><p>\r</p><p>He said he was pursuing the concept of a golden hour, the idea that social media firms have 60 minutes to identify and take down posts that glorify and incite terrorism and hate.</p>",
+    "image_url": "macron.jpg",
+    "image_caption": "Donald Trump holds talks with Emmanuel Macron in London in December last year. Macron has previously criticised Nato as being ‘brain-dead’. Photograph: Ludovic Marin/POOL/AFP via Getty Images"
+  }
+},
+{
+  "model": "main.article",
+  "pk": 7,
+  "fields": {
+    "title": "If Keir Starmer sticks to his principles, Labour will vote against a Brexit deal",
+    "author": "Zoe Williams",
+    "timestamp": "2020-11-20T03:49:09.793Z",
+    "content": "<p>Life under this government is a constant gear slippage between what you believe it to be capable of and what the external realities of the world demand. I have no confidence at all, for instance, in its ability to deliver a vaccination programme; all I can envisage is a vast contract delivered to some second-cousin-by-marriage of a minister, who reveals at the last moment that they don’t know how to keep anything refrigerated to -70C, but somehow that’s now the National Audit Office’s problem and they’ve walked off with the cash. And yet, simultaneously, a vaccination programme must happen.\r</p><p>\r</p><p>This great chasm between what’s imaginable and what is necessary for the government to do is nowhere plainer than with Brexit. Certain things must happen: Boris Johnson must decide whether or not to make a deal with the EU, and within the next six weeks.\r</p><p>\r</p><p>Neither rambunctious rhetoric nor anti-EU recrimination will mask the consequences of either outcome. The prime minister, last January, removed from the Withdrawal Agreement the section on parliament’s role in the negotiations, so he has the option to press ahead without a vote. However, the potential to embarrass the opposition by soliciting its view may be too good to pass up.\r</p><p>\r</p><p>In raw parliamentary terms, Labour MPs would be faced with a classic Solomonic dilemma: if they vote against any deal, and there are enough rebels on the Conservative side, they run the risk of actually precipitating a no-deal themselves. In the national interest, this would force them to vote for, or at least abstain on, more or less anything. Moreover, the extent of a Conservative rebellion, if indeed there were one, would not be clear until very close to the vote, leaving Labour unable to state its intentions plainly until it had a realistic read on the jeopardy involved. So in the worst-case scenario, Labour would remain evasive until the final hour, and then be accidental midwife to a chaotic no-deal finale.\r</p><p>\r</p><p>Meanwhile, if Labour MPs vote in favour of a deal, they make a mockery of the years spent opposing its flaws, and become complicit in any given negative outcome, which should be be laid squarely at the Tories’ door. If there’s one valuable lesson from Theresa May’s government, it’s that even the narrowest possible majority leaves very little room for an opposition to play in. Abstaining starts to look like the least-bad option, but that’s hardly safe: it was catastrophic for Labour to abstain on the Welfare Bill of 2015 – not because it could have effected a different outcome by opposing it, rather because it made the opposition seem spineless and calculating. The party’s fundamental values ended up being hollowed out by an unimaginative perception of what realism demanded.\r</p><p>\r</p><p>If the parliamentary strategy looks lose-lose, the optics are more hazardous still. Keir Starmer will be tempted to slough off his Mr Remain image – with staying in the EU off the table, there is absolutely no political capital in being that sober-headed, international-rules-based-system guy; indeed, it has long been a contradiction in terms to argue on rational grounds for a completely impossible outcome.\r</p><p>\r</p><p>The most successful attacks the Conservatives have so far made on Starmer – or at least, the attacks they find most satisfying, given how pleased they seem to be to repeat them – centre on the idea that he rejected and continues to reject the referendum result, and therefore has no respect for democracy.\r</p><p>\r</p><p>Add to that the opposition’s red-wall fixation, and early bids to retake those traditionally Labour, socially conservative heartlands with talk of patriotism, and the situation appears to call for a Labour leader who has at least fully accepted the necessity of leaving the EU, even if he will never love it.\r</p><p>\r</p><p>However, there is an important counterpoint: far more pressing for Labour’s electoral recovery is that people can see who the leader is, and can see that his words and actions reflect a value system that is solid, consistent and true. If universal human rights have been the lodestar of his career, the connective tissue that draws together the professional, political and personal, they cannot be shunted to the margins because Priti Patel portrays them as elitist or a focus group finds them boring. They must inform the party’s response, on everything from freedom of movement to the Good Friday Agreement.\r</p><p>\r</p><p>Likewise economic justice, environmentalism, peace and international cooperation. These are more than strategic priorities: they are the pillars of the progressive political self, and there are very few issues raised by the Brexit process, from the foreseeable impact on trade, agriculture and manufacturing, to the more perverse consequences for the hedgerows of Kent, that do not touch on them.\r</p><p>\r</p><p>The success of the Brexit project has been to collapse all ideological complexity into one question; the opposition will start to succeed when it disaggregates the issues so that they once again have meaning, and points to a plan.\r</p><p>\r</p><p>While the party should remain stalwart on its own values, it has to adapt to changing external realities. The public may have voted to “get Brexit done” nearly a year ago, but that hasn’t translated into broad support for the idea, which as of last week was opposed in a poll by 49% of respondents (41% still in favour). It is possible to think something’s a terrible idea and simultaneously want to stop talking about it, as anyone who’s ever been in a relationship knows.\r</p><p>\r</p><p>For Labour to vote in favour of a deal with the EU as negotiated by Johnson would be to chase yesterday’s polls, and accept the Conservatives’ version of authenticity, which is corrosive to its own. If it abstains, it makes itself irrelevant – not just in the moment, but in any future critique. There is no clever answer to a future vote on a Brexit deal, but that is perversely liberating. When you can’t be clever, all you can be is truthful. The honest course would be to vote against the government.\r</p><p>\r</p><p>Zoe Williams is a Guardian columnist</p>",
+    "image_url": "starmer.jpg",
+    "image_caption": "The situation appears to call for a Labour leader who has at least fully accepted the necessity of leaving the EU, even if he will never love it.’ Keir Starmer in the House of Commons. Photograph: Jes"
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 1,
+  "fields": {
+    "category": "PO",
+    "article": 1
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 2,
+  "fields": {
+    "category": "BU",
+    "article": 2
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 3,
+  "fields": {
+    "category": "SP",
+    "article": 3
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 4,
+  "fields": {
+    "category": "EN",
+    "article": 4
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 5,
+  "fields": {
+    "category": "ST",
+    "article": 5
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 6,
+  "fields": {
+    "category": "WN",
+    "article": 6
+  }
+},
+{
+  "model": "main.articlecategory",
+  "pk": 7,
+  "fields": {
+    "category": "PO",
+    "article": 7
+  }
+},
+{
+  "model": "accounts.account",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$0nIOyZU3Abz9$OnfSo/QZAFUWpQrFAmEZtBb/GH0BvYDyFW4PUJkxzFU=",
+    "email": "ashraff.hatz@gmail.com",
+    "username": "Heisenberg",
+    "timestamp": "2020-11-20T03:36:00.289Z",
+    "dob": "1999-09-20",
+    "profile_pic": "01_small.jpg",
+    "last_login": "2020-12-07T21:57:42.019Z",
+    "is_active": true,
+    "is_admin": true,
+    "private_categories": " ST WN PO"
+  }
+},
+{
+  "model": "accounts.account",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$rcj2EN4T61Td$k7LytwZ9GCVXZjIVxFcJ9shhZPne877fWV0nBtwhvZc=",
+    "email": "jacque@webster.com",
+    "username": "RockstarJeans3500",
+    "timestamp": "2020-11-20T03:52:02.798Z",
+    "dob": "1991-04-30",
+    "profile_pic": "profile_pictures/XX3f8ux7_400x400.jpg",
+    "last_login": "2020-12-04T20:49:46.869Z",
+    "is_active": true,
+    "is_admin": false,
+    "private_categories": " EN WN ST BU PO SP"
+  }
+},
+{
+  "model": "accounts.account",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$v3TvJop7EA1u$/q+fTRNpOflXRifMbZoVkgT7Pm7RXdvVRYM3qjlYHU0=",
+    "email": "neo@thematrix.com",
+    "username": "TheOne",
+    "timestamp": "2020-11-23T18:01:55.068Z",
+    "dob": "1964-09-02",
+    "profile_pic": "empty-profile.jpg",
+    "last_login": "2020-12-04T18:24:25.244Z",
+    "is_active": true,
+    "is_admin": true,
+    "private_categories": null
+  }
+},
+{
+  "model": "accounts.account",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$eCPVlhWABK0Y$CVFj6o3957IavSP2x1lx5s2GnPg+TdhfhgTvKkvN2/A=",
+    "email": "tester@test.com",
+    "username": "TheTestingUnit",
+    "timestamp": "2020-12-07T19:51:53.231Z",
+    "dob": "2020-12-07",
+    "profile_pic": "empty-profile.jpg",
+    "last_login": "2020-12-07T21:56:13.627Z",
+    "is_active": true,
+    "is_admin": false,
+    "private_categories": "ST"
+  }
+},
+{
+  "model": "main.likes",
+  "pk": 3,
+  "fields": {
+    "article": 4,
+    "comment": null,
+    "user": [
+      "ashraff.hatz@gmail.com"
+    ]
+  }
+},
+{
+  "model": "main.likes",
+  "pk": 5,
+  "fields": {
+    "article": 6,
+    "comment": null,
+    "user": [
+      "neo@thematrix.com"
+    ]
+  }
+},
+{
+  "model": "main.likes",
+  "pk": 6,
+  "fields": {
+    "article": 5,
+    "comment": null,
+    "user": [
+      "jacque@webster.com"
+    ]
+  }
+},
+{
+  "model": "main.likes",
+  "pk": 8,
+  "fields": {
+    "article": 1,
+    "comment": null,
+    "user": [
+      "ashraff.hatz@gmail.com"
+    ]
+  }
+},
+{
+  "model": "main.likes",
+  "pk": 9,
+  "fields": {
+    "article": 6,
+    "comment": null,
+    "user": [
+      "ashraff.hatz@gmail.com"
+    ]
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 2,
+  "fields": {
+    "article": 6,
+    "user": [
+      "jacque@webster.com"
+    ],
+    "content": "Man I'm so high that this article is trill niggaaa",
+    "timestamp": "2020-12-04T20:51:18.293Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 35,
+  "fields": {
+    "article": 6,
+    "user": [
+      "jacque@webster.com"
+    ],
+    "content": "This, sucks\n\n\na  lot",
+    "timestamp": "2020-12-03T18:11:41.570Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 179,
+  "fields": {
+    "article": 6,
+    "user": [
+      "ashraff.hatz@gmail.com"
+    ],
+    "content": "Yo CJ, big fan!",
+    "timestamp": "2020-12-04T17:43:45.163Z",
+    "parent_comment": 2
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 182,
+  "fields": {
+    "article": 6,
+    "user": [
+      "ashraff.hatz@gmail.com"
+    ],
+    "content": "Silent enim leges inter arma",
+    "timestamp": "2020-12-04T18:21:39.929Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 196,
+  "fields": {
+    "article": 6,
+    "user": [
+      "neo@thematrix.com"
+    ],
+    "content": "hahaha you're a funny guy!",
+    "timestamp": "2020-12-04T18:48:04.035Z",
+    "parent_comment": 2
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 242,
+  "fields": {
+    "article": 6,
+    "user": [
+      "neo@thematrix.com"
+    ],
+    "content": "This is a good article boyo!",
+    "timestamp": "2020-12-04T20:46:30.447Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 245,
+  "fields": {
+    "article": 5,
+    "user": [
+      "jacque@webster.com"
+    ],
+    "content": "first comment",
+    "timestamp": "2020-12-04T20:50:19.218Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 246,
+  "fields": {
+    "article": 5,
+    "user": [
+      "jacque@webster.com"
+    ],
+    "content": "second comment",
+    "timestamp": "2020-12-04T20:50:22.590Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 247,
+  "fields": {
+    "article": 5,
+    "user": [
+      "jacque@webster.com"
+    ],
+    "content": "third comment",
+    "timestamp": "2020-12-04T20:50:25.165Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 248,
+  "fields": {
+    "article": 6,
+    "user": [
+      "jacque@webster.com"
+    ],
+    "content": "Cicero???",
+    "timestamp": "2020-12-04T20:51:00.518Z",
+    "parent_comment": 182
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 269,
+  "fields": {
+    "article": 6,
+    "user": [
+      "ashraff.hatz@gmail.com"
+    ],
+    "content": "Dope stuff my man!",
+    "timestamp": "2020-12-06T22:52:11.129Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 270,
+  "fields": {
+    "article": 4,
+    "user": [
+      "tester@test.com"
+    ],
+    "content": "First",
+    "timestamp": "2020-12-07T21:56:22.355Z",
+    "parent_comment": null
+  }
+},
+{
+  "model": "main.comments",
+  "pk": 271,
+  "fields": {
+    "article": 4,
+    "user": [
+      "tester@test.com"
+    ],
+    "content": "Second",
+    "timestamp": "2020-12-07T21:56:27.325Z",
+    "parent_comment": 270
+  }
+}
+]

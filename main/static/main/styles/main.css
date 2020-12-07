@@ -23,7 +23,6 @@ h1, h2, h3, h4, h5, h6 {
   border: none !important;
 }
 
-
 a {color: #c70000}
 
 a:hover {
@@ -140,6 +139,11 @@ div.article_meta > * {
 .category-header {
   color: #c70000;
 }
+
+.category-header:active {
+  color: #c70000;
+}
+
 
 
 .card_footer

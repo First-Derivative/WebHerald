@@ -46,11 +46,11 @@ class RegisterForm(UserCreationForm):
 class LoginForm(ModelForm):
 
     email = forms.CharField(max_length=50,widget=forms.EmailInput(attrs={
-        'class': 'form-control ',
+        'class': 'form-control',
     }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control ',
+        'class': 'form-control',
     }))
 
     class Meta:
@@ -62,6 +62,7 @@ class LoginForm(ModelForm):
         password = self.cleaned_data['password']
         if not authenticate(email=email, password=password):
             raise forms.ValidationError("Incorrect Credentials")
+
 
 class ImageForm(ModelForm):
     class Meta:

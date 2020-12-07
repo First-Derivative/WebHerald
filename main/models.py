@@ -83,7 +83,7 @@ class ArticleCategory(models.Model):
             null=True,
             blank=True,
             on_delete=models.CASCADE,
-            related_name='categories', # by calling 'articles' we can fetch all articles in a category
+            related_name='categories',
             )
 
     @property
