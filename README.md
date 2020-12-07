@@ -18,12 +18,12 @@
 1. Bugs
 
 #### known bugs
-1. Login validation
-2. When deleting the last comment on an article: the no comments message doesn't appear
-3. Line breaks are not read for a new comment in comment_content
-4. Timestamp for ajax comments different format than get request DOM
-5. Timestamp for edited comments should be updated, can get updated timestamp from response.data
-6. Posting a new comment should set window location to the new comment 
+1. When deleting the last comment on an article: the no comments message doesn't appear
+2. Line breaks are not read for a new comment in comment_content
+3. Timestamp for ajax comments different format than get request DOM
+4. Timestamp for edited comments should be updated, can get updated timestamp from response.data
+5. Posting a new comment should set window location to the new comment
+6. Deleting parent comment does not delete child comments on DOM 
 
 ---
 ## Requirements:
