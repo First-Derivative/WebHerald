@@ -1,31 +1,27 @@
-# WP_Coursework3
+# Group 57
+
+## Members
+
+1. Nicole Robson n.s.robson@qmul.ac.uk
+2. Ashraff Hatz m.a.hatz@se18.qmul.ac.uk
+
+### [Deployed Application Link]()
 
 ---
-## Design Links
-### [DB Schema ER Diagram](https://app.diagrams.net/#G1bOJjas5DwYNGpUWEC8jXjltAUl_HOhFL)
+## Login Details:
 
-## Important Links
-### [For Merge Conflict Reference](https://www.youtube.com/watch?v=CKAdoAR0ykc&ab_channel=AppleJuiceTeaching)
-### [Django Docs: Models Fields](https://docs.djangoproject.com/en/3.1/ref/models/fields/)
-### [Django Docs: Middleware](https://docs.djangoproject.com/en/3.1/topics/http/middleware/)
+### Admin: 
 
-## Useful Links:
-### [Online Python IDE for quick testing](https://repl.it/languages/python3)
-### [Markdown (syntax) Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+email: admin@webherald.com
+password: webapp101!
 
----
-#### Notes for Discussion
-1. Bugs
+### Test Users:
 
-#### known bugs
-1. When deleting the last comment on an article: the no comments message doesn't appear
-2. Line breaks are not read for a new comment in comment_content
-3. Timestamp for ajax comments different format than get request DOM
-4. Timestamp for edited comments should be updated, can get updated timestamp from response.data
-5. Posting a new comment should set window location to the new comment
-6. Deleting parent comment does not delete child comments on DOM 
+email: tester@test.com
+password: Thetester123!
 
----
-## Requirements:
-1. Pillow
-2. django-cleanup
+email: jacque@webster.com
+password: Cactusjack1
+
+email: automaton@maximus.com
+password: machina_maximus99
