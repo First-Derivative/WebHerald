@@ -24,10 +24,6 @@
         <form action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           {{image_form.as_p}}
-          <!--
-          <label class="btn btn-outline-primary">Choose file
-            {{image_form.profile_pic}}</label>
-            -->
           <button type="submit" name="update" class="btn btn-outline-dark">Update</button>
           <button type="submit" name="delete" class="btn btn-outline-danger" id="delete_image">Delete</button>
         </form>
@@ -57,7 +53,21 @@
     <div class ="category_selection">
       <h4>Edit User Details</h4>
       <small style="font-style: italic">Enter in your new values and press submit!</small>
+      <div class="edit_user_form">
+      <br>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in user_form %}
 
+          <div class="form-group">
+              {{field.label_tag}}
+
+              {{field}}
+          </div>
+          {% endfor %}
+
+          <button type="submit" name="edit_user" class="btn btn-outline-dark">Submit</button>
+        </form>
     </div>
   </div>
 

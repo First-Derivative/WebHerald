@@ -73,3 +73,22 @@ class ImageForm(ModelForm):
             attrs={'style':'display: none;','class':'form-control', 'required': False, }
              )}
         '''
+
+class UpdateUserForm(ModelForm):
+    class Meta:
+        model = Account
+        fields = ("email", "username", "dob")
+
+    email = forms.CharField(max_length=50, help_text="This is what you'll use to login",widget=forms.EmailInput(attrs={
+    'class': 'form-control ',
+    }))
+
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
+    'class': 'form-control ',
+    }))
+
+    dob = forms.DateField(label="Date of Birth", widget=forms.DateInput(attrs={
+    'type': 'date',
+    'placeholder': '1999-09-09',
+    'class': 'form-control ',
+    }))

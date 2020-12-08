@@ -13,7 +13,7 @@ from django.core.exceptions import SuspiciousOperation
 from accounts.models import Account
 from main.models import CategoryLabel
 
-from accounts.forms import RegisterForm, LoginForm, ImageForm
+from accounts.forms import RegisterForm, LoginForm, ImageForm, UpdateUserForm
 
 def registerAccount(request):
     context = {
@@ -82,15 +82,16 @@ def logoutAccount(request):
 @login_required
 def getProfilePage(request):
     user = request.user
-    form = ImageForm()
+    image_form = ImageForm()
+    user_form = UpdateUserForm({'email': user.email, 'username': user.username, 'dob': user.dob})
     default = user._meta.get_field('profile_pic').get_default()
 
     # Handle image form, case = update image
     if(request.method == 'POST' and 'update' in request.POST):
         try:
-            form = ImageForm(request.POST, request.FILES, instance=user)
-            if form.is_valid():
-                form.save()
+            image_form = ImageForm(request.POST, request.FILES, instance=user)
+            if image_form.is_valid():
+                image_form.save()
         except ValidationError:
             # unprocessible entity
             HttpResponse(status=409)
@@ -100,8 +101,16 @@ def getProfilePage(request):
         user.profile_pic = default
         user.save()
 
+    # Handle user update form
+    if(request.method == 'POST' and 'edit_user' in request.POST):
+        user_form = UpdateUserForm(request.POST, instance=user)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('profile')
+
     context = {
-        'image_form': form,
+        'image_form': image_form,
+        'user_form': user_form,
         'nav_categories': [category for category in CategoryLabel],
         'categories': [category for category in CategoryLabel],
         'personal_categories': user.get_private_category
